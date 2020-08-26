@@ -9,10 +9,10 @@ To understand Identity, you need to understand the **SkillsChain Network** and *
 Features include :
 
     * [] Request signature/attestation from other users/communities for one document or a set of document, Records.
-    * [] Sign/Attest said documents and Records.
+    * [] Manage Signature Requests - Sign/Attest/Decline/Reject
     * [] Request Access to verified Documents and Records from other users.
-    * [] Manage Access Requests received from other users and even other services. 
-    * [] A passbook for SkillTokens, both earned and spent. 
+    * [] Manage Access Requests - Accept/Decline/Sent/Revoke/Cancel
+    * [] A passbook for SkillTokens - Balance/Transactions
 
 ## Contributions
 
@@ -21,3 +21,4 @@ Features include :
 ## Related 
     * Shield
     * SkillsChain
+
