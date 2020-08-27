@@ -29,7 +29,7 @@ Identity is a community project. We invite your participations through issues an
 
 Current key contributors:
 
-* Gaurav Korla Singh [Twitter](https://twitter.com/korlaism)
+* Gaurav Korla Singh - [Twitter](https://twitter.com/korlaism)
 
 ## Related 
     * Shield
