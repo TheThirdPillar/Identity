@@ -25,11 +25,11 @@ Features include :
 
 ## Contributions
     
-    Identity is a community project. We invite your participations through issues and pull requests. Please adhere to contributing guidelines. 
+Identity is a community project. We invite your participations through issues and pull requests. Please adhere to contributing guidelines. 
 
-    Current key contributors:
+Current key contributors:
 
-    * Gaurav Korla Singh [Twitter](https://twitter.com/korlaism)
+* Gaurav Korla Singh [Twitter](https://twitter.com/korlaism)
 
 ## Related 
     * Shield
