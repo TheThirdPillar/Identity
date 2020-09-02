@@ -1,13 +1,13 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/korlaism/Identity/dev/identity_logo.png" alt="Identity">
+    <img src="https://raw.githubusercontent.com/third-pillar/Identity/dev/identity_logo.png" alt="Identity">
 </p>
 
-![License](https://img.shields.io/github/license/korlaism/Identity?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/korlaism/Identity?style=for-the-badge)
+![License](https://img.shields.io/github/license/third-pillar/Identity?style=flat-square)
+![Issues](https://img.shields.io/github/issues/third-pillar/Identity?style=flat-square)
 
 ## Introduction
 
-To understand Identity, you need to understand the **SkillsChain Network** and **Shield**. **Identity** is the second piece of the technology offering from people at Third Pillar Foundation. It is the root application on the SkillsChain Network, that allows user to manage their meta (profile, education, work) and skill identities and other documents, encrypted and stored on the network (local, with the service provider, and IPFS). 
+To understand Identity, you need to understand the **SkillsChain Network** and **Shield**. **Identity** is the second piece of the technology offering from people at Third Pillar Foundation. It is the root application on the SkillsChain Network, that allows user to manage their meta (profile, education, work) and skill identities and other documents, encrypted and stored on the network (local, with the service provider, and IPFS).
 
 Features include :
 
@@ -18,20 +18,15 @@ Features include :
     * [] A passbook for SkillTokens - Balance/Transactions
 
 ## Documentation
-    
+
     ### Coming Soon
 
 ## Proposals
 
 ## Contributions
-    
-Identity is a community project. We invite your participations through issues and pull requests. Please adhere to contributing guidelines. 
+
+Identity is a community project. We invite your participations through issues and pull requests. Please adhere to contributing guidelines.
 
 Current key contributors:
 
 * Gaurav Korla Singh - [Twitter](https://twitter.com/korlaism)
-
-## Related 
-    * Shield
-    * SkillsChain
-
