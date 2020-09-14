@@ -11,14 +11,15 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 
 import styles from '../styles/Home.module.css'
-import Layout from '../components/Layout'
+import DefaultLayout from '../layout/DefaultLayout'
 import ProcessCards from '../components/ProcessCards'
 
 import { FaArrowCircleRight, FaFileAlt, FaCloudUploadAlt, FaStamp, FaThumbsUp, FaCoins } from 'react-icons/fa'
 
 export default function Home() {
+    const isUserSession = false;
     return (
-      <Layout>
+      <DefaultLayout isUserSession={isUserSession}>
         <Head>
           <title>Identity 1.0</title>
         </Head>
@@ -71,6 +72,6 @@ export default function Home() {
               </CardGroup>
            </Row>
         </Container>
-      </Layout>
+      </DefaultLayout>
     )
 }
