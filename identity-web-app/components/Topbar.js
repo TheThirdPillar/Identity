@@ -9,12 +9,12 @@ import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet } f
 import { RiSendPlane2Fill } from "react-icons/ri"
 
 function Topbar(props) {
-  const isShieldInstalled = true
+  const isShieldInstalled = false
   const isUserSession = props.isUserSession
   return (
     <>
       <Row className="justify-content-center">
-        <Col xs={12} md={12} lg={8}>
+        <Col xs={12} md={12} lg={10}>
           <Navbar bg="white" expand="lg">
             <Navbar.Brand href="/">
               <Logo />

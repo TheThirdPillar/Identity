@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -23,7 +22,6 @@ export default function Home() {
         <Head>
           <title>Identity 1.0</title>
         </Head>
-        <Container>
           <Row>
             <Col xs={12} md={12} lg={6} className="p-3">
               <Jumbotron className="bg-white border-bottom">
@@ -71,7 +69,6 @@ export default function Home() {
               </Card>
               </CardGroup>
            </Row>
-        </Container>
       </DefaultLayout>
     )
 }

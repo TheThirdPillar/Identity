@@ -5,8 +5,8 @@ import Nav from 'react-bootstrap/Nav'
 function Footer() {
   return (
     <>
-      <Row className="justify-content-center border-top mt-2">
-        <Col xs={4} md={4} lg={2}>
+      <Row className="justify-content-center border-top mt-4">
+        <Col xs={4} md={4} lg={3}>
           <Nav className="flex-column">
             <Nav.Item>
               <Nav.Link href="#">About Us</Nav.Link>
@@ -19,7 +19,7 @@ function Footer() {
             </Nav.Item>
           </Nav>
         </Col>
-        <Col xs={4} md={4} lg={2}>
+        <Col xs={4} md={4} lg={3}>
           <Nav className="flex-column">
             <Nav.Item>
               <Nav.Link href="#">Shield</Nav.Link>
@@ -32,7 +32,7 @@ function Footer() {
             </Nav.Item>
           </Nav>
         </Col>
-        <Col xs={4} md={4} lg={2}>
+        <Col xs={4} md={4} lg={3}>
           <Nav className="flex-column">
             <Nav.Item>
               <Nav.Link href="#">Contributions</Nav.Link>

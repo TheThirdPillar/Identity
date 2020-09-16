@@ -10,7 +10,7 @@ export default function UserDashboard() {
       <Head>
         <title>Identity - Dashboard</title>
       </Head>
-      <ProfileSection />
+        <ProfileSection />
     </DefaultLayout>
   )
 }
