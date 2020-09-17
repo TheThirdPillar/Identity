@@ -7,7 +7,7 @@ import { GrEdit } from 'react-icons/gr'
 function SectionTitle(props) {
   return (
     <Row className={"justify-content-center " + styles.sectionTitle}>
-      <Col xs={12} md={12} lg={10}>
+      <Col xs={12} md={12} lg={12}>
         <h3>{props.title}</h3>
         <a>
           Edit <GrEdit />

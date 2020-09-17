@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 
 import Logo from './Logo'
-import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet } from 'react-icons/fa'
+import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet, FaFolder } from 'react-icons/fa'
 import { RiSendPlane2Fill } from "react-icons/ri"
 
 function Topbar(props) {
@@ -14,7 +14,7 @@ function Topbar(props) {
   return (
     <>
       <Row className="justify-content-center">
-        <Col xs={12} md={12} lg={10}>
+        <Col xs={12} md={12} lg={12}>
           <Navbar bg="white" expand="lg">
             <Navbar.Brand href="/">
               <Logo />
@@ -31,6 +31,9 @@ function Topbar(props) {
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link href="#"><FaWallet /> Wallet</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link href="#"><FaFolder /> Documents</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Navbar.Collapse>

@@ -2,6 +2,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
+import Badge from 'react-bootstrap/Badge'
 
 import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
@@ -11,15 +12,21 @@ function ProfileSection() {
     <>
       <SectionTitle title="Personal Information" />
       <Row className={"justify-content-center " +  styles.section}>
-        <Col xs={12} md={12} lg={8}>
+        <Col xs={12} md={12} lg={10}>
           <Card>
             <Row className="justify-text-center">
-              <Col xs={3} md={3} lg={3}>
+              <Col className="mt-2" xs={3} md={3} lg={2}>
                 <Card.Img src="/userThumbnail.png" />
               </Col>
-              <Col xs={9} md={9} lg={9}>
+              <Col xs={9} md={9} lg={10}>
                 <Card.Body>
-                  <Card.Title>Gaurav Singh</Card.Title>
+                  <Card.Title>
+                    Gaurav Singh
+                    {" "}
+                    <Badge pill variant="primary">
+                      Verified
+                    </Badge>
+                  </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">identity.org/gauravsingh</Card.Subtitle>
                   <Card.Text>
                     <Card.Link href="#">Email</Card.Link>

@@ -4,7 +4,7 @@
 }
 
 .sectionTitle {
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 5px;
 }
 
@@ -15,10 +15,15 @@
 
 .sectionTitle a {
   float: right;
+  color: #007bff !important;
 }
 
 .claimCard {
   border: 1px solid black;
   border-radius: 2px;
   box-shadow: 5px 5px;
+}
+
+.recordCardImage {
+  width: 40%;
 }
