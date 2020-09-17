@@ -23,7 +23,7 @@ function ProfileSection() {
                   <Card.Title>
                     Gaurav Singh
                     {" "}
-                    <Badge pill variant="primary">
+                    <Badge pill variant="success">
                       Verified
                     </Badge>
                   </Card.Title>
