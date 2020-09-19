@@ -7,7 +7,9 @@ import Badge from 'react-bootstrap/Badge'
 import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
 
-function ProfileSection() {
+function ProfileSection(props) {
+  const user = props.user
+  console.log("Hello: " + user)
   return (
     <>
       <SectionTitle title="Personal Information" />
@@ -21,13 +23,13 @@ function ProfileSection() {
               <Col xs={9} md={9} lg={10}>
                 <Card.Body>
                   <Card.Title>
-                    Gaurav Singh
+                    {props.user.public.fullname}
                     {" "}
-                    <Badge pill variant="success">
+                    <Badge pill variant={props.user.public.verified ? "success" : "danger"}>
                       Verified
                     </Badge>
                   </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">identity.org/gauravsingh</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">identity.org/{props.user.public.username}</Card.Subtitle>
                   <Card.Text>
                     <Card.Link href="#">Email</Card.Link>
                     <Card.Link href="#">Mobile</Card.Link>

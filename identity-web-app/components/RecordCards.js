@@ -13,7 +13,6 @@ function RecordCards(props) {
           text="black"
           className="mt-4 mb-4 p-1 text-center">
           <Card.Body>
-            <Card.Img variant="top" src="/Organization.png" className={styles.recordCardImage}/>
             <br />
             <br />
             <Card.Title>

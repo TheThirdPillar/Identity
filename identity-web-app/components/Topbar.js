@@ -9,7 +9,7 @@ import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet, Fa
 import { RiSendPlane2Fill } from "react-icons/ri"
 
 function Topbar(props) {
-  const isShieldInstalled = false
+  const isShieldInstalled = true
   const isUserSession = props.isUserSession
   return (
     <>
