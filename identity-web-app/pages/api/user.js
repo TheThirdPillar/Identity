@@ -98,6 +98,5 @@ const user = {
 }
 
 export default ((req, res) => {
-  res.statusCode = 200
-  res.json(user)
+  res.status(200).json(user)
 })

@@ -13,11 +13,9 @@ function SkillSection(props) {
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
-            <SkillCards />
-            <SkillCards />
-            <SkillCards />
-            <SkillCards />
-            <SkillCards />
+            {props.skills.map(((skill) => (
+              <SkillCards skill={skill} />
+            )))}
           </CardDeck>
         </Col>
       </Row>

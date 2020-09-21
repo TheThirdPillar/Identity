@@ -8,8 +8,6 @@ import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
 
 function ProfileSection(props) {
-  const user = props.user
-  console.log("Hello: " + user)
   return (
     <>
       <SectionTitle title="Personal Information" />
