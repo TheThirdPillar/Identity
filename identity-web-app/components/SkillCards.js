@@ -10,7 +10,7 @@ function SkillCards(props) {
     <>
       <Col xs={12} md={12} lg={4}>
         <Card
-          bg="dark"
+          bg={props.skill.skillTag == 'tertiary' ? 'dark' : props.skill.skillTag}
           text="white"
           className="m-2 p-4 text-center">
           <Card.Header>
@@ -23,13 +23,11 @@ function SkillCards(props) {
             <Card.Text>
               {props.skill.skillDetails.map(((detail) => (
                 <Badge pill variant="light" className="m-1">
-                  {detail} 
+                  {detail}
                 </Badge>
               )))}
             </Card.Text>
           </Card.Body>
-          <Card.Footer>
-          </Card.Footer>
         </Card>
       </Col>
     </>
