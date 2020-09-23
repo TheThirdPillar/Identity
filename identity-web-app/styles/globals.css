@@ -20,3 +20,9 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Custom css */
+.tab-content .active {
+  display: flex !important;
+  flex-wrap: wrap-reverse;
+}

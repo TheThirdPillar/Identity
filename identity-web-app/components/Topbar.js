@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
@@ -11,6 +14,17 @@ import { RiSendPlane2Fill } from "react-icons/ri"
 function Topbar(props) {
   const isShieldInstalled = true
   const isUserSession = props.isUserSession
+
+  var activeKey = 0
+
+  const router = useRouter()
+
+  if (router.pathname === '/user') {
+    activeKey = 1
+  } else if (router.pathname === '/user/request') {
+    activeKey = 2
+  }
+
   return (
     <>
       <Row className="justify-content-center">
@@ -22,18 +36,18 @@ function Topbar(props) {
             <Navbar.Toggle />
             {isUserSession &&
               <Navbar.Collapse className="justify-content-center">
-                <Nav activeKey="/user">
+                <Nav activeKey={activeKey}>
                   <Nav.Item>
-                    <Nav.Link href="/user"><FaRegIdCard /> Dashboard</Nav.Link>
+                    <Nav.Link eventKey={1} href="/user"><FaRegIdCard /> Dashboard</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link href="#"><RiSendPlane2Fill /> Requests</Nav.Link>
+                    <Nav.Link eventKey={2} href="/user/request"><RiSendPlane2Fill /> Requests</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link href="#"><FaWallet /> Wallet</Nav.Link>
+                    <Nav.Link eventKey={3} href="#"><FaWallet /> Wallet</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link href="#"><FaFolder /> Documents</Nav.Link>
+                    <Nav.Link eventKey={4} href="#"><FaFolder /> Documents</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Navbar.Collapse>

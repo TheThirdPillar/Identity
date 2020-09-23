@@ -5,7 +5,6 @@ import Badge from 'react-bootstrap/Badge'
 import styles from '../styles/Home.module.css'
 
 function SkillCards(props) {
-  console.log(props)
   return (
     <>
       <Col xs={12} md={12} lg={4}>
