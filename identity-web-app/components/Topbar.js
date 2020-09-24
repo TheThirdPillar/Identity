@@ -23,6 +23,8 @@ function Topbar(props) {
     activeKey = 1
   } else if (router.pathname === '/user/request') {
     activeKey = 2
+  } else if (router.pathname === '/user/wallet') {
+    activeKey = 3
   }
 
   return (
@@ -44,7 +46,7 @@ function Topbar(props) {
                     <Nav.Link eventKey={2} href="/user/request"><RiSendPlane2Fill /> Requests</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={3} href="#"><FaWallet /> Wallet</Nav.Link>
+                    <Nav.Link eventKey={3} href="/user/wallet"><FaWallet /> Wallet</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
                     <Nav.Link eventKey={4} href="#"><FaFolder /> Documents</Nav.Link>

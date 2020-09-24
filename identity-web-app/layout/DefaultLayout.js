@@ -10,7 +10,9 @@ function DefaultLayout(props) {
         <div>
           {props.children}
         </div>
-        <Footer />
+          {
+            (!props.isUserSession) ? <Footer /> : <></>
+          }
       </Container>
     </>
   )
