@@ -1,6 +1,9 @@
 import Head from 'next/head'
+import Row from 'react-bootstrap/Row'
 
 import DefaultLayout from '../../layout/DefaultLayout'
+import WalletCard from '../../components/WalletCard'
+import WalletContainer from '../../components/WalletContainer'
 
 export default function UserDashboard() {
   const isUserSession = true
@@ -9,6 +12,10 @@ export default function UserDashboard() {
       <Head>
         <title>Identity - Wallet</title>
       </Head>
+      <Row className="mt-4">
+        <WalletCard />
+        <WalletContainer />
+      </Row>
     </DefaultLayout>
   )
 }
