@@ -25,6 +25,8 @@ function Topbar(props) {
     activeKey = 2
   } else if (router.pathname === '/user/wallet') {
     activeKey = 3
+  } else if (router.pathname === '/user/documents') {
+    activeKey = 4
   }
 
   return (
@@ -49,7 +51,7 @@ function Topbar(props) {
                     <Nav.Link eventKey={3} href="/user/wallet"><FaWallet /> Wallet</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={4} href="#"><FaFolder /> Documents</Nav.Link>
+                    <Nav.Link eventKey={4} href="/user/documents"><FaFolder /> Documents</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Navbar.Collapse>

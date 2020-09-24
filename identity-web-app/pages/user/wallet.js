@@ -5,7 +5,7 @@ import DefaultLayout from '../../layout/DefaultLayout'
 import WalletCard from '../../components/WalletCard'
 import WalletContainer from '../../components/WalletContainer'
 
-export default function UserDashboard() {
+export default function Wallet() {
   const isUserSession = true
   return (
     <DefaultLayout isUserSession={isUserSession}>

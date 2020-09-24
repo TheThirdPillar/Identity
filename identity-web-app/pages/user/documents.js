@@ -1,16 +1,16 @@
 import Head from 'next/head'
 
 import DefaultLayout from '../../layout/DefaultLayout'
-import RequestContainer from '../../components/RequestContainer'
+import DocumentContainer from '../../components/DocumentContainer'
 
-export default function Requests() {
+export default function Documents() {
   const isUserSession = true
   return (
     <DefaultLayout isUserSession={isUserSession}>
       <Head>
-        <title>Identity - Requests</title>
+        <title>Identity - Wallet</title>
       </Head>
-      <RequestContainer />
+      <DocumentContainer />
     </DefaultLayout>
   )
 }
