@@ -10,10 +10,12 @@ import Button from 'react-bootstrap/Button'
 import Logo from './Logo'
 import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet, FaFolder } from 'react-icons/fa'
 import { RiSendPlane2Fill } from "react-icons/ri"
+import { MdExplore } from 'react-icons/md'
 
 function Topbar(props) {
   const isShieldInstalled = true
   const isUserSession = props.isUserSession
+  var navLinkDisabled = false
 
   var activeKey = 0
 
@@ -27,13 +29,15 @@ function Topbar(props) {
     activeKey = 3
   } else if (router.pathname === '/user/documents') {
     activeKey = 4
+  } else if (router.pathname === '/user/onboarding') {
+    navLinkDisabled = true
   }
 
   return (
     <>
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
-          <Navbar bg="white" expand="lg">
+          <Navbar bg="white" expand="lg" sticky="top">
             <Navbar.Brand href="/">
               <Logo />
             </Navbar.Brand>
@@ -42,16 +46,19 @@ function Topbar(props) {
               <Navbar.Collapse className="justify-content-center">
                 <Nav activeKey={activeKey}>
                   <Nav.Item>
-                    <Nav.Link eventKey={1} href="/user"><FaRegIdCard /> Dashboard</Nav.Link>
+                    <Nav.Link eventKey={1} href="/user" disabled={navLinkDisabled}><FaRegIdCard /> Dashboard</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={2} href="/user/request"><RiSendPlane2Fill /> Requests</Nav.Link>
+                    <Nav.Link eventKey={2} href="/user/request" disabled={navLinkDisabled}><RiSendPlane2Fill /> Requests</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={3} href="/user/wallet"><FaWallet /> Wallet</Nav.Link>
+                    <Nav.Link eventKey={3} href="/user/wallet" disabled={navLinkDisabled}><FaWallet /> Wallet</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={4} href="/user/documents"><FaFolder /> Documents</Nav.Link>
+                    <Nav.Link eventKey={4} href="/user/documents" disabled={navLinkDisabled}><FaFolder /> Documents</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey={4} href="/user/documents" disabled={navLinkDisabled}><MdExplore /> Explorer</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Navbar.Collapse>
