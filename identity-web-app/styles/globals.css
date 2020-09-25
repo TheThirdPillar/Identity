@@ -26,3 +26,7 @@ img {
   display: flex !important;
   flex-wrap: wrap-reverse;
 }
+
+.react-datepicker-wrapper {
+  display: block !important;
+}

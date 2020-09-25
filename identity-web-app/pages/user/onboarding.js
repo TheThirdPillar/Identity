@@ -10,7 +10,7 @@ export default function Onboarding() {
   return (
     <DefaultLayout isUserSession={isUserSession}>
       <Head>
-        <title>Identity - Requests</title>
+        <title>Identity - Onboarding</title>
       </Head>
       <StepContainer currentStep={currentStep} />
       <FormContainer currentStep={currentStep} />
