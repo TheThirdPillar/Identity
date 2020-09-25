@@ -42,7 +42,7 @@ function PersonalForm(props) {
                     </Form.Group>
                 </Form.Row>
                 <Form.Group as={Row}>
-                    <Col className="text-center">
+                    <Col className="text-right">
                         <Button type="submit">Submit</Button>
                     </Col>
                 </Form.Group>

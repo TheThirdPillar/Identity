@@ -3,6 +3,9 @@ import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 
 import PersonalForm from './PersonalForm'
+import OtpForm from './OtpForm'
+import EducationForm from './EducationForm'
+import ProfessionalForm from './ProfessionalForm'
 
 function FormContainer(props) {
 
@@ -13,8 +16,10 @@ function FormContainer(props) {
     rightColForm = <PersonalForm />
   } else if (props.currentStep == 1) {
     leftColImage = '/undraw_certificate_343v.svg'
+    rightColForm = <EducationForm />
   } else if (props.currentStep == 2) {
     leftColImage = '/undraw_remotely_2j6y.svg'
+    rightColForm = <ProfessionalForm />
   } else if (props.currentStep == 3) {
     leftColImage = '/undraw_percentages_0rur.svg'
   }
