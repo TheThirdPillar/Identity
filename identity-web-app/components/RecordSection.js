@@ -7,9 +7,12 @@ import SectionTitle from './SectionTitle'
 import RecordCards from './RecordCards'
 
 function RecordSection(props) {
+
+  const formType = (props.title === "Education") ? "3" : "4"
+  
   return (
     <>
-      <SectionTitle title={props.title} />
+      <SectionTitle title={props.title} handleEdit={() => props.handleEdit(formType)} />
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>

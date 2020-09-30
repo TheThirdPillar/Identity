@@ -9,7 +9,7 @@ import SkillCards from './SkillCards'
 function SkillSection(props) {
   return (
     <>
-      <SectionTitle title={props.title} />
+      <SectionTitle title={props.title} handleEdit={() => props.handleEdit("2")} />
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>

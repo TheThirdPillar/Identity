@@ -9,7 +9,7 @@ function SectionTitle(props) {
     <Row className={"justify-content-center " + styles.sectionTitle}>
       <Col xs={12} md={12} lg={12}>
         <h3>{props.title}</h3>
-        <a>
+        <a onClick={props.handleEdit} className="btn">
           Edit <GrEdit />
         </a>
       </Col>

@@ -10,7 +10,7 @@ import SectionTitle from './SectionTitle'
 function ProfileSection(props) {
   return (
     <>
-      <SectionTitle title="Personal Information" />
+      <SectionTitle title="Personal Information" handleEdit={() => props.handleEdit("1")} />
       <Row className={"justify-content-center " +  styles.section}>
         <Col xs={12} md={12} lg={10}>
           <Card>
