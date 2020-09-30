@@ -10,8 +10,8 @@ function SectionTitle(props) {
       <Col xs={12} md={12} lg={12}>
         <h3>{props.title}</h3>
         {
-          (props.editEnabled) ? 
-            <a onClick={props.handleEdit} className="btn">
+          (props.addButtonEnabled) ? 
+            <a onClick={props.handleAdd} className="btn">
               Add <GrAddCircle />
             </a>
             : <></>

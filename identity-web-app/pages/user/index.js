@@ -29,10 +29,10 @@ export default function UserDashboard() {
       <Head>
         <title>Identity - Dashboard</title>
       </Head>
-        <ProfileSection user={data.personalInformation} handleEdit={(form) => handleModalShow(form)} />
-        <SkillSection title="Skills" skills={data.skillInformation} handleEdit={(form) => handleModalShow(form)} />
-        <RecordSection title="Education" handleEdit={(form) => handleModalShow(form)} />
-        <RecordSection title="Work" handleEdit={(form) => handleModalShow(form)} />
+        <ProfileSection user={data.personalInformation} handleAdd={(form) => handleModalShow(form)} />
+        <SkillSection title="Skills" skills={data.skillInformation} handleAdd={(form) => handleModalShow(form)} />
+        <RecordSection title="Education" handleAdd={(form) => handleModalShow(form)} />
+        <RecordSection title="Work" handleAdd={(form) => handleModalShow(form)} />
         <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form} />
     </DefaultLayout>
   )

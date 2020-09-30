@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
+import Badge from 'react-bootstrap/Badge'
 
 import Logo from './Logo'
 import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet, FaFolder } from 'react-icons/fa'
@@ -60,7 +61,7 @@ function Topbar(props) {
                     <Nav.Link eventKey={4} href="/user/documents" disabled={navLinkDisabled}><FaFolder /> Documents</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={5} href="#" disabled><MdExplore /> Explorer</Nav.Link>
+                    <Nav.Link eventKey={5} href="#" disabled><MdExplore /> Explorer <sup><Badge variant="dark">Coming Soon</Badge></sup></Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Navbar.Collapse>
