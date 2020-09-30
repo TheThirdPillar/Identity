@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col'
 import DatePicker from 'react-datepicker'
 import Button from 'react-bootstrap/Button'
 
-function PersonalForm(props) {
+function EducationForm(props) {
 
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
@@ -24,7 +24,7 @@ function PersonalForm(props) {
                     <Form.Control type="text" placeholder="Field of study" />
                 </Form.Group>
                 <Form.Row>
-                <Form.Group as={Col} controlId="educationFormStartDate">
+                    <Form.Group as={Col} controlId="educationFormStartDate">
                         <DatePicker 
                             onChange={date => setStartDate(date)} 
                             className="form-control d-block" 
@@ -51,4 +51,4 @@ function PersonalForm(props) {
     )
 }
 
-export default PersonalForm
+export default EducationForm

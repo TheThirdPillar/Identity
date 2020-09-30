@@ -30,3 +30,8 @@ img {
 .react-datepicker-wrapper {
   display: block !important;
 }
+
+.skillBadge {
+  font-size: 0.75rem !important;
+  font-weight: 100;
+}

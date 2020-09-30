@@ -11,7 +11,7 @@ function StepContainer(props) {
       <Row className="mt-lg-2">
         <Col xs={12} lg={3}>
           <Card
-          bg={((currentStep % totalStep) >= 0) ? "primary" : "secondary"}
+          bg={(currentStep >= 1) ? "primary" : "secondary"}
           text="white"
           className="m-2 p-4 text-center"
           >
@@ -22,7 +22,7 @@ function StepContainer(props) {
         </Col>
         <Col xs={12} lg={3}>
           <Card
-          bg={((currentStep % totalStep) >= 1) ? "primary" : "secondary"}
+          bg={(currentStep >= 2) ? "primary" : "secondary"}
           text="white"
           className="m-2 p-4 text-center"
           >
@@ -33,7 +33,7 @@ function StepContainer(props) {
         </Col>
         <Col xs={12} lg={3}>
           <Card
-          bg={((currentStep % totalStep) >= 2) ? "primary" : "secondary"}
+          bg={(currentStep >= 3) ? "primary" : "secondary"}
           text="white"
           className="m-2 p-4 text-center"
           >
@@ -44,7 +44,7 @@ function StepContainer(props) {
         </Col>
         <Col xs={12} lg={3}>
           <Card
-          bg={((currentStep % totalStep) >= 3) ? "primary" : "secondary"}
+          bg={(currentStep >= 4) ? "primary" : "secondary"}
           text="white"
           className="m-2 p-4 text-center"
           >

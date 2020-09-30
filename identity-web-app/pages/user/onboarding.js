@@ -6,7 +6,7 @@ import FormContainer from '../../components/FormContainer'
 
 export default function Onboarding() {
   const isUserSession = true
-  var currentStep = 2
+  var currentStep = 4
   return (
     <DefaultLayout isUserSession={isUserSession}>
       <Head>
