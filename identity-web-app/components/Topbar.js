@@ -29,6 +29,8 @@ function Topbar(props) {
     activeKey = 3
   } else if (router.pathname === '/user/documents') {
     activeKey = 4
+  } else if (router.pathname === '/user/explorer') {
+    activeKey = 5  
   } else if (router.pathname === '/user/onboarding') {
     navLinkDisabled = true
   }
@@ -58,7 +60,7 @@ function Topbar(props) {
                     <Nav.Link eventKey={4} href="/user/documents" disabled={navLinkDisabled}><FaFolder /> Documents</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey={4} href="/user/documents" disabled={navLinkDisabled}><MdExplore /> Explorer</Nav.Link>
+                    <Nav.Link eventKey={5} href="#" disabled><MdExplore /> Explorer</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Navbar.Collapse>

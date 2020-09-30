@@ -12,7 +12,7 @@ function RecordSection(props) {
   
   return (
     <>
-      <SectionTitle title={props.title} handleEdit={() => props.handleEdit(formType)} />
+      <SectionTitle title={props.title} editEnabled={true} handleEdit={() => props.handleEdit(formType)} />
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>

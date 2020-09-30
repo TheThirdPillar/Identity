@@ -9,7 +9,7 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 
 function SkillForm(props) {
 
-    const [skillTags, setSkillTags] = useState(['Node', 'React', 'Javascript'])
+    const [skillTags, setSkillTags] = useState([])
 
     return (
         <>

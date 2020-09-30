@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
 
 import styles from '../styles/Home.module.css'
+import CardDropdown from './CardDropdown'
 
 function SkillCards(props) {
   return (
@@ -11,7 +12,10 @@ function SkillCards(props) {
         <Card
           bg={props.skill.skillTag == 'tertiary' ? 'dark' : props.skill.skillTag}
           text="white"
-          className="m-2 p-4 text-center">
+          className="m-2 p-1 text-center">
+          <p className="text-right">
+            <CardDropdown />
+          </p>
           <Card.Header>
             {props.skill.fieldOfInterest}
           </Card.Header>
