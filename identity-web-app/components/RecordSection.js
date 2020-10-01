@@ -16,7 +16,11 @@ function RecordSection(props) {
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
-            <RecordCards handleEdit={() => props.handleModalShow({type: formType, data: {}})} />
+            {
+              props.records.map(((record) => (
+                <RecordCards record={record} handleEdit={() => props.handleModalShow({type: formType, data: record})} />
+              )))
+            }
           </CardDeck>
         </Col>
       </Row>

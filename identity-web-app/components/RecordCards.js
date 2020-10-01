@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import CardDropdown from './CardDropdown'
 
 function RecordCards(props) {
+  const record = props.record
   return (
     <>
       <Col xs={12} md={6} lg={4}>
@@ -17,10 +18,10 @@ function RecordCards(props) {
           </p>
           <Card.Body>
             <Card.Title>
-              PES Institute of Technology
+              {record.organizationName}
             </Card.Title>
             <Card.Text>
-              B.Tech, Information Science
+              {(record.certificationName) ? record.certificationName : ''} {(record.specialization) ? record.specialization : record.position}
             </Card.Text>
             <Card.Text>
               2009 - Present

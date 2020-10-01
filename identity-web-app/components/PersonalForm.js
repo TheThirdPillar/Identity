@@ -26,7 +26,7 @@ function PersonalForm(props) {
                     <Form.Group as={Col} controlId="personalFormMobile">
                         <InputGroup>
                             <InputGroup.Prepend>
-                            <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
+                                <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
                             </InputGroup.Prepend>
                             <Form.Control type="text" placeholder="Enter phone" />
                         </InputGroup>

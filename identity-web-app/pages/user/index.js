@@ -31,8 +31,8 @@ export default function UserDashboard() {
       </Head>
         <ProfileSection user={data.personalInformation} handleModalShow={(form) => handleModalShow(form)} />
         <SkillSection title="Skills" skills={data.skillInformation} handleModalShow={(form) => handleModalShow(form)} />
-        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} />
-        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} />
+        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={data.educationInformation} />
+        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={data.professionalInformation} />
         <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} />
     </DefaultLayout>
   )
