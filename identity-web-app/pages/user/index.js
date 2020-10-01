@@ -14,9 +14,9 @@ export default function UserDashboard() {
   const isUserSession = true
 
   // Handle modal
-  const [modalShow, setModalShow] = useState({show: false, form: 0})
+  const [modalShow, setModalShow] = useState({show: false, form: {}})
   const handleModalShow = (form) => setModalShow({show: true, form: form})
-  const handleModalClose = () => setModalShow({show: false})
+  const handleModalClose = () => setModalShow({show: false, form: {}})
 
   // Fetch user data
   const { data, error } = useSWR('/api/user', fetcher)
@@ -29,11 +29,11 @@ export default function UserDashboard() {
       <Head>
         <title>Identity - Dashboard</title>
       </Head>
-        <ProfileSection user={data.personalInformation} handleAdd={(form) => handleModalShow(form)} handleEdit={() => alert("Edit")} />
-        <SkillSection title="Skills" skills={data.skillInformation} handleAdd={(form) => handleModalShow(form)} handleEdit={() => alert("Edit")} />
-        <RecordSection title="Education" handleAdd={(form) => handleModalShow(form)} handleEdit={() => alert("Edit")} />
-        <RecordSection title="Work" handleAdd={(form) => handleModalShow(form)} handleEdit={() => alert("Edit")} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form} />
+        <ProfileSection user={data.personalInformation} handleModalShow={(form) => handleModalShow(form)} />
+        <SkillSection title="Skills" skills={data.skillInformation} handleModalShow={(form) => handleModalShow(form)} />
+        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} />
+        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} />
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} />
     </DefaultLayout>
   )
 }

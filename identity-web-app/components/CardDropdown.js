@@ -9,7 +9,7 @@ function CardDropdown(props) {
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 <Dropdown.Item onClick={props.handleEdit}>Edit</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
+                <Dropdown.Item>Delete</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     )

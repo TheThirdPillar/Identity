@@ -11,7 +11,7 @@ import SectionTitle from './SectionTitle'
 function ProfileSection(props) {
   return (
     <>
-      <SectionTitle title="Personal Information" addButtonEnabled={false} handleAdd={() => props.handleAdd("1")} />
+      <SectionTitle title="Personal Information" addButtonEnabled={false} />
       <Row className={"justify-content-center " +  styles.section}>
         <Col xs={12} md={12} lg={10}>
           <Card>
@@ -27,7 +27,7 @@ function ProfileSection(props) {
                     <Badge pill variant={props.user.public.verified ? "success" : "danger"}>
                       Verified
                     </Badge>
-                    {" "} <a href="#" className="float-right" onClick={() => props.handleEdit()} > Edit </a>
+                    {" "} <a href="#" className="float-right" onClick={() => props.handleModalShow({type: "1", data: {}})} > Edit </a>
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">identity.org/{props.user.public.username}</Card.Subtitle>
                   <Card.Text>

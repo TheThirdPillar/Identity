@@ -12,11 +12,11 @@ function RecordSection(props) {
   
   return (
     <>
-      <SectionTitle title={props.title} addButtonEnabled={true} handleAdd={() => props.handleAdd(formType)} />
+      <SectionTitle title={props.title} addButtonEnabled={true} handleAdd={() => props.handleModalShow({type: formType, data: {}})} />
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
-            <RecordCards handleEdit={() => props.handleEdit()} />
+            <RecordCards handleEdit={() => props.handleModalShow({type: formType, data: {}})} />
           </CardDeck>
         </Col>
       </Row>
