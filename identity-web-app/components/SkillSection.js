@@ -13,8 +13,8 @@ function SkillSection(props) {
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
-            {props.skills.map(((skill) => (
-              <SkillCards skill={skill} handleEdit={(skill) => props.handleModalShow({type: "2", data: skill})} />
+            {props.skills.map(((skill, index) => (
+              <SkillCards key={index} skill={skill} handleEdit={() => props.handleModalShow({type: "2", data: skill})} />
             )))}
           </CardDeck>
         </Col>

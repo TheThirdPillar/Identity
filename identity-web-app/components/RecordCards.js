@@ -13,9 +13,9 @@ function RecordCards(props) {
           bg="secondary"
           text="white"
           className="mt-4 mb-4 p-1 text-center">
-          <p className="text-right">
+          <span className="text-right">
             <CardDropdown handleEdit={() => props.handleEdit()} />
-          </p>
+          </span>
           <Card.Body>
             <Card.Title>
               {record.organizationName}

@@ -1,5 +1,4 @@
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
 
 import PersonalForm from './PersonalForm'
 import SkillForm from './SkillForm'
@@ -15,7 +14,7 @@ function CustomModal(props) {
             modalBody = <PersonalForm />
             break
         case "2":
-            modalBody = <SkillForm />
+            modalBody = <SkillForm formData={props.formData} />
             break
         case "3":
             modalBody = <EducationForm />
