@@ -14,7 +14,7 @@ function SkillCards(props) {
           text="white"
           className="m-2 p-1 text-center">
           <p className="text-right">
-            <CardDropdown />
+            <CardDropdown handleEdit={() => props.handleEdit()} />
           </p>
           <Card.Header>
             {props.skill.fieldOfInterest}

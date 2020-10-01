@@ -2,7 +2,6 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-import styles from '../styles/Dashboard.module.css'
 import CardDropdown from './CardDropdown'
 
 function RecordCards(props) {
@@ -14,7 +13,7 @@ function RecordCards(props) {
           text="white"
           className="mt-4 mb-4 p-1 text-center">
           <p className="text-right">
-            <CardDropdown />
+            <CardDropdown handleEdit={() => props.handleEdit()} />
           </p>
           <Card.Body>
             <Card.Title>

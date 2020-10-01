@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
@@ -26,6 +27,7 @@ function ProfileSection(props) {
                     <Badge pill variant={props.user.public.verified ? "success" : "danger"}>
                       Verified
                     </Badge>
+                    {" "} <a href="#" className="float-right" onClick={() => props.handleEdit()} > Edit </a>
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">identity.org/{props.user.public.username}</Card.Subtitle>
                   <Card.Text>

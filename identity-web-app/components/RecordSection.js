@@ -16,11 +16,7 @@ function RecordSection(props) {
       <Row className="justify-content-center">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
-            <RecordCards />
-            <RecordCards />
-            <RecordCards />
-            <RecordCards />
-            <RecordCards />
+            <RecordCards handleEdit={() => props.handleEdit()} />
           </CardDeck>
         </Col>
       </Row>

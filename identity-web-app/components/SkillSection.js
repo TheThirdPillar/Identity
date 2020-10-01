@@ -14,7 +14,7 @@ function SkillSection(props) {
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
             {props.skills.map(((skill) => (
-              <SkillCards skill={skill} />
+              <SkillCards skill={skill} handleEdit={() => props.handleEdit()} />
             )))}
           </CardDeck>
         </Col>

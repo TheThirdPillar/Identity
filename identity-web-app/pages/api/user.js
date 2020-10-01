@@ -95,6 +95,38 @@ const user = {
       skillTag: 'tertiary'
     }
   ],
+  "educationInformation": [
+    {
+      organizationName: "PES Institute of Technology",
+      certificationName: "B.Tech",
+      specialization: "Information Science",
+      startDate: "", 
+      endDate: ""
+    },
+    {
+      organizationName: "Delhi Public School, Patna",
+      certificationName: "12th Standard",
+      specialization: "",
+      startDate: "", 
+      endDate: ""
+    }
+  ],
+  "professionalInformation": [
+    {
+      organizationName: "Third Pillar",
+      workType: "fulltime",
+      position: "Cofounder",
+      startDate: "", 
+      endDate: ""
+    },
+    {
+      organizationName: "Heptagon Technologies Pvt Ltd",
+      workType: "fulltime",
+      position: "Head of Blockchain",
+      startDate: "", 
+      endDate: ""
+    }
+  ]
 }
 
 export default ((req, res) => {
