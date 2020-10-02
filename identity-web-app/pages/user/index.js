@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import useSWR from 'swr'
 
 import DefaultLayout from '../../layout/DefaultLayout'
@@ -6,9 +7,8 @@ import ProfileSection from '../../components/ProfileSection'
 import RecordSection from '../../components/RecordSection'
 import SkillSection from '../../components/SkillSection'
 import CustomModal from '../../components/Modal'
-import { useState } from 'react'
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
+import fetcher from '../../utils/fetcher'
 
 export default function UserDashboard() {
   const isUserSession = true

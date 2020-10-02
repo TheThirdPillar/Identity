@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Badge from 'react-bootstrap/Badge'
-
 import { AiFillCloseCircle } from 'react-icons/ai'
 
 function SkillForm(props) {
@@ -18,7 +17,7 @@ function SkillForm(props) {
         skillLevel: 0,
         ...props.formData
     })
-
+ 
     const handleInputChange = (event) => {
         let currentFieldValues = {...inputFields}
         currentFieldValues[event.target.name] = event.target.value
@@ -33,8 +32,8 @@ function SkillForm(props) {
 
     return (
         <>
-            <Form>
-                <Form.Group as={Row} controlId="skillFormField">
+            <Form autoComplete="off">
+                <Form.Group as={Row} controlId="fieldOfInterest">
                     <Col md={8}>
                         <Form.Control type="text" placeholder="Enter your field of interest" name="fieldOfInterest" value={inputFields.fieldOfInterest} onChange={(event) => handleInputChange(event)} />
                     </Col>
@@ -47,15 +46,15 @@ function SkillForm(props) {
                         </Form.Control>
                     </Col>
                 </Form.Group>
-                <Form.Group controlId="skillFormSkillSet">
+                <Form.Group controlId="associatedSkill">
                     <Form.Control type="text" placeholder="Name your skillset, Ex: Full stack development" name="associatedSkill" value={inputFields.associatedSkill} onChange={(event) => handleInputChange(event)} />
                 </Form.Group>
-                <Form.Group controlId="skillFormSkills">
-                    <Form.Control type="text" placeholder="Enter Skill" />
-                    <Form.Text id="passwordHelpBlock" muted>
+                <Form.Group controlId="searchSkillDetail">
+                    <Form.Control type="text" placeholder="Enter Skill" name="searchSkillDetail" onChange={(event) => handleInputChange(event)} />
+                    <Form.Text>
                         {inputFields.skillDetails.map((detail, index) => (
-                            <a onClick={() => removeSkillFromList(detail)}>
-                                <Badge key={index} pill variant="dark" className="m-1 btn skillBadge">{detail} <AiFillCloseCircle /></Badge>
+                            <a onClick={() => removeSkillFromList(detail)} key={index} >
+                                <Badge pill variant="dark" className="m-1 btn skillBadge">{detail} <AiFillCloseCircle /></Badge>
                             </a>
                         ))}
                     </Form.Text>
