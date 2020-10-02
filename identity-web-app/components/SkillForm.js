@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button'
 import Badge from 'react-bootstrap/Badge'
 import { AiFillCloseCircle } from 'react-icons/ai'
 
+import Autosuggest from './Autosuggest'
+
 function SkillForm(props) {
 
     const [inputFields, setInputFields] = useState({
@@ -24,18 +26,29 @@ function SkillForm(props) {
         setInputFields(currentFieldValues)
     }
 
+    const handleUpdate = (name, value) => {
+        let currentFieldValues = {...inputFields}
+        currentFieldValues[name] = value
+        setInputFields(currentFieldValues)
+    }
+
     const removeSkillFromList = (detail) => {
         let skillDetails = inputFields.skillDetails
         let newSkillDetails = skillDetails.filter(x => x !== detail)
         setInputFields({...inputFields, skillDetails: newSkillDetails})
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        console.log(inputFields)
+    }
+
     return (
         <>
-            <Form autoComplete="off">
+            <Form autoComplete="off" onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="fieldOfInterest">
                     <Col md={8}>
-                        <Form.Control type="text" placeholder="Enter your field of interest" name="fieldOfInterest" value={inputFields.fieldOfInterest} onChange={(event) => handleInputChange(event)} />
+                        <Autosuggest placeholder="Enter your field" value={inputFields.fieldOfInterest} name="fieldOfInterest" handleUpdate={(name, value) => handleUpdate(name, value)}/>
                     </Col>
                     <Col className="mt-2 mt-md-0 mt-lg-0">
                         <Form.Control as="select" placeholder="Choose Skill Type" name="skillTag" value={inputFields.skillTag} onChange={(event) => handleInputChange(event)}>
