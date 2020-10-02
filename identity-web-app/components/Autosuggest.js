@@ -8,9 +8,11 @@ function Autosuggest(props) {
     const name = props.name
     const [value, setValue] = useState(props.value)
     useEffect(() => {
-        // Inform parent about the update
         closeAllLists()
-        props.handleUpdate(name, value)
+        // Inform parent about the update
+        if (name !== "searchSkillDetail") {
+            props.handleUpdate(name, value)
+        } 
         // Also fetch the suggestions based on this new input value
         fetcher(`/api/skills/{value}`, {
             method: "GET"
@@ -46,8 +48,12 @@ function Autosuggest(props) {
 
                 b.addEventListener("click", (event) => {
                     event.preventDefault()
+                    if (name === "searchSkillDetail") {
+                        props.addToList(event.target.textContent)
+                        setValue('')
+                        return
+                    }
                     setValue(event.target.textContent)
-                    closeAllLists()
                 })
 
                 a.appendChild(b)
@@ -79,7 +85,12 @@ function Autosuggest(props) {
             addActive(x);
         } else if (e.keyCode == 13) {
             /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
+            e.preventDefault()
+            if (name === "searchSkillDetail" && currentFocus === -1) {
+                props.addToList(value)
+                setValue('')
+                return
+            }
             if (currentFocus > -1) {
               /*and simulate a click on the "active" item:*/
               if (x) x[currentFocus].click();
