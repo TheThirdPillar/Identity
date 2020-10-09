@@ -14,7 +14,7 @@ function FormContainer(props) {
   let rightColForm
   if (props.currentStep == 1) {
     leftColImage = '/undraw_personalization_triu.svg'
-    rightColForm = <PersonalForm />
+    rightColForm = <PersonalForm fullForm={false}/>
   } else if (props.currentStep == 2) {
     leftColImage = '/undraw_certificate_343v.svg'
     rightColForm = <EducationForm />

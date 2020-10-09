@@ -11,7 +11,7 @@ function CustomModal(props) {
 
     switch(props.form) {
         case "1":
-            modalBody = <PersonalForm />
+            modalBody = <PersonalForm formData={props.formData} fullForm={true} />
             break
         case "2":
             modalBody = <SkillForm formData={props.formData} />

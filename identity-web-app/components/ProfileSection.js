@@ -27,7 +27,7 @@ function ProfileSection(props) {
                     <Badge pill variant={props.user.public.verified ? "success" : "danger"}>
                       Verified
                     </Badge>
-                    {" "} <a href="#" className="float-right" onClick={() => props.handleModalShow({type: "1", data: {}})} > Edit </a>
+                    {" "} <a href="#" className="float-right" onClick={() => props.handleModalShow({type: "1", data: props.user})} > Edit </a>
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">identity.org/{props.user.public.username}</Card.Subtitle>
                   <Card.Text>
@@ -36,10 +36,8 @@ function ProfileSection(props) {
                   </Card.Text>
                   <Card.Link href="#">Facebook</Card.Link>
                   <Card.Link href="#">Twitter</Card.Link>
-                  <Card.Link href="#">Github</Card.Link>
+                  <Card.Link href="#">Linkedin</Card.Link>
                   <Card.Link href="#">Medium</Card.Link>
-                  <Card.Link href="#">Dribble</Card.Link>
-                  <Card.Link href="#">Pinterest</Card.Link>
                 </Card.Body>
               </Col>
             </Row>

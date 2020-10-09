@@ -2,7 +2,18 @@ const user = {
   "personalInformation": {
     "public": {
       "fullname": "Gaurav Singh",
+      "dob": "",
       "username": "gauravsingh",
+      "email": {
+        "address": "thegauravks@gmail.com",
+        "verified": true,
+        "tags": [],
+      },
+      "phone": {
+        "address": "9591724957",
+        "verified": false,
+        "tags": []
+      },
       "profileImage": "",
       "verified": false,
       "social": {
@@ -15,26 +26,7 @@ const user = {
       },
     },
     "private": {
-      "documents": [],
-      "email": [
-        {
-          "address": "thegauravks@gmail.com",
-          "verified": true,
-          "tags": [],
-        },
-        {
-          "address": "gaurav.singh@skillschain.org",
-          "verified": false,
-          "tags": [],
-        }
-      ],
-      "phone": [
-        {
-          "number": "9591724957",
-          "verified": true,
-          "tags": [],
-        }
-      ],
+      "documents": []
     }
   },
   "skillInformation": [

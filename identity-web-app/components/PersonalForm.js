@@ -3,24 +3,110 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Image from 'react-bootstrap/Image'
 import DatePicker from 'react-datepicker'
 import Button from 'react-bootstrap/Button'
 
+import { FaFacebookF, FaTwitter, FaLinkedin, FaMediumM } from 'react-icons/fa'
+import { HiDocumentDuplicate } from 'react-icons/hi'
+
 function PersonalForm(props) {
 
-    const [date, setDate] = useState(new Date())
+    const fullForm = props.fullForm
+    const incomingFormData = (props.formData && props.formData.public) ? props.formData.public : {}
+
+    const [inputFields, setInputFields] = useState({
+        picture: null,
+        avatar: "",
+        username: '',
+        fullname: '',
+        dob: null,
+        email: {},
+        phone: {},
+        social: {},
+        profileImage: "",
+        ...incomingFormData
+    })
+
+    const setDate = (date) => {
+        let currentField = {...inputFields}
+        currentField["dob"] = date
+        setInputFields(currentField)
+    }
+
+    const handleChange = (e) => {
+
+        let currentField = {...inputFields}
+
+        if (e.target.name === "username") {
+            console.log("Check username")
+        }
+
+        if (e.target.name === "email" || e.target.name === "phone") {
+            currentField[e.target.name].address = e.target.value
+            setInputFields(currentField)
+            return
+        }
+
+        if (e.target.name === "facebook" || e.target.name === "twitter" || e.target.name === "linkedin" || e.target.name === "medium" ) {
+            currentField.social[e.target.name] = e.target.value
+            setInputFields(currentField)
+            return
+        }
+
+        currentField[e.target.name] = e.target.value
+        setInputFields(currentField)
+    }
+
+    const uploadProfilePhoto = () => {
+        let currentField = {...inputFields}
+        // Change the avatar
+        let photo = document.getElementById('profile-upload').files[0]
+        let src = window.URL.createObjectURL(photo)
+        currentField["avatar"] = src
+        // Update inputFields
+        currentField["picture"] = photo
+        setInputFields(currentField)
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        console.log(inputFields)
+    }
 
     return (
         <>
-            <Form>
+            <Form onSubmit={handleSubmit}>
+                {fullForm &&
+                    <>
+                        <Form.Row className="justify-content-center">
+                            <Form.Group as={Col} controlId="profilePicture" xs={3} md={3} lg={3}>
+                                <Image src={(inputFields.avatar !== "") ? inputFields.avatar : "/userThumbnail.png"} rounded />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} className="align-bottom">
+                                <Form.File 
+                                    id="profile-upload"
+                                    label="Choose new profile picture"
+                                    accept="image/png, image/jpeg"
+                                    onChange={() => uploadProfilePhoto()}
+                                    name="picture"
+                                    custom />
+                            </Form.Group> 
+                        </Form.Row>
+                    </>
+
+                }
                 <Form.Group controlId="personalFormUsername">
-                    <Form.Control type="text" placeholder="Pick a username" />
+                    <Form.Control type="text" placeholder="Pick a username" value={inputFields.username} name="username" onChange={(e) => handleChange(e)} />
                 </Form.Group>
                 <Form.Group controlId="personalFormFullname">
-                    <Form.Control type="text" placeholder="Enter fullname" />
+                    <Form.Control type="text" placeholder="Enter fullname" value={inputFields.fullname} name="fullname" onChange={(e) => handleChange(e)} />
                 </Form.Group>
                 <Form.Group controlId="personalFormEmail">
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control type="email" placeholder="Enter email" value={inputFields.email.address} name="email" onChange={(e) => handleChange(e)} />
                 </Form.Group>
                 <Form.Row>
                     <Form.Group as={Col} controlId="personalFormMobile">
@@ -28,7 +114,7 @@ function PersonalForm(props) {
                             <InputGroup.Prepend>
                                 <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
                             </InputGroup.Prepend>
-                            <Form.Control type="text" placeholder="Enter phone" />
+                            <Form.Control type="text" placeholder="Enter phone" value={inputFields.phone.address} name="phone" onChange={(e) => handleChange(e)} />
                         </InputGroup>
                     </Form.Group> 
                     <Form.Group as={Col} controlId="personalFormBirthday">
@@ -36,12 +122,64 @@ function PersonalForm(props) {
                             onChange={date => setDate(date)} 
                             className="form-control d-block" 
                             placeholderText="Pick your birthday" 
-                            maxDate={date}
+                            maxDate={new Date()}
                             dateFormat="d MMMM, yyyy"
+                            selected={inputFields.dob}
                         />
                     </Form.Group>
                 </Form.Row>
+                {fullForm &&
+                    <>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="socialFormFacebook">
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FaFacebookF /></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="text" placeholder="Add facebook profile" value={inputFields.social.facebook} name="facebook" onChange={(e) => handleChange(e)} />
+                                </InputGroup>
+                            </Form.Group> 
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="socialFormTwitter">
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FaTwitter /></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="text" placeholder="Add twitter profile" value={inputFields.social.twitter} name="twitter" onChange={(e) => handleChange(e)} />
+                                </InputGroup>
+                            </Form.Group> 
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="socialFormLinkedin">
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FaLinkedin /></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="text" placeholder="Add linkedin profile" value={inputFields.social.linkedin} name="linkedin" onChange={(e) => handleChange(e)} />
+                                </InputGroup>
+                            </Form.Group> 
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="socialFormMedium">
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FaMediumM /></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="text" placeholder="Add medium profile" value={inputFields.social.medium} name="medium" onChange={(e) => handleChange(e)} />
+                                </InputGroup>
+                            </Form.Group> 
+                        </Form.Row>
+                    </>
+                }
                 <Form.Group as={Row}>
+                    {fullForm &&
+                        <>
+                            <Col>
+                                <Button variant="dark">Manage Documents | <HiDocumentDuplicate /></Button>
+                            </Col>
+                        </>
+                    }
                     <Col className="text-right">
                         <Button type="submit">Submit</Button>
                     </Col>
