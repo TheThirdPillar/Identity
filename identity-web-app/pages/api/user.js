@@ -92,15 +92,19 @@ const user = {
       organizationName: "PES Institute of Technology",
       certificationName: "B.Tech",
       specialization: "Information Science",
-      startDate: "", 
-      endDate: ""
+      startDate: null, 
+      endDate: null,
+      active: true,
+      documents: []
     },
     {
       organizationName: "Delhi Public School, Patna",
       certificationName: "12th Standard",
       specialization: "",
-      startDate: "", 
-      endDate: ""
+      startDate: null, 
+      endDate: null,
+      active: false,
+      documents: []
     }
   ],
   "professionalInformation": [
@@ -108,15 +112,19 @@ const user = {
       organizationName: "Third Pillar",
       workType: "fulltime",
       position: "Cofounder",
-      startDate: "", 
-      endDate: ""
+      startDate: null, 
+      endDate: null,
+      active: true,
+      documents: []
     },
     {
       organizationName: "Heptagon Technologies Pvt Ltd",
       workType: "fulltime",
       position: "Head of Blockchain",
-      startDate: "", 
-      endDate: ""
+      startDate: null, 
+      endDate: null,
+      active: false,
+      documents: []
     }
   ]
 }

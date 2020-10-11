@@ -17,10 +17,10 @@ function CustomModal(props) {
             modalBody = <SkillForm formData={props.formData} />
             break
         case "3":
-            modalBody = <EducationForm />
+            modalBody = <EducationForm formData={props.formData} />
             break
         case "4":
-            modalBody = <ProfessionalForm />
+            modalBody = <ProfessionalForm formData={props.formData} />
             break
         default:
             modalBody = ''
