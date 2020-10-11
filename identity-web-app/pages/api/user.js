@@ -119,7 +119,7 @@ const user = {
     },
     {
       organizationName: "Heptagon Technologies Pvt Ltd",
-      workType: "fulltime",
+      workType: "parttime",
       position: "Head of Blockchain",
       startDate: null, 
       endDate: null,

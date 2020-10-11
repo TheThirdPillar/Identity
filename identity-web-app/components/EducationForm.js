@@ -16,12 +16,11 @@ function EducationForm(props) {
         startDate: null,
         endDate: null,
         documents: [],
-        active: false,
+        active: true,
         ...props.formData
     })
 
     const setDate = (date, name) => {
-        console.log(typeof date)
         let currentField = {...inputFields}
         currentField[name] = date
         setInputFields(currentField)
