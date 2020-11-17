@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Cookies from 'js-cookie'
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -13,15 +14,16 @@ import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet, Fa
 import { RiSendPlane2Fill } from "react-icons/ri"
 import { MdExplore } from 'react-icons/md'
 
+import connectToExtension from '../utils/extension'
+
 function Topbar(props) {
-  const isShieldInstalled = true
+  
+  const [isShieldInstalled, shiedlIsInstalled] = useState(false)
   const isUserSession = props.isUserSession
   var navLinkDisabled = false
-
   var activeKey = 0
 
   const router = useRouter()
-
   if (router.pathname === '/user') {
     activeKey = 1
   } else if (router.pathname === '/user/request') {
@@ -34,6 +36,53 @@ function Topbar(props) {
     activeKey = 5  
   } else if (router.pathname === '/user/onboarding') {
     navLinkDisabled = true
+  }
+
+  // Check if the extension is installed
+  let request = {}
+  request['query'] = 'isExtensionAvailable'
+
+  connectToExtension(request)
+    .then((response) => {
+      shiedlIsInstalled(true)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+  // TODO: Handle downloadShield    
+
+  const handleLogin = () => {
+    let request = {}
+    request['query'] = 'shieldLogin'
+    request['applicationId'] = 'identity'
+    connectToExtension(request)
+      .then((response) => {
+        if (response.status === 'SUCCESS') {
+          Cookies.set('token', response.userApplication.sessionToken)
+          if ('applicationData' in response.userApplication) {
+            router.push('/user')
+          } else {
+            router.push('/user/onboarding')
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const handleLogout = () => {
+    let request = {}
+    request['query'] = 'shieldLogout'
+    request['applicationId'] = 'identity'
+    connectToExtension(request)
+      .then((response) => {
+        if (response.status === 'SUCCESS') {
+          Cookies.remove('token')
+          router.push('/')
+        }
+      })
   }
 
   return (
@@ -74,12 +123,12 @@ function Topbar(props) {
                   </Button>
                 }
                 {(isShieldInstalled && !isUserSession) &&
-                  <Button variant="success" size="md">
+                  <Button variant="success" size="md" onClick={handleLogin} >
                     Shield Login | <FaSignInAlt />
                   </Button>
                 }
                 {(isShieldInstalled && isUserSession) &&
-                  <Button variant="dark" size="md">
+                  <Button variant="dark" size="md" onClick={handleLogout}>
                     Shield Logout | <FaSignOutAlt />
                   </Button>
                 }

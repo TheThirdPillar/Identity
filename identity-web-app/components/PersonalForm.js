@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button'
 import { FaFacebookF, FaTwitter, FaLinkedin, FaMediumM } from 'react-icons/fa'
 import { HiDocumentDuplicate } from 'react-icons/hi'
 
+const domain = "http://localhost:3000"
+
 function PersonalForm(props) {
 
     const fullForm = props.fullForm
@@ -39,7 +41,26 @@ function PersonalForm(props) {
         let currentField = {...inputFields}
 
         if (e.target.name === "username") {
-            console.log("Check username")
+            // Check if username exists
+            if (e.target.value.length > 0) {
+                fetch(domain + '/application/listen/identity/searchApplicationUserByUsername/?search=' + e.target.value, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === 'SUCCESS') {
+                        if (data.user.length !== 0) {
+                            document.getElementById("personalFormUsername").setCustomValidity('Username taken')
+                        } else {
+                            document.getElementById("personalFormUsername").setCustomValidity('')
+                        }
+                    }
+                })
+            }
         }
 
         if (e.target.name === "email" || e.target.name === "phone") {
@@ -100,13 +121,13 @@ function PersonalForm(props) {
 
                 }
                 <Form.Group controlId="personalFormUsername">
-                    <Form.Control type="text" placeholder="Pick a username" value={inputFields.username} name="username" onChange={(e) => handleChange(e)} />
+                    <Form.Control type="text" placeholder="Pick a username" value={inputFields.username} name="username" onChange={(e) => handleChange(e)} pattern="^[a-z\d]+$" required/>
                 </Form.Group>
                 <Form.Group controlId="personalFormFullname">
-                    <Form.Control type="text" placeholder="Enter fullname" value={inputFields.fullname} name="fullname" onChange={(e) => handleChange(e)} />
+                    <Form.Control type="text" placeholder="Enter fullname" value={inputFields.fullname} name="fullname" onChange={(e) => handleChange(e)} required/>
                 </Form.Group>
                 <Form.Group controlId="personalFormEmail">
-                    <Form.Control type="email" placeholder="Enter email" value={inputFields.email.address} name="email" onChange={(e) => handleChange(e)} />
+                    <Form.Control type="email" placeholder="Enter email" value={inputFields.email.address} name="email" onChange={(e) => handleChange(e)} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
                 </Form.Group>
                 <Form.Row>
                     <Form.Group as={Col} controlId="personalFormMobile">
@@ -114,7 +135,7 @@ function PersonalForm(props) {
                             <InputGroup.Prepend>
                                 <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
                             </InputGroup.Prepend>
-                            <Form.Control type="text" placeholder="Enter phone" value={inputFields.phone.address} name="phone" onChange={(e) => handleChange(e)} />
+                            <Form.Control type="text" placeholder="Enter phone" value={inputFields.phone.number} name="phone" onChange={(e) => handleChange(e)} pattern="^\d{10}$" required/>
                         </InputGroup>
                     </Form.Group> 
                     <Form.Group as={Col} controlId="personalFormBirthday">
@@ -125,6 +146,10 @@ function PersonalForm(props) {
                             maxDate={new Date()}
                             dateFormat="d MMMM, yyyy"
                             selected={inputFields.dob}
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                            required
                         />
                     </Form.Group>
                 </Form.Row>
