@@ -50,10 +50,10 @@ function SkillForm(props) {
             <Form autoComplete="off" onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="fieldOfInterest">
                     <Col md={8}>
-                        <Autosuggest placeholder="Enter your field" value={inputFields.fieldOfInterest} name="fieldOfInterest" handleUpdate={(name, value) => handleUpdate(name, value)} />
+                        <Autosuggest placeholder="Enter your field" value={inputFields.fieldOfInterest} name="fieldOfInterest" handleUpdate={(name, value) => handleUpdate(name, value)} required />
                     </Col>
                     <Col className="mt-2 mt-md-0 mt-lg-0">
-                        <Form.Control as="select" placeholder="Choose Skill Type" name="skillTag" value={inputFields.skillTag} onChange={(event) => handleUpdate(event.target.name, event.target.value) }>
+                        <Form.Control as="select" placeholder="Choose Skill Type" name="skillTag" value={inputFields.skillTag} onChange={(event) => handleUpdate(event.target.name, event.target.value)} required >
                             <option disabled>Skill Type</option>
                             <option value="primary">Primary</option>
                             <option value="secondary">Secondary</option>
@@ -62,10 +62,10 @@ function SkillForm(props) {
                     </Col>
                 </Form.Group>
                 <Form.Group controlId="associatedSkill">
-                    <Autosuggest placeholder="Name your skillset, Ex: Full stack development" value={inputFields.associatedSkill} name="associatedSkill" handleUpdate={(name, value) => handleUpdate(name, value)} />
+                    <Autosuggest placeholder="Name your skillset, Ex: Full stack development" value={inputFields.associatedSkill} name="associatedSkill" handleUpdate={(name, value) => handleUpdate(name, value)} required />
                 </Form.Group>
                 <Form.Group controlId="searchSkillDetail">
-                    <Autosuggest placeholder="Add upto 5 related skills"  name="searchSkillDetail" value="" addToList={(data) => handleUpdate("skillDetails", data)} />
+                    <Autosuggest placeholder="Add upto 5 related skills"  name="searchSkillDetail" value="" addToList={(data) => handleUpdate("skillDetails", data)} required />
                     <Form.Text>
                         {inputFields.skillDetails.map((detail, index) => (
                             <a onClick={() => removeSkillFromList(detail)} key={index} >

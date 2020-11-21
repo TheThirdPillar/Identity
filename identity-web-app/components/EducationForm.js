@@ -1,14 +1,20 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Cookies from 'js-cookie'
+
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DatePicker from 'react-datepicker'
 import Button from 'react-bootstrap/Button'
+import Toasts from './Toasts'
+
+const domain = "http://localhost:3000"
 
 function EducationForm(props) {
 
-
+    const router = useRouter()
     const [inputFields, setInputFields] = useState({
         organizationName: "",
         certificationName: "",
@@ -19,6 +25,10 @@ function EducationForm(props) {
         active: true,
         ...props.formData
     })
+
+    const [toastShow, setToastShow] = useState(false)
+    const [toastType, setToastType] = useState()
+    const [toastMessage, setToastMessage] = useState()
 
     const setDate = (date, name) => {
         let currentField = {...inputFields}
@@ -39,7 +49,36 @@ function EducationForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(inputFields)
+        fetch(domain + '/application/listen/identity/addEducationRecord', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('token')
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(inputFields)
+        })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.status === 'SUCCESS') {
+                setToastMessage(data.message)
+                setToastType("success")
+                setToastShow(true) 
+
+                // TODO: Close the toast - Autoclose not working.
+                if (router.pathname === '/user/onboarding') {
+                    // TODO: Next Step
+                    setTimeout(() => {
+                        props.updateState()
+                    }, 3000)
+                }
+
+            } else {
+                setToastMessage("Unable to execute transaction at the moment.")
+                setToastType("danger")
+                setToastShow(true)
+            }
+        })
     }
 
     return (
@@ -90,6 +129,7 @@ function EducationForm(props) {
                     </Col>
                 </Form.Group>
             </Form>
+            <Toasts show={toastShow} message={toastMessage} type={toastType} />
         </>
     )
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
-import fetcher from '../utils/fetcher'
+const domain = "http://localhost:3000"
 
 function Autosuggest(props) {
 
@@ -14,11 +15,23 @@ function Autosuggest(props) {
             props.handleUpdate(name, value)
         } 
         // Also fetch the suggestions based on this new input value
-        fetcher(`/api/skills/{value}`, {
-            method: "GET"
+
+        if (value === '') return
+
+        fetch(domain + '/skill?search=' + value, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('token')
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
         })
+        .then(response => response.json())
         .then((response) => {
-            setSuggestions(response)
+            if (response.status === 'SUCCESS') {
+                console.log(response.result)
+                setSuggestions(response.result)
+            }
         })
     }, [value])
 
@@ -128,6 +141,7 @@ function Autosuggest(props) {
                 onChange={(event) => setValue(event.target.value)}
                 onBlur={() => closeAllLists()}
                 onKeyDown={(event) => handleKeyDown(event)}
+                required
             ></input>
         </div>
     )

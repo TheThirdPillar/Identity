@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import Topbar from '../components/Topbar'
 import Footer from '../components/Footer'
 import Container from 'react-bootstrap/Container'
 
 function DefaultLayout(props) {
-
+  
   return (
     <>
       <Container>
