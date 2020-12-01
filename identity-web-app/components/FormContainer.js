@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -12,7 +13,13 @@ import SkillForm from './SkillForm'
 
 function FormContainer() {
 
-  const [currentStep, nextStep] = useState(4)
+  const router = useRouter()
+  const [currentStep, nextStep] = useState(1)
+  useEffect(() => {
+    if (currentStep > 4) {
+      router.push('/user')
+    }
+  })
 
   var leftColImage = ''
   let rightColForm
@@ -28,7 +35,7 @@ function FormContainer() {
     rightColForm = <ProfessionalForm updateState={() => {nextStep(currentStep + 1)}} />
   } else if (currentStep == 4) {
     leftColImage = '/undraw_percentages_0rur.svg'
-    rightColForm = <SkillForm />
+    rightColForm = <SkillForm updateState={() => {nextStep(currentStep + 1)}} />
   }
 
   return (

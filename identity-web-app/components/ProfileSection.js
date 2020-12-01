@@ -21,15 +21,15 @@ function ProfileSection(props) {
               </Col>
               <Col xs={9} md={9} lg={10}>
                 <Card.Body>
-                  <Card.Title>
-                    {props.user.public.fullname}
+                  <Card.Title className="text-capitalize">
+                    {props.user.fullname}
                     {" "}
-                    <Badge pill variant={props.user.public.verified ? "success" : "danger"}>
+                    <Badge pill variant={props.user.verified ? "success" : "danger"}>
                       Verified
                     </Badge>
                     {" "} <a href="#" className="float-right" onClick={() => props.handleModalShow({type: "1", data: props.user})} > Edit </a>
                   </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">identity.org/{props.user.public.username}</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">identity.org/{props.user.username}</Card.Subtitle>
                   <Card.Text>
                     <Card.Link href="#">Email</Card.Link>
                     <Card.Link href="#">Mobile</Card.Link>

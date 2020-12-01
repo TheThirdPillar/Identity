@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
+
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -6,19 +9,35 @@ import Button from 'react-bootstrap/Button'
 import Badge from 'react-bootstrap/Badge'
 import { AiFillCloseCircle } from 'react-icons/ai'
 
+import Toasts from './Toasts'
 import Autosuggest from './Autosuggest'
+
+const domain = "http://localhost:3000"
 
 function SkillForm(props) {
 
+    const router = useRouter()
     const [inputFields, setInputFields] = useState({
         fieldOfInterest: '',
-        skillTag: '',
+        skillTag: 'primary',
         associatedSkill: '',
         skillDetails: [],
         endorsements: [],
         skillLevel: 0,
         ...props.formData
     })
+
+    let btnText
+
+    if (router.pathname === '/user/onboarding') {
+        btnText = 'Submit'
+    } else {
+        btnText = 'Update'
+    }
+
+    const [toastShow, setToastShow] = useState(false)
+    const [toastType, setToastType] = useState()
+    const [toastMessage, setToastMessage] = useState()
  
     const handleUpdate = (name, value) => {
         let currentFieldValues = {...inputFields}
@@ -27,6 +46,7 @@ function SkillForm(props) {
             if (currentFieldValues[name].length === 5) return
             currentFieldValues[name].push(value)
             setInputFields(currentFieldValues)
+            document.getElementsByName('searchSkillDetail')[0].setCustomValidity('')
             return
         } 
         currentFieldValues[name] = value
@@ -42,7 +62,39 @@ function SkillForm(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(inputFields)
+        // TODO: Add form validation
+        fetch(domain + '/application/listen/identity/addSkillRecord', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('token')
+            },
+            body: JSON.stringify(inputFields)
+        })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.status === 'SUCCESS') {
+                setToastMessage(data.message)
+                setToastType("success")
+                setToastShow(true) 
+
+                if (router.pathname === '/user/onboarding') {
+                    // TODO: Next Step
+                    setTimeout(() => {
+                        props.updateState()
+                    }, 3000)
+                } else {
+                    props.closeModal()
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000)
+                }
+            } else {
+                setToastMessage("Unable to execute transaction at the moment.")
+                setToastType("danger")
+                setToastShow(true)
+            }
+        })
     }
 
     return (
@@ -65,7 +117,7 @@ function SkillForm(props) {
                     <Autosuggest placeholder="Name your skillset, Ex: Full stack development" value={inputFields.associatedSkill} name="associatedSkill" handleUpdate={(name, value) => handleUpdate(name, value)} required />
                 </Form.Group>
                 <Form.Group controlId="searchSkillDetail">
-                    <Autosuggest placeholder="Add upto 5 related skills"  name="searchSkillDetail" value="" addToList={(data) => handleUpdate("skillDetails", data)} required />
+                    <Autosuggest placeholder="Add upto 5 related skills"  name="searchSkillDetail" value="" addToList={(data) => handleUpdate("skillDetails", data)} />
                     <Form.Text>
                         {inputFields.skillDetails.map((detail, index) => (
                             <a onClick={() => removeSkillFromList(detail)} key={index} >
@@ -76,10 +128,11 @@ function SkillForm(props) {
                 </Form.Group>
                 <Form.Group as={Row}>
                     <Col className="text-right">
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit">{btnText}</Button>
                     </Col>
                 </Form.Group>
             </Form>
+            <Toasts show={toastShow} message={toastMessage} type={toastType} />
         </>
     )
 }

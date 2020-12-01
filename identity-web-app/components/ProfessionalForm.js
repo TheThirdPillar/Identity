@@ -26,6 +26,14 @@ function ProfessionalForm(props) {
         ...props.formData
     })
 
+    let btnText
+
+    if (router.pathname === '/user/onboarding') {
+        btnText = 'Submit'
+    } else {
+        btnText = 'Update'
+    }
+
     const [toastShow, setToastShow] = useState(false)
     const [toastType, setToastType] = useState()
     const [toastMessage, setToastMessage] = useState()
@@ -71,6 +79,11 @@ function ProfessionalForm(props) {
                     setTimeout(() => {
                         props.updateState()
                     }, 3000)
+                } else {
+                    props.closeModal()
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000)
                 }
 
             } else {
@@ -104,7 +117,7 @@ function ProfessionalForm(props) {
                     <Form.Group as={Col} controlId="professionalFormStartDate">
                         <DatePicker 
                             onChange={(date) => setDate(date, "startDate")} 
-                            selected={inputFields.startDate}
+                            selected={new Date(inputFields.startDate)}
                             className="form-control d-block" 
                             placeholderText="Start date Ex. August 2009" 
                             dateFormat="MM/yyyy"
@@ -118,7 +131,7 @@ function ProfessionalForm(props) {
                     <Form.Group as={Col} controlId="professionalFormEndDate">
                         <DatePicker 
                             onChange={(date) => setDate(date, "endDate")} 
-                            selected={inputFields.endDate}
+                            selected={new Date(inputFields.endDate)}
                             className="form-control d-block" 
                             placeholderText="End date Ex. June 2013" 
                             dateFormat="MM/yyyy"
@@ -132,7 +145,7 @@ function ProfessionalForm(props) {
                 </Form.Row>
                 <Form.Group as={Row}>
                     <Col className="text-right">
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit">{btnText}</Button>
                     </Col>
                 </Form.Group>
             </Form>

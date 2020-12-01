@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
+
 import Tab from 'react-bootstrap/Tab'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -5,7 +8,52 @@ import Nav from 'react-bootstrap/Nav'
 
 import RequestCards from './RequestCards'
 
+import connectToExtension from '../utils/extension'
+
+const domain = "http://localhost:3000"
+
 function RequestContainer() {
+
+    var verificationSent = []
+    var verificationReceived = []
+    var accessSent = []
+    var accessReceived = []
+
+    const [requests, setRequests] = useState(null)
+    useEffect(() => {
+        if (!requests) {
+            fetch(domain + '/application/listen/identity/getRequests', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + Cookies.get('token')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+            if (data.status == 'SUCCESS') {
+                setRequests(data.requests)
+                setUser(data.user)
+            }
+            return <div>Unable to fetch requests ....</div>
+            })
+        } else {
+            for (let i = 0; i < requests.length; i++) {
+                if (requests[i].type === 'verification') {
+                    if (requests[i].requestedBy._id === user) verificationSent.push(requests[i])
+                    if (requests[i].requestedTo._id === user) verificationReceived.push(requests[i])
+                } else if (requests[i].type === 'access') {
+                    if (requests[i].requestedBy._id === user) accessSent.push(requests[i])
+                    if (requests[i].requestedTo._id === user) accessReceived.push(requests[i])
+                }
+            }
+        }
+    }, [requests])
+
+    const [user, setUser] = useState()
+
+    if (!requests) return <div>Loading....</div>
+
     return (
         <>
             <Tab.Container id="" defaultActiveKey="vsent">
@@ -29,36 +77,44 @@ function RequestContainer() {
                     <Col sm={12} lg={9} className="mt-4 mt-lg-0">
                         <Tab.Content>
                             <Tab.Pane eventKey="vsent">
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
+                                {
+                                    requests.map((request, index) => {
+                                        if (request.type === 'verification' && request.requestedBy._id === user)
+                                        return (
+                                            <RequestCards type="sent" key={index} request={request} />
+                                        )
+                                    })
+                                }
                             </Tab.Pane>
                             <Tab.Pane eventKey="vreceived">
-                                <RequestCards type="received" />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
+                                {
+                                    requests.map((request, index) => {
+                                        if (request.type === 'verification' && request.requestedTo._id === user)
+                                        return (
+                                            <RequestCards type="received" key={index} request={request} />
+                                        )
+                                    })
+                                }
                             </Tab.Pane>
                             <Tab.Pane eventKey="asent">
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
-                                <RequestCards type="sent" />
+                                {
+                                    requests.map((request, index) => {
+                                        if (request.type === 'access' && request.requestedBy._id === user)
+                                        return (
+                                            <RequestCards type="sent" key={index} request={request} />
+                                        )
+                                    })
+                                }
                             </Tab.Pane>
                             <Tab.Pane eventKey="areceived">
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
-                                <RequestCards type="received"  />
+                                {
+                                    requests.map((request, index) => {
+                                        if (request.type === 'access' && request.requestedTo._id === user)
+                                        return (
+                                            <RequestCards type="received" key={index} request={request} />
+                                        )
+                                    })
+                                }
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

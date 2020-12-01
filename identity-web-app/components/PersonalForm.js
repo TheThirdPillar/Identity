@@ -20,7 +20,13 @@ function PersonalForm(props) {
 
     const router = useRouter()
     const fullForm = props.fullForm
-    const incomingFormData = (props.formData && props.formData.public) ? props.formData.public : {}
+    let btnText
+
+    if (router.pathname === '/user/onboarding') {
+        btnText = 'Submit'
+    } else {
+        btnText = 'Update'
+    }
 
     const [inputFields, setInputFields] = useState({
         picture: null,
@@ -32,7 +38,7 @@ function PersonalForm(props) {
         phone: {},
         social: {},
         profileImage: "",
-        ...incomingFormData
+        ...props.formData
     })
 
     const [toastShow, setToastShow] = useState(false)
@@ -104,36 +110,60 @@ function PersonalForm(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(inputFields)
-        fetch(domain + '/application/listen/identity/registerUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + Cookies.get('token')
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(inputFields)
-        })
-        .then(response => response.json())
-        .then((data) => {
-            if (data.status === 'SUCCESS') {
-                setToastMessage("Successfully added the basic profile. Shield will synchronize soon.")
-                setToastType("success")
-                setToastShow(true) 
-
-                // TODO: Close the toast - Autoclose not working.
-                if (router.pathname === '/user/onboarding') {
+        if (router.pathname === '/user/onboarding') {
+            fetch(domain + '/application/listen/identity/registerUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + Cookies.get('token')
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(inputFields)
+            })
+            .then(response => response.json())
+            .then((data) => {
+                if (data.status === 'SUCCESS') {
+                    setToastMessage("Successfully added the basic profile. Shield will synchronize soon.")
+                    setToastType("success")
+                    setToastShow(true) 
+                    // TODO: Close the toast - Autoclose not working.
                     // TODO: Next Step
                     setTimeout(() => {
                         props.updateState()
                     }, 3000)
+                } else {
+                    setToastMessage("Unable to execute transaction at the moment.")
+                    setToastType("danger")
+                    setToastShow(true)
                 }
-
-            } else {
-                setToastMessage("Unable to execute transaction at the moment.")
-                setToastType("danger")
-                setToastShow(true)
-            }
-        })
+            })
+        } else {
+            fetch(domain + '/application/listen/identity/updateUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + Cookies.get('token')
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(inputFields)
+            })
+            .then(response => response.json())
+            .then((data) => {
+                if (data.status === 'SUCCESS') {
+                    setToastMessage("Successfully updated the basic profile. Shield will synchronize soon.")
+                    setToastType("success")
+                    setToastShow(true) 
+                    props.closeModal()
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000)
+                } else {
+                    setToastMessage("Unable to execute transaction at the moment.")
+                    setToastType("danger")
+                    setToastShow(true)
+                }
+            })
+        }
     }
 
     return (
@@ -175,7 +205,7 @@ function PersonalForm(props) {
                             <InputGroup.Prepend>
                                 <InputGroup.Text id="basic-addon1">+91</InputGroup.Text>
                             </InputGroup.Prepend>
-                            <Form.Control type="text" placeholder="Enter phone" value={inputFields.phone.number} name="phone" onChange={(e) => handleChange(e)} pattern="^\d{10}$" required/>
+                            <Form.Control type="text" placeholder="Enter phone" value={inputFields.phone.address} name="phone" onChange={(e) => handleChange(e)} pattern="^\d{10}$" required/>
                         </InputGroup>
                     </Form.Group> 
                     <Form.Group as={Col} controlId="personalFormBirthday">
@@ -185,7 +215,7 @@ function PersonalForm(props) {
                             placeholderText="Pick your birthday" 
                             maxDate={new Date()}
                             dateFormat="d MMMM, yyyy"
-                            selected={inputFields.dob}
+                            selected={new Date(inputFields.dob)}
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
@@ -201,7 +231,7 @@ function PersonalForm(props) {
                                     <InputGroup.Prepend>
                                         <InputGroup.Text id="basic-addon1"><FaFacebookF /></InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control type="text" placeholder="Add facebook profile" value={inputFields.social.facebook} name="facebook" onChange={(e) => handleChange(e)} />
+                                    <Form.Control type="url" placeholder="Add facebook profile" value={inputFields.social.facebook} name="facebook" onChange={(e) => handleChange(e)} />
                                 </InputGroup>
                             </Form.Group> 
                         </Form.Row>
@@ -241,12 +271,12 @@ function PersonalForm(props) {
                     {fullForm &&
                         <>
                             <Col>
-                                <Button variant="dark">Manage Documents | <HiDocumentDuplicate /></Button>
+                                <Button variant="dark" className="btn m-1">Manage Documents | <HiDocumentDuplicate /></Button>
                             </Col>
                         </>
                     }
                     <Col className="text-right">
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" className="btn btn-primary m-1">{btnText}</Button>
                     </Col>
                 </Form.Group>
             </Form>

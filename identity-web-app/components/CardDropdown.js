@@ -6,7 +6,7 @@ function CardDropdown(props) {
     return (
         <Dropdown>
             <Dropdown.Toggle>
-                <ImMenu3 />
+                <ImMenu3 style={{color: props.color}}/>
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 <Dropdown.Item onClick={props.handleEdit}>Edit <AiFillEdit className="float-right mt-1" /></Dropdown.Item>

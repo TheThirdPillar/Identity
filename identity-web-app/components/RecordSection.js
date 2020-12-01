@@ -18,7 +18,7 @@ function RecordSection(props) {
           <CardDeck className={styles.section}>
             {
               props.records.map(((record, index) => (
-                <RecordCards key={index} record={record} handleEdit={() => props.handleModalShow({type: formType, data: record})} />
+                <RecordCards key={index} record={record} handleEdit={() => props.handleModalShow({type: formType, data: record})} manageDocuments={() => props.handleModalShow({type: "5", data: record})} />
               )))
             }
           </CardDeck>

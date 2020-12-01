@@ -5,7 +5,7 @@ const domain = "http://localhost:3000"
 
 function Autosuggest(props) {
 
-    let currentFocus;
+    var currentFocus = -1;
     const name = props.name
     const [value, setValue] = useState(props.value)
     useEffect(() => {
@@ -99,7 +99,10 @@ function Autosuggest(props) {
         } else if (e.keyCode == 13) {
             /*If the ENTER key is pressed, prevent the form from being submitted,*/
             e.preventDefault()
-            if (name === "searchSkillDetail" && currentFocus === -1) {
+            console.log(e.target.name)
+            console.log(currentFocus)
+            if (e.target.name === "searchSkillDetail" && currentFocus === -1) {
+                console.log("Yoohoo")
                 props.addToList(value)
                 setValue('')
                 return
@@ -141,7 +144,6 @@ function Autosuggest(props) {
                 onChange={(event) => setValue(event.target.value)}
                 onBlur={() => closeAllLists()}
                 onKeyDown={(event) => handleKeyDown(event)}
-                required
             ></input>
         </div>
     )
