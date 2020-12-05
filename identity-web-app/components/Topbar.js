@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import Cookies from 'js-cookie'
-
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
@@ -14,77 +12,29 @@ import { FaArrowCircleDown, FaSignInAlt, FaSignOutAlt, FaRegIdCard, FaWallet, Fa
 import { RiSendPlane2Fill } from "react-icons/ri"
 import { MdExplore } from 'react-icons/md'
 
-import connectToExtension from '../utils/extension'
-
 function Topbar(props) {
   
-  const [isShieldInstalled, shiedlIsInstalled] = useState(false)
   const isUserSession = props.isUserSession
+  const isShieldInstalled = props.isShieldInstalled
+  const [activeKey, setActiveKey] = useState(0)
   var navLinkDisabled = false
-  var activeKey = 0
+  
 
   const router = useRouter()
   if (router.pathname === '/user') {
-    activeKey = 1
+    setActiveKey(1)
   } else if (router.pathname === '/user/request') {
-    activeKey = 2
+    setActiveKey(2)
   } else if (router.pathname === '/user/wallet') {
-    activeKey = 3
+    setActiveKey(3)
   } else if (router.pathname === '/user/documents') {
-    activeKey = 4
+    setActiveKey(4)
   } else if (router.pathname === '/user/explorer') {
-    activeKey = 5  
+    setActiveKey(5)
   } else if (router.pathname === '/user/onboarding') {
     navLinkDisabled = true
   }
-
-  // Check if the extension is installed
-  let request = {}
-  request['query'] = 'isExtensionAvailable'
-
-  connectToExtension(request)
-    .then((response) => {
-      shiedlIsInstalled(true)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-
-  // TODO: Handle downloadShield    
-
-  const handleLogin = () => {
-    let request = {}
-    request['query'] = 'shieldLogin'
-    request['applicationId'] = 'identity'
-    connectToExtension(request)
-      .then((response) => {
-        if (response.status === 'SUCCESS') {
-          Cookies.set('token', response.userApplication.sessionToken)
-          if ('applicationData' in response.userApplication) {
-            router.push('/user')
-          } else {
-            router.push('/user/onboarding')
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const handleLogout = () => {
-    let request = {}
-    request['query'] = 'shieldLogout'
-    request['applicationId'] = 'identity'
-    connectToExtension(request)
-      .then((response) => {
-        if (response.status === 'SUCCESS') {
-          Cookies.remove('token')
-          router.push('/')
-        }
-      })
-  }
-
+ 
   return (
     <>
       <Row className="justify-content-center">
@@ -123,12 +73,12 @@ function Topbar(props) {
                   </Button>
                 }
                 {(isShieldInstalled && !isUserSession) &&
-                  <Button variant="success" size="md" onClick={handleLogin} >
+                  <Button variant="success" size="md" onClick={props.handleLogin} >
                     Shield Login | <FaSignInAlt />
                   </Button>
                 }
                 {(isShieldInstalled && isUserSession) &&
-                  <Button variant="dark" size="md" onClick={handleLogout}>
+                  <Button variant="dark" size="md" onClick={props.handleLogout}>
                     Shield Logout | <FaSignOutAlt />
                   </Button>
                 }

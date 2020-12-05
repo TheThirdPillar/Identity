@@ -69,7 +69,7 @@ function PersonalForm(props) {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.status === 'SUCCESS') {
-                        if (data.user.length !== 0) {
+                        if (data.user && data.user.length !== 0) {
                             document.getElementById("personalFormUsername").setCustomValidity('Username taken')
                         } else {
                             document.getElementById("personalFormUsername").setCustomValidity('')

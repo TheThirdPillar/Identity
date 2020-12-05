@@ -14,7 +14,7 @@ import SkillForm from './SkillForm'
 function FormContainer() {
 
   const router = useRouter()
-  const [currentStep, nextStep] = useState(1)
+  const [currentStep, nextStep] = useState(4)
   useEffect(() => {
     if (currentStep > 4) {
       router.push('/user')
