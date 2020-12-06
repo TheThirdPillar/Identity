@@ -12,7 +12,7 @@ import SkillSection from '../../components/SkillSection'
 import CustomModal from '../../components/Modal'
 
 import { domain } from '../../config/config'
-
+console.log("Test")
 export default function UserDashboard() {
 
   const router = useRouter()
@@ -20,6 +20,7 @@ export default function UserDashboard() {
   const [isUserSession, setUserSession] = useState(Cookies.get('token'))
   const [userData, setUserData] = useState()
   useEffect(() => {
+    console.log("Effect is called")
     if (!isUserSession) return router.push('/')
     if (!userData) {
       fetch(domain + '/application/listen/identity/getUserData', {
@@ -33,13 +34,14 @@ export default function UserDashboard() {
       .then(data => {
         if (data.status === 'SUCCESS') {
           if (!data.user.username) return router.push('/user/onboarding')
+          console.log(data.user)
           setUserData(data.user)
         } else {
           return <h2>Unable to fetch user data.</h2>
         }
       })
     }
-  }, [userData])
+  }, [isUserSession])
   // Handle modal
   const [modalShow, setModalShow] = useState({show: false, form: {}})
   const handleModalShow = (form) => {
@@ -50,13 +52,7 @@ export default function UserDashboard() {
   }
 
   if (!userData) return (
-    <>
-      <div style={{marginLeft: '45%', marginTop: '20%'}}>
-        <Spinner animation="grow" role="status" variant="primary" className="mr-1" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-        </div>
-    </>
+    <Spinner animation="grow" variant="primary" size="sm" style={{marginTop: '20%', marginLeft: '45%'}} />
   )
 
   return (

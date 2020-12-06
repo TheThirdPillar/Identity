@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Navbar from 'react-bootstrap/Navbar'
@@ -14,27 +14,27 @@ import { MdExplore } from 'react-icons/md'
 
 function Topbar(props) {
   
+  const router = useRouter()
   const isUserSession = props.isUserSession
   const isShieldInstalled = props.isShieldInstalled
-  const [activeKey, setActiveKey] = useState(0)
-  var navLinkDisabled = false
-  
 
-  const router = useRouter()
-  if (router.pathname === '/user') {
-    setActiveKey(1)
-  } else if (router.pathname === '/user/request') {
-    setActiveKey(2)
-  } else if (router.pathname === '/user/wallet') {
-    setActiveKey(3)
-  } else if (router.pathname === '/user/documents') {
-    setActiveKey(4)
-  } else if (router.pathname === '/user/explorer') {
-    setActiveKey(5)
-  } else if (router.pathname === '/user/onboarding') {
-    navLinkDisabled = true
-  }
- 
+  const [activeKey, setActiveKey] = useState(0)
+  useEffect(() => {
+    if (router.pathname === '/user') {
+      setActiveKey(1)
+    } else if (router.pathname === '/user/request') {
+      setActiveKey(2)
+    } else if (router.pathname === '/user/wallet') {
+      setActiveKey(3)
+    } else if (router.pathname === '/user/documents') {
+      setActiveKey(4)
+    } else if (router.pathname === '/user/explorer') {
+      setActiveKey(5)
+    } else if (router.pathname === '/user/onboarding') {
+      navLinkDisabled = true
+    }
+  })
+  var navLinkDisabled = false
   return (
     <>
       <Row className="justify-content-center">
