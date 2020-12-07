@@ -12,7 +12,7 @@ import SkillSection from '../../components/SkillSection'
 import CustomModal from '../../components/Modal'
 
 import { domain } from '../../config/config'
-console.log("Test")
+
 export default function UserDashboard() {
 
   const router = useRouter()
@@ -37,6 +37,9 @@ export default function UserDashboard() {
         } else {
           return (<h2>Unable to fetch user data.</h2>)
         }
+      })
+      .catch(error => {
+        return (<h2>Unable to fetch user data.</h2>)
       })
     }
   }, [isUserSession])

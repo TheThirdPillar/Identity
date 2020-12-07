@@ -14,7 +14,7 @@ import Toasts from './Toasts'
 import { FaFacebookF, FaTwitter, FaLinkedin, FaMediumM } from 'react-icons/fa'
 import { HiDocumentDuplicate } from 'react-icons/hi'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 function PersonalForm(props) {
 

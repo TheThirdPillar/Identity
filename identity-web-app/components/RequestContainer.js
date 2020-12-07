@@ -8,11 +8,9 @@ import Nav from 'react-bootstrap/Nav'
 
 import RequestCards from './RequestCards'
 
-import connectToExtension from '../utils/extension'
-
 import { domain } from '../config/config'
 
-function RequestContainer() {
+function RequestContainer(props) {
 
     var verificationSent = []
     var verificationReceived = []
@@ -81,7 +79,7 @@ function RequestContainer() {
                                     requests.map((request, index) => {
                                         if (request.type === 'verification' && request.requestedBy._id === user)
                                         return (
-                                            <RequestCards type="sent" key={index} request={request} />
+                                            <RequestCards type="sent" key={index} request={request} handleToast={(toastData) => props.handleToast(toastData)}/>
                                         )
                                     })
                                 }
@@ -91,7 +89,7 @@ function RequestContainer() {
                                     requests.map((request, index) => {
                                         if (request.type === 'verification' && request.requestedTo._id === user)
                                         return (
-                                            <RequestCards type="received" key={index} request={request} />
+                                            <RequestCards type="received" key={index} request={request} handleToast={(toastData) => props.handleToast(toastData)} />
                                         )
                                     })
                                 }
@@ -101,7 +99,7 @@ function RequestContainer() {
                                     requests.map((request, index) => {
                                         if (request.type === 'access' && request.requestedBy._id === user)
                                         return (
-                                            <RequestCards type="sent" key={index} request={request} />
+                                            <RequestCards type="sent" key={index} request={request} handleToast={(toastData) => props.handleToast(toastData)} />
                                         )
                                     })
                                 }
@@ -111,7 +109,7 @@ function RequestContainer() {
                                     requests.map((request, index) => {
                                         if (request.type === 'access' && request.requestedTo._id === user)
                                         return (
-                                            <RequestCards type="received" key={index} request={request} />
+                                            <RequestCards type="received" key={index} request={request} handleToast={(toastData) => props.handleToast(toastData)} />
                                         )
                                     })
                                 }
