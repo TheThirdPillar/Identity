@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 
 import Row from 'react-bootstrap/Row'
@@ -13,6 +14,7 @@ import connectToExtension from '../utils/extension'
 function RequestCards(props) {
     console.log(props.request)
 
+    var otherUser = (props.type == 'sent') ? props.request.requestedTo : props.request.requestedBy
     const [logMessage, setLog] = useState()
 
     var variant
@@ -28,7 +30,7 @@ function RequestCards(props) {
             originalPublicKey = false
         } else {
             encryptedKey = props.request.sharedKey
-            originalPublicKey = props.request.requestedBy.publicKey
+            originalPublicKey = props.request.requestedBy.shieldUser.publicKey
         }
         let request = {}
         request.query = 'decrypt'
@@ -58,8 +60,10 @@ function RequestCards(props) {
                 bg="light"
                 text="dark"
                 className="m-2 p-4 text-center">
-                    <Card.Header>
-                        Superadmin
+                    <Card.Header className="text-capitalize">
+                        <Link href={"/user/" + otherUser.username}>
+                            {otherUser.profile.fullname}
+                        </Link> 
                     </Card.Header>
                     <Card.Body>
                         <Card.Title className={styles.cardTitleX1}>

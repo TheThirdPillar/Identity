@@ -78,7 +78,7 @@ export default function DocumentList(props) {
     }, [isLoading])
 
     const requestVerification = (index) => {
-        let receiverPublicKey = '9/pXsSFXhkmgfXJKtZ0qsOl23NpupbTheXMzLN3XhKc='
+        let receiverPublicKey = 'pgmx2i0LPLqhpMXp30kEycHuwq1DmrTU7uDIArjqx30='
         let encryptedKey = documents[index].encryptedKey
         console.log(encryptedKey)
         let request = {}

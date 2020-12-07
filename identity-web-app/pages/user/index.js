@@ -20,9 +20,8 @@ export default function UserDashboard() {
   const [isUserSession, setUserSession] = useState(Cookies.get('token'))
   const [userData, setUserData] = useState()
   useEffect(() => {
-    console.log("Effect is called")
-    if (!isUserSession) return router.push('/')
-    if (!userData) {
+    if (!userData && !isUserSession) router.push('/')
+    if (!userData && isUserSession) {
       fetch(domain + '/application/listen/identity/getUserData', {
         method: 'GET',
         headers: {
@@ -34,10 +33,9 @@ export default function UserDashboard() {
       .then(data => {
         if (data.status === 'SUCCESS') {
           if (!data.user.username) return router.push('/user/onboarding')
-          console.log(data.user)
           setUserData(data.user)
         } else {
-          return <h2>Unable to fetch user data.</h2>
+          return (<h2>Unable to fetch user data.</h2>)
         }
       })
     }

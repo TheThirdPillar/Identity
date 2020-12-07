@@ -17,7 +17,7 @@ function Topbar(props) {
   const router = useRouter()
   const isUserSession = props.isUserSession
   const isShieldInstalled = props.isShieldInstalled
-
+  const [navLinkDisabled, toggleNavLink] = useState(false)
   const [activeKey, setActiveKey] = useState(0)
   useEffect(() => {
     if (router.pathname === '/user') {
@@ -31,10 +31,10 @@ function Topbar(props) {
     } else if (router.pathname === '/user/explorer') {
       setActiveKey(5)
     } else if (router.pathname === '/user/onboarding') {
-      navLinkDisabled = true
+      toggleNavLink(true)
     }
-  })
-  var navLinkDisabled = false
+  }, [])
+
   return (
     <>
       <Row className="justify-content-center">

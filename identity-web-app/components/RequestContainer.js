@@ -10,7 +10,7 @@ import RequestCards from './RequestCards'
 
 import connectToExtension from '../utils/extension'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 function RequestContainer() {
 
@@ -31,11 +31,11 @@ function RequestContainer() {
             })
             .then(response => response.json())
             .then(data => {
-            if (data.status == 'SUCCESS') {
-                setRequests(data.requests)
-                setUser(data.user)
-            }
-            return <div>Unable to fetch requests ....</div>
+                if (data.status == 'SUCCESS') {
+                    setRequests(data.requests)
+                    setUser(data.user)
+                }
+                return <div>Unable to fetch requests ....</div>
             })
         } else {
             for (let i = 0; i < requests.length; i++) {
