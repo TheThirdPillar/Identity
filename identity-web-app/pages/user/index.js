@@ -62,10 +62,10 @@ export default function UserDashboard() {
         <title>Identity - Dashboard</title>
       </Head>
       <DefaultLayout isUserSession={isUserSession} toggleSesion={(session) => setUserSession(session)} >
-        <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} />
-        <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} />
-        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} />
-        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} />
+        <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={false} />
+        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={false} />
         <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} />
       </DefaultLayout>
     </>
