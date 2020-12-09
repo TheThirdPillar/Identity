@@ -8,6 +8,7 @@ const months = ["January","February","March","April","May","June","July","August
 
 function RecordCards(props) {
   const record = props.record.recordData
+  const documents = props.record.documents.length
   let startDate, endDate
   // TODO: Add Date react component
   if (props.record.type === "education") {
@@ -26,7 +27,10 @@ function RecordCards(props) {
           text="black"
           className="mt-4 mb-4 p-1 text-center">
           <span className="text-right">
-            <CardDropdown color='#000000' handleEdit={() => props.handleEdit()} />
+            {
+              (!props.isPublic) ? <CardDropdown color='#000000' handleEdit={() => props.handleEdit()} /> : <></>
+ 
+            }
           </span>
           <Card.Body>
             <Card.Title className="text-capitalize">
@@ -38,7 +42,9 @@ function RecordCards(props) {
             <Card.Text>
               {startDate} - {endDate}
             </Card.Text>
-            <Button variant="dark" onClick={props.manageDocuments}>Manage Documents</Button>
+            {
+              (props.isPublic) ? <Button variant="dark" onClick={props.handleDocuments} disabled={(documents == 0)}>View Documents</Button> : <Button variant="dark" onClick={props.handleDocuments}>Manage Documents</Button>
+            }
           </Card.Body>
         </Card>
       </Col>

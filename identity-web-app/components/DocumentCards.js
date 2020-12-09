@@ -13,7 +13,6 @@ function DocumentCards(props) {
         <Card
           bg="light"
           text="dark"
-          border={props.verified ? "success" : "danger"}
           className="mt-4 mb-4 p-1 text-center">
           <Card.Header>
             <FcDataEncryption />

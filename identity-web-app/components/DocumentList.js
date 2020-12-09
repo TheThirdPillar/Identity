@@ -11,7 +11,7 @@ import DocumentContainer from './DocumentContainer'
 
 import connectToExtension from '../utils/extension'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 export default function DocumentList(props) {
 
@@ -23,8 +23,7 @@ export default function DocumentList(props) {
         if (selectedFile) setLoading(true)
     }, [selectedFile])
 
-    console.log(documents)
-
+    const isUserSession = Cookies.get('token')
     const [isLoading, setLoading] = useState(false)
     useEffect(() => {
         if (isLoading) {
@@ -55,6 +54,7 @@ export default function DocumentList(props) {
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'SUCCESS') {
+                                
                                 setResponse('Successfully added the document')
                                 setClass('success')
                                 setTimeout(() => {
@@ -80,7 +80,6 @@ export default function DocumentList(props) {
     const requestVerification = (index) => {
         let receiverPublicKey = 'pgmx2i0LPLqhpMXp30kEycHuwq1DmrTU7uDIArjqx30='
         let encryptedKey = documents[index].encryptedKey
-        console.log(encryptedKey)
         let request = {}
         request.query = 'share'
         request.data = {
@@ -125,6 +124,36 @@ export default function DocumentList(props) {
         })
     }
 
+    const requestAccess = (index) => {
+        if (!isUserSession) {
+            setClass('warning')
+            setResponse('Please sign in with SHIELD to request data.')
+            return
+        }
+
+        let documentId = documents[index]._id
+        let request = {}
+        request.documentId = documentId
+        fetch(domain + '/application/listen/identity/requestAccess', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + isUserSession
+            },
+            body: JSON.stringify(request)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 'SUCCESS') {
+                setClass('success')
+                setResponse('Successfully requested access to the user')
+            } else {
+                setClass('danger')
+                setResponse('Unable to request access the moment.')
+            }
+        })
+    }
+
     const viewDocument = (index) => {
         let encryptedKey = documents[index].encryptedKey
         let encryptedData = documents[index].encryptedFile
@@ -155,35 +184,69 @@ export default function DocumentList(props) {
     return (
       <DocumentContainer>
         <Table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Status</th>
-                    <th>View</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    documents.map((document, index) => {
-                      return (
-                        <tr key={index}>
-                            <td>{index}</td>
-                            <td className="text-uppercase">{(document.signed && document.signed.status) ? document.signed.status : 'Not Requested'}</td>
-                            <td><Button className="btn btn-info" size="sm" onClick={() => viewDocument(index)}>View Document</Button></td>
-                            <td><Button className="btn btn-warning" size="sm" onClick={() => requestVerification(index)} disabled={(document.signed && document.signed.status)}>Request Verification</Button></td>
-                        </tr>
-                      )  
-                    })
-                }
-            </tbody>
+            {
+                (props.isPublic) ? 
+                (
+                    <>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                documents.map((document, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{index}</td>
+                                        <td className="text-capitalize">{(document.signed && document.signed.status) ? document.signed.status : 'Not Requested'}</td>
+                                        <td><Button className="btn btn-warning" size="sm" onClick={() => requestAccess(index)} disabled={!document.signed || document.signed.status !== 'accepted'}>Request Access</Button></td>
+                                    </tr>
+                                )  
+                                })
+                            }
+                        </tbody>
+                    </>
+                ) : 
+                (
+                    <>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Status</th>
+                                <th>View</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                documents.map((document, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{index}</td>
+                                        <td className="text-capitalize">{(document.signed && document.signed.status) ? document.signed.status : 'Not Requested'}</td>
+                                        <td><Button className="btn btn-info" size="sm" onClick={() => viewDocument(index)}>View Document</Button></td>
+                                        <td><Button className="btn btn-warning" size="sm" onClick={() => requestVerification(index)} disabled={(document.signed && document.signed.status)}>Request Verification</Button></td>
+                                    </tr>
+                                )  
+                                })
+                            }
+                        </tbody>
+                    </>
+                )      
+            }
         </Table>
-        <Row>
-            <Col className="text-center">
-                <input type="file" id="actual-btn" onChange={(e) => setSelectedFile(e.target.files[0])}  hidden></input>
-                <label htmlFor="actual-btn" className="btn btn-primary"><FaUpload className="mb-1" />{isLoading ? ' Loading...' : ' Add New Document'}</label>
-            </Col>
-        </Row>
+        {
+            (props.isPublic) ? <></> : 
+            <Row>
+                <Col className="text-center">
+                    <input type="file" id="actual-btn" onChange={(e) => setSelectedFile(e.target.files[0])}  hidden></input>
+                    <label htmlFor="actual-btn" className="btn btn-primary"><FaUpload className="mb-1" />{isLoading ? ' Loading...' : ' Add New Document'}</label>
+                </Col>
+            </Row>
+        }
         <Row>
             <p className={'text-' + responseClass}>{serverRespose}</p>
         </Row>

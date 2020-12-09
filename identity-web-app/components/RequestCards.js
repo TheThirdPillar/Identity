@@ -14,8 +14,8 @@ import connectToExtension from '../utils/extension'
 import { domain } from '../config/config'
 
 function RequestCards(props) {
-    console.log(props.request)
 
+    console.log(props.request)
     var otherUser = (props.type == 'sent') ? props.request.requestedTo : props.request.requestedBy
     const [logMessage, setLog] = useState()
 
@@ -27,13 +27,19 @@ function RequestCards(props) {
     var viewDocument = () => {
         let encryptedData, encryptedKey, originalPublicKey
         encryptedData = props.request.document.encryptedFile
-        if (props.type == "sent") {
+        if (props.type == "sent" && props.request.type == 'verification') {
             encryptedKey = props.request.document.encryptedKey        
             originalPublicKey = false
-        } else {
+        } else if (props.type == "received" && props.request.type == 'verification') {
             encryptedKey = props.request.sharedKey
             originalPublicKey = props.request.requestedBy.shieldUser.publicKey
-        }
+        } else if (props.type == "sent" && props.request.type == 'access'){
+            encryptedKey = props.request.sharedKey
+            originalPublicKey = props.request.requestedTo.shieldUser.publicKey
+        } else if (props.type == "received" && props.request.type == 'access') {
+            encryptedKey = props.request.document.encryptedKey
+            originalPublicKey = false
+        } 
         let request = {}
         request.query = 'decrypt'
         request.data = {
@@ -56,23 +62,22 @@ function RequestCards(props) {
     }
 
     const handleRequest = (status) => {
-        let request = {}
-        request.query = 'sign'
-        request.data = props.request.document.encryptedFile
-        connectToExtension(request)
-        .then(response => {
-            console.log(response)
-            if (response && response.status && response.status === 'SUCCESS') {
-                // Prepare the request for API call
-                response.status = status
-                response.requestId = props.request._id
-                fetch(domain + '/application/listen/identity/handleVerification', {
+        var request = {}
+        if (props.request.type == 'access') {
+            // Handle access request
+            // Access requests need to share key,
+            // not required if declined
+            console.log('Access request')
+            if (status == 'declined') {
+                request.status = status
+                request.requestId = props.request._id
+                fetch(domain + '/application/listen/identity/handleAccess', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + Cookies.get('token')
                     },
-                    body: JSON.stringify(response)
+                    body: JSON.stringify(request)
                 })
                 .then(response => response.json())
                 .then((data) => {
@@ -80,7 +85,7 @@ function RequestCards(props) {
                         let toastData = {}
                         toastData.toastShow = true
                         toastData.toastType = 'success'
-                        toastData.toastMessage = 'Successfully signed the verification request.'
+                        toastData.toastMessage = 'Successfully declined the access request.'
                         props.handleToast(toastData)
                         setTimeout(() => {
                             location.reload()
@@ -89,7 +94,7 @@ function RequestCards(props) {
                         let toastData = {}
                         toastData.toastShow = true
                         toastData.toastType = 'danger'
-                        toastData.toastMessage = 'Unable to sign the verification requet at the moment.'
+                        toastData.toastMessage = 'Unable to sign the decline request at the moment.'
                         props.handleToast(toastData)
                         setTimeout(() => {
                             location.reload()
@@ -97,9 +102,97 @@ function RequestCards(props) {
                     }
                 })
             } else {
-                setLog('Unable to sign the document')
+                let receiverPublicKey = props.request.requestedBy.shieldUser.publicKey
+                let encryptedKey = props.request.document.encryptedKey
+                let request = {}
+                request.query = 'share'
+                request.data = {
+                    receiverPublicKey: receiverPublicKey,
+                    encryptedKey: encryptedKey
+                }
+                connectToExtension(request)
+                .then(response => {
+                    console.log(response)
+                    if (response && response.status && response.status === 'SUCCESS') {
+                        let request = {}
+                        request.status = status
+                        request.requestId = props.request._id
+                        request.sharedKey = response.sharedKey
+                        fetch(domain + '/application/listen/identity/handleAccess', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + Cookies.get('token')
+                            },
+                            body: JSON.stringify(request)
+                        })
+                        .then(response => response.json())
+                        .then((data) => {
+                            if (data.status) {
+                                let toastData = {}
+                                toastData.toastShow = true
+                                toastData.toastType = 'success'
+                                toastData.toastMessage = 'Successfully signed the verification request.'
+                                props.handleToast(toastData)
+                                setTimeout(() => {
+                                    location.reload()
+                                }, 3000)
+                            } else {
+                                setLog('Unable to give access at the moment, please try again.')
+                            }
+                        })
+                    } else {
+                        setLog('Unable to create key for access request.')
+                    }
+                })
             }
-        })
+        } else if (props.request.type == 'verification') {
+            // Handle verification requests
+            // Both accept and declined requests need to be signed.
+            request.query = 'sign'
+            request.data = props.request.document.encryptedFile
+            connectToExtension(request)
+            .then(response => {
+                console.log(response)
+                if (response && response.status && response.status === 'SUCCESS') {
+                    // Prepare the request for API call
+                    response.status = status
+                    response.requestId = props.request._id
+                    fetch(domain + '/application/listen/identity/handleVerification', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + Cookies.get('token')
+                        },
+                        body: JSON.stringify(response)
+                    })
+                    .then(response => response.json())
+                    .then((data) => {
+                        if (data.status === 'SUCCESS') {
+                            let toastData = {}
+                            toastData.toastShow = true
+                            toastData.toastType = 'success'
+                            toastData.toastMessage = 'Successfully signed the verification request.'
+                            props.handleToast(toastData)
+                            setTimeout(() => {
+                                location.reload()
+                            }, 3000)
+                        } else {
+                            let toastData = {}
+                            toastData.toastShow = true
+                            toastData.toastType = 'danger'
+                            toastData.toastMessage = 'Unable to sign the verification request at the moment.'
+                            props.handleToast(toastData)
+                            setTimeout(() => {
+                                location.reload()
+                            }, 3000)
+                        }
+                    })
+                } else {
+                    setLog('Unable to sign the document')
+                }
+            })
+        }
     }
 
     return (
@@ -121,8 +214,7 @@ function RequestCards(props) {
                             {props.request.document.record.recordData.organizationName}
                         </Card.Text>
                         <Card.Text>
-                                <Button variant="dark" className={styles.requestActionButton}  onClick={() => viewDocument()}  block>View Document</Button>
-
+                                <Button variant="dark" className={styles.requestActionButton}  onClick={() => viewDocument()} disabled={props.type == "sent" && props.request.type == "access" && props.request.status !== 'accepted'}  block>View Document</Button>
                         </Card.Text>
                     </Card.Body>
                     {

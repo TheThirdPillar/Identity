@@ -1,12 +1,52 @@
 import Head from 'next/head'
+import {  useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
+
+import Spinner from 'react-bootstrap/Spinner'
+
 import CardDeck from 'react-bootstrap/CardDeck'
 
 import DefaultLayout from '../../layout/DefaultLayout'
 import DocumentContainer from '../../components/DocumentContainer'
 import DocumentCards from '../../components/DocumentCards'
+import Toasts from '../../components/Toasts'
+
+import { domain } from '../../config/config'
 
 export default function Documents() {
-  const isUserSession = true
+  
+  const [isUserSession, setSession] = useState(Cookies.get('token'))
+  const [toastShow, setToastShow] = useState(false)
+  const [toastType, setToastType] = useState()
+  const [toastMessage, setToastMessage] = useState()
+  const [documents, setDocuments] = useState(null)
+  useEffect(() => {
+    if (documents) return
+    if (!isUserSession) return 
+    fetch(domain + '/application/listen/identity/getDocuments', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + isUserSession
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status == 'SUCCESS') {
+        console.log(data.documents)
+        setDocuments(data.documents)
+      } else {
+        setToastType('danger')
+        setToastMessage('Unable to fetch documents from the database.')
+        setToastShow(true)
+      }
+    })
+  }, [documents])
+
+  if (!documents) return (
+    <Spinner animation="grow" variant="primary" size="sm" style={{marginTop: '20%', marginLeft: '45%'}} />
+  )
+
   return (
     <DefaultLayout isUserSession={isUserSession}>
       <Head>
@@ -14,17 +54,14 @@ export default function Documents() {
       </Head>
       <DocumentContainer>
         <CardDeck>
-          <DocumentCards verified={false} />
-          <DocumentCards verified={true} />
-          <DocumentCards verified={true} />
-          <DocumentCards verified={true} />
-          <DocumentCards verified={false} />
-          <DocumentCards verified={false} />
-          <DocumentCards verified={false} />
-          <DocumentCards verified={true} />
-          <DocumentCards verified={false} />
+          {
+            documents.map((document, index) => {
+              <DocumentCards document={document} index={index} />
+            })
+          }
         </CardDeck>
       </DocumentContainer>
+      <Toasts show={toastShow} type={toastType} message={toastMessage} />
     </DefaultLayout>
   )
 }

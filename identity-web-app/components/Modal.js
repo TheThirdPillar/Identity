@@ -24,7 +24,7 @@ function CustomModal(props) {
             modalBody = <ProfessionalForm formData={props.formData.recordData} closeModal={props.onHide} />
             break
         case "5":
-            modalBody = <DocumentList recordData={props.formData} documents={props.formData.documents} closeModal={props.onHide} />
+            modalBody = <DocumentList recordData={props.formData} documents={props.formData.documents} closeModal={props.onHide} isPublic={props.isPublic} />
             break
         default:
             modalBody = ''

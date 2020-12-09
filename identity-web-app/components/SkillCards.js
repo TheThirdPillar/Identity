@@ -19,7 +19,9 @@ function SkillCards(props) {
              Endorsements: <Badge pill variant="light">{props.skill.data.endorsements.length}</Badge>
             </span>
             <span className="text-right col-6">
-              <CardDropdown color="#ffffff" data={props.skill.data} handleEdit={props.handleEdit} />
+             {
+               (!props.isPublic) ?  <CardDropdown color="#ffffff" data={props.skill.data} handleEdit={props.handleEdit} /> : <></>
+             }
             </span>
           </div>
           <Card.Header className="text-capitalize">
