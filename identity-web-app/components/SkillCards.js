@@ -20,7 +20,7 @@ function SkillCards(props) {
             </span>
             <span className="text-right col-6">
              {
-               (!props.isPublic) ?  <CardDropdown color="#ffffff" data={props.skill.data} handleEdit={props.handleEdit} /> : <></>
+               (!props.isPublic) ?  <CardDropdown color="#ffffff" data={props.skill.data} handleEdit={props.handleEdit} handleDelete={() => props.handleDelete()} /> : <></>
              }
             </span>
           </div>

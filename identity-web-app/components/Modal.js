@@ -5,6 +5,7 @@ import SkillForm from './SkillForm'
 import EducationForm from './EducationForm'
 import ProfessionalForm from './ProfessionalForm'
 import DocumentList from './DocumentList'
+import ConfirmBox from './ConfirmBox'
 
 function CustomModal(props) {
 
@@ -26,8 +27,12 @@ function CustomModal(props) {
         case "5":
             modalBody = <DocumentList recordData={props.formData} documents={props.formData.documents} closeModal={props.onHide} isPublic={props.isPublic} />
             break
+        case "6":
+            modalBody = <ConfirmBox object={props.object} closeModal={props.onHide} isPublic={false} data={props.formData} />  
+            break        
         default:
             modalBody = ''
+            break
     }
 
     return (

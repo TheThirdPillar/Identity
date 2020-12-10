@@ -11,20 +11,20 @@ function DocumentCards(props) {
     <>
       <Col xs={12} md={6} lg={4}>
         <Card
-          bg="light"
-          text="dark"
+          bg="dark"
+          text="white"
           className="mt-4 mb-4 p-1 text-center">
           <Card.Header>
             <FcDataEncryption />
           </Card.Header>
           <Card.Body>
-            <Card.Title>
-              Marksheet1
+            <Card.Title className="text-capitalize">
+              Document Title
             </Card.Title>
             <Button variant="primary">View Document</Button>
           </Card.Body>
           <Card.Footer>
-            Access <Badge variant="success">5</Badge>
+            Shared <Badge variant="success">5</Badge>
           </Card.Footer>
         </Card>
       </Col>

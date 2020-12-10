@@ -19,9 +19,8 @@ export default function Documents() {
   const [toastShow, setToastShow] = useState(false)
   const [toastType, setToastType] = useState()
   const [toastMessage, setToastMessage] = useState()
-  const [documents, setDocuments] = useState(null)
+  const [documents, setDocuments] = useState()
   useEffect(() => {
-    if (documents) return
     if (!isUserSession) return 
     fetch(domain + '/application/listen/identity/getDocuments', {
       method: 'GET',
@@ -32,8 +31,7 @@ export default function Documents() {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.status == 'SUCCESS') {
-        console.log(data.documents)
+      if (data.status == 'SUCCESS') { 
         setDocuments(data.documents)
       } else {
         setToastType('danger')
@@ -41,6 +39,11 @@ export default function Documents() {
         setToastShow(true)
       }
     })
+  }, [isUserSession])
+
+  useEffect(() => {
+    console.log("Document set")
+    console.log(documents)
   }, [documents])
 
   if (!documents) return (
@@ -56,7 +59,7 @@ export default function Documents() {
         <CardDeck>
           {
             documents.map((document, index) => {
-              <DocumentCards document={document} index={index} />
+              return <DocumentCards document={document} index={index} />
             })
           }
         </CardDeck>

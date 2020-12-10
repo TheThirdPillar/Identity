@@ -14,7 +14,7 @@ function SkillSection(props) {
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
             {props.skills.map(((skill, index) => (
-              <SkillCards key={index} isPublic={props.isPublic} skill={skill} handleEdit={() => props.handleModalShow({type: "2", data: skill})} />
+              <SkillCards key={index} isPublic={props.isPublic} skill={skill} handleEdit={() => props.handleModalShow({type: "2", data: skill})} handleDelete={() => props.handleModalShow({type: "6", data: skill, object: 'skill' })} />
             )))}
           </CardDeck>
         </Col>

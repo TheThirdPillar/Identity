@@ -28,8 +28,7 @@ function RecordCards(props) {
           className="mt-4 mb-4 p-1 text-center">
           <span className="text-right">
             {
-              (!props.isPublic) ? <CardDropdown color='#000000' handleEdit={() => props.handleEdit()} /> : <></>
- 
+              (!props.isPublic) ? <CardDropdown color='#000000' handleEdit={() => props.handleEdit()} handleDelete={() => props.handleDelete()} /> : <></>
             }
           </span>
           <Card.Body>

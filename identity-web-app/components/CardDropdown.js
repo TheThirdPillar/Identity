@@ -10,7 +10,7 @@ function CardDropdown(props) {
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 <Dropdown.Item onClick={props.handleEdit}>Edit <AiFillEdit className="float-right mt-1" /></Dropdown.Item>
-                <Dropdown.Item>Delete <AiFillDelete className="float-right mt-1" /></Dropdown.Item>
+                <Dropdown.Item onClick={props.handleDelete}>Delete <AiFillDelete className="float-right mt-1" /></Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     )
