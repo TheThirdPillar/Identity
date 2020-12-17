@@ -12,7 +12,7 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 import Toasts from './Toasts'
 import Autosuggest from './Autosuggest'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 function SkillForm(props) {
 

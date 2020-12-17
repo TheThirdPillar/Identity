@@ -223,14 +223,14 @@ export default function DocumentList(props) {
                         <tbody>
                             {
                                 documents.map((document, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{index}</td>
-                                        <td className="text-capitalize">{(document.signed && document.signed.status) ? document.signed.status : 'Not Requested'}</td>
-                                        <td><Button className="btn btn-info" size="sm" onClick={() => viewDocument(index)}>View Document</Button></td>
-                                        <td><Button className="btn btn-warning" size="sm" onClick={() => requestVerification(index)} disabled={(document.signed && document.signed.status)}>Request Verification</Button></td>
-                                    </tr>
-                                )  
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index}</td>
+                                            <td className="text-capitalize">{(document.signed && document.signed.status) ? document.signed.status : 'Not Requested'}</td>
+                                            <td><Button className="btn btn-info" size="sm" onClick={() => viewDocument(index)}>View Document</Button></td>
+                                            <td><Button className="btn btn-warning" size="sm" onClick={() => requestVerification(index)} disabled={(document.signed && document.signed.status)}>Request Verification</Button></td>
+                                        </tr>
+                                    )  
                                 })
                             }
                         </tbody>

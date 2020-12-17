@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 function Autosuggest(props) {
 

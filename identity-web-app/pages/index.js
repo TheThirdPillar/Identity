@@ -21,6 +21,9 @@ import { FaArrowCircleRight, FaFileAlt, FaCloudUploadAlt, FaStamp, FaThumbsUp, F
 
 export default function Home() {
 
+
+  // TODO: Search for token here itsel and redirect to user page if
+  // sessions exists.
   const router = useRouter()
   const [isUserSession, setUserSession] = useState(false)
   useEffect(() => {
