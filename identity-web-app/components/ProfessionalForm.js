@@ -10,7 +10,7 @@ import DatePicker from 'react-datepicker'
 import Button from 'react-bootstrap/Button'
 import Toasts from './Toasts'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 function ProfessionalForm(props) {
 

@@ -3,14 +3,13 @@ import { useState } from 'react'
 import Cookies from 'js-cookie'
 
 import Form from 'react-bootstrap/Form'
-import InputGroup from 'react-bootstrap/InputGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DatePicker from 'react-datepicker'
 import Button from 'react-bootstrap/Button'
 import Toasts from './Toasts'
 
-const domain = "http://localhost:3000"
+import { domain } from '../config/config'
 
 function EducationForm(props) {
 
