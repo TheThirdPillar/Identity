@@ -128,7 +128,7 @@ function RequestCards(props) {
                         })
                         .then(response => response.json())
                         .then((data) => {
-                            if (data.status) {
+                            if (data.status == 'SUCCESS') {
                                 let toastData = {}
                                 toastData.toastShow = true
                                 toastData.toastType = 'success'
