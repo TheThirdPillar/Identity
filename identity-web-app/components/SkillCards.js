@@ -16,7 +16,7 @@ function SkillCards(props) {
           className="m-2 p-1 text-center">
           <div className="row">
             <span className="text-left col-6">
-             Endorsements: <Badge pill variant="light">{props.skill.data.endorsements.length}</Badge>
+             Endorsements: <Badge pill variant="light">{props.skill.endorsements.length}</Badge>
             </span>
             <span className="text-right col-6">
              {
