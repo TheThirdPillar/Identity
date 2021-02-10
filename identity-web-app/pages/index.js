@@ -80,7 +80,7 @@ export default function Home() {
                 text="Every time you open your information to someone, you are paid in fiat currency." />
               <Card bg="primary" className="p-1 m-2 card-block d-flex">
                 <Card.Body className="align-items-center d-flex justify-content-center blockquote">
-                    <Link href="/"><a className={styles.cardLink}>Wait ! Are you telling me i can make money from my data ? </a></Link>
+                    <Link href="/"><a className={styles.cardLink}>Wait ! Are you telling me i can make money with my data ? </a></Link>
                 </Card.Body>
               </Card>
               </CardGroup>

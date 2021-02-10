@@ -10,7 +10,7 @@ function SkillSection(props) {
   return (
     <>
       <SectionTitle title={props.title} addButtonEnabled={!props.isPublic} handleAdd={() => props.handleModalShow({type: "2", data: {}})} />
-      <Row className="justify-content-center">
+      <Row className="justify-content-center m-2">
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
             {props.skills.map(((skill, index) => (

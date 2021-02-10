@@ -9,6 +9,7 @@ import DefaultLayout from '../../layout/DefaultLayout'
 import ProfileSection from '../../components/ProfileSection'
 import RecordSection from '../../components/RecordSection'
 import SkillSection from '../../components/SkillSection'
+import VirtueSection from '../../components/VirtueSection'
 import CustomModal from '../../components/Modal'
 
 import { domain } from '../../config/config'
@@ -34,6 +35,7 @@ export default function UserDashboard() {
         if (data.status === 'SUCCESS') {
           if (!data.user.username) return router.push('/user/onboarding')
           setUserData(data.user)
+          updateVirtues(data.user.virtues)
         } else {
           return (<h2>Unable to fetch user data.</h2>)
         }
@@ -43,6 +45,10 @@ export default function UserDashboard() {
       })
     }
   }, [isUserSession])
+
+
+  // TODO: Segregate all fields of user data
+  const [virtues, updateVirtues] = useState([])
   // Handle modal
   const [modalShow, setModalShow] = useState({show: false, form: {}})
   const handleModalShow = (form) => {
@@ -66,7 +72,8 @@ export default function UserDashboard() {
         <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={false} />
         <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={false} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} />
+        <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} />
       </DefaultLayout>
     </>
   )

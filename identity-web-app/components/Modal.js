@@ -6,6 +6,7 @@ import EducationForm from './EducationForm'
 import ProfessionalForm from './ProfessionalForm'
 import DocumentList from './DocumentList'
 import ConfirmBox from './ConfirmBox'
+import VirtueBox from './VirtueBox'
 
 function CustomModal(props) {
 
@@ -29,7 +30,10 @@ function CustomModal(props) {
             break
         case "6":
             modalBody = <ConfirmBox object={props.object} closeModal={props.onHide} isPublic={false} data={props.formData} />  
-            break        
+            break      
+        case "7":
+            modalBody = <VirtueBox virtues={props.formData.virtues} updateVirtues={(list) => {props.updateVirtues(list)}} />
+            break  
         default:
             modalBody = ''
             break
