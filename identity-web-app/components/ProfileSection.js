@@ -17,7 +17,7 @@ function ProfileSection(props) {
           <Card>
             <Row className="justify-text-center">
               <Col className="mt-2" xs={3} md={3} lg={2}>
-                <Card.Img src="/userThumbnail.png" />
+                <Image src={(props.user.avatar !== "") ? props.user.avatar : "/userThumbnail.png"} />
               </Col>
               <Col xs={9} md={9} lg={10}>
                 <Card.Body>
@@ -27,7 +27,7 @@ function ProfileSection(props) {
                     <Badge pill variant={props.user.verified ? "success" : "danger"}>
                       Verified
                     </Badge>
-                    {" "} <a href="#" className="float-right" onClick={() => props.handleModalShow({type: "1", data: props.user})} style={{display: props.isPublic ? 'none' : 'block'}}> Edit </a>
+                    {" "} <a href="#" className="float-right" onClick={() => props.handleModalShow({type: "1", data: {user: props.user, username: props.username }})} style={{display: props.isPublic ? 'none' : 'block'}}> Edit </a>
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">identity.org/{props.username}</Card.Subtitle>
                   <Card.Text>

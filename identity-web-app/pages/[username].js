@@ -9,6 +9,7 @@ import DefaultLayout from '../layout/DefaultLayout'
 import ProfileSection from '../components/ProfileSection'
 import SkillSection from '../components/SkillSection'
 import RecordSection from '../components/RecordSection'
+import VirtueSection from '../components/VirtueSection'
 import CustomModal from '../components/Modal'
 
 import { domain } from '../config/config'
@@ -65,6 +66,7 @@ export default function PublicProfile() {
                 <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={true} />
                 <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={true} />
                 <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={true} />
+                <VirtueSection title="Virtues" virtues={userData.virtues} isPublic={true} />
                 <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} isPublic={true} />
             </DefaultLayout>
         </>

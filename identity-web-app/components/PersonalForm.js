@@ -31,14 +31,14 @@ function PersonalForm(props) {
     const [inputFields, setInputFields] = useState({
         picture: null,
         avatar: "",
-        username: '',
+        username: (props.formData.username) ? props.formData.username : '',
         fullname: '',
         dob: null,
         email: {},
         phone: {},
         social: {},
         profileImage: "",
-        ...props.formData
+        ...props.formData.user
     })
 
     const [toastShow, setToastShow] = useState(false)
@@ -104,6 +104,24 @@ function PersonalForm(props) {
         // Update inputFields
         currentField["picture"] = photo
         setInputFields(currentField)
+
+        var formData = new FormData()
+        formData.append('picture', photo)
+        formData.append('file', 'profile=picture')
+
+        fetch(domain + '/application/listen/profile/upload', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + Cookies.get('token')
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.status && data.status === "SUCCESS") {
+                console.log("Success")
+            }
+        })
     }
 
 
