@@ -12,7 +12,7 @@ function ProfileSection(props) {
   return (
     <>
       <SectionTitle title="Personal Information" addButtonEnabled={false} />
-      <Row className={"justify-content-center " +  styles.section}>
+      <Row className={"justify-content-center m-2 " +  styles.section}>
         <Col xs={12} md={12} lg={10}>
           <Card>
             <Row className="justify-text-center">

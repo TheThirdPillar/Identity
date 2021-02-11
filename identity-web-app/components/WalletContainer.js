@@ -19,7 +19,7 @@ function WalletContainer(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {/* <tr>
               <td><Link href="#">Moses Sam Paul</Link></td>
               <td><Badge variant="success">Credit</Badge></td>
               <td>1400</td>
@@ -32,7 +32,7 @@ function WalletContainer(props) {
               <td>200</td>
               <td>January 3rd, 2020</td>
               <td>293054u23j4n2w34u2ih34j</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
       </Col>

@@ -21,7 +21,7 @@ function WalletCard(props) {
               </Card.Header>
               <Card.Body>
                 <Card.Title className={styles.cardTitleX2}>
-                  1200 INR
+                  0 INR
                 </Card.Title>
               </Card.Body>
             </Card>
