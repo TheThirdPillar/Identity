@@ -1,0 +1,29 @@
+.section {
+  margin-top: 15px;
+  padding: 1px;
+}
+
+.sectionTitle {
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.sectionTitle h3 {
+  display: inline;
+  color: rgba(0,0,0,.5);
+}
+
+.sectionTitle a {
+  float: right;
+  color: #007bff !important;
+}
+
+.claimCard {
+  border: 1px solid black;
+  border-radius: 2px;
+  box-shadow: 5px 5px;
+}
+
+.recordCardImage {
+  width: 40%;
+}
