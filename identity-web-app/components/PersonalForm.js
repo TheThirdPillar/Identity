@@ -31,7 +31,7 @@ function PersonalForm(props) {
     const [inputFields, setInputFields] = useState({
         picture: null,
         avatar: "",
-        username: (props.formData.username) ? props.formData.username : '',
+        username: (props.formData?.username) ? props.formData?.username : '',
         fullname: '',
         dob: null,
         email: {},
