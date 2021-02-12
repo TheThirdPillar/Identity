@@ -38,7 +38,7 @@ function PersonalForm(props) {
         phone: {},
         social: {},
         profileImage: "",
-        ...props.formData.user
+        ...props.formData?.user
     })
 
     const [toastShow, setToastShow] = useState(false)
