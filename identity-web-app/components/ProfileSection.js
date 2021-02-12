@@ -8,6 +8,8 @@ import Badge from 'react-bootstrap/Badge'
 import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
 
+import { domain } from '../config/config'
+
 function ProfileSection(props) {
   return (
     <>
@@ -16,10 +18,10 @@ function ProfileSection(props) {
         <Col xs={12} md={12} lg={10}>
           <Card>
             <Row className="justify-text-center">
-              <Col className="mt-2" xs={3} md={3} lg={2}>
-                <Image src={(props.user.avatar !== "") ? props.user.avatar : "/userThumbnail.png"} />
+              <Col xs={3} md={3} lg={3}>
+                <Image src={(props.user.avatar !== "") ? (domain + "/" + props.user.avatar) : "/userThumbnail.png"} className="m-2 p-2" />
               </Col>
-              <Col xs={9} md={9} lg={10}>
+              <Col xs={9} md={9} lg={9}>
                 <Card.Body>
                   <Card.Title className="text-capitalize">
                     {props.user.fullname}

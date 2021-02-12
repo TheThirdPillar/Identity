@@ -100,9 +100,8 @@ function PersonalForm(props) {
         // Change the avatar
         let photo = document.getElementById('profile-upload').files[0]
         let src = window.URL.createObjectURL(photo)
-        currentField["avatar"] = src
         // Update inputFields
-        currentField["picture"] = photo
+        currentField["picture"] = src
         setInputFields(currentField)
 
         var formData = new FormData()
@@ -119,7 +118,10 @@ function PersonalForm(props) {
         .then(response => response.json())
         .then((data) => {
             if (data.status && data.status === "SUCCESS") {
-                console.log("Success")
+                // TODO: Profile update handler
+                setTimeout(() => {
+                    location.reload()
+                }, 2000)
             }
         })
     }
@@ -191,7 +193,7 @@ function PersonalForm(props) {
                     <>
                         <Form.Row className="justify-content-center">
                             <Form.Group as={Col} controlId="profilePicture" xs={3} md={3} lg={3}>
-                                <Image src={(inputFields.avatar !== "") ? inputFields.avatar : "/userThumbnail.png"} rounded />
+                                <Image src={(inputFields.picture) ? (inputFields.picture) : (inputFields.avatar !== "") ? (domain + "/" + inputFields.avatar) : "/userThumbnail.png"} rounded />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
