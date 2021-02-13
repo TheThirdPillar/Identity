@@ -36,10 +36,10 @@ function ProfileSection(props) {
                     <Card.Link href="#">Email</Card.Link>
                     <Card.Link href="#">Mobile</Card.Link>
                   </Card.Text>
-                  <Card.Link href={(props.user.social.facebook) ? props.user.social.facebook : "#"}>Facebook</Card.Link>
-                  <Card.Link href={(props.user.social.twitter) ? props.user.social.twitter : "#"}>Twitter</Card.Link>
-                  <Card.Link href={(props.user.social.linkedin) ? props.user.social.linkedin : "#"}>Linkedin</Card.Link>
-                  <Card.Link href={(props.user.social.medium) ? props.user.social.medium : "#"}>Medium</Card.Link>
+                  <Card.Link href={(props.user.social?.facebook) ? props.user.social.facebook : "#"}>Facebook</Card.Link>
+                  <Card.Link href={(props.user.social?.twitter) ? props.user.social.twitter : "#"}>Twitter</Card.Link>
+                  <Card.Link href={(props.user.social?.linkedin) ? props.user.social.linkedin : "#"}>Linkedin</Card.Link>
+                  <Card.Link href={(props.user.social?.medium) ? props.user.social.medium : "#"}>Medium</Card.Link>
                 </Card.Body>
               </Col>
             </Row>
