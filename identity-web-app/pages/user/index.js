@@ -10,6 +10,8 @@ import ProfileSection from '../../components/ProfileSection'
 import RecordSection from '../../components/RecordSection'
 import SkillSection from '../../components/SkillSection'
 import VirtueSection from '../../components/VirtueSection'
+import CommunitySection from '../../components/CommunitySection'
+
 import CustomModal from '../../components/Modal'
 
 import { domain } from '../../config/config'
@@ -36,6 +38,8 @@ export default function UserDashboard() {
           if (!data.user.username) return router.push('/user/onboarding')
           setUserData(data.user)
           updateVirtues(data.user.virtues)
+          updateCommunities(data.user.communities)
+          console.log(data.user.communities)
         } else {
           return (<h2>Unable to fetch user data.</h2>)
         }
@@ -48,7 +52,9 @@ export default function UserDashboard() {
 
 
   // TODO: Segregate all fields of user data
+  // TODO: Create Backend data models for front end also
   const [virtues, updateVirtues] = useState([])
+  const [communities, updateCommunities] = useState([])
   // Handle modal
   const [modalShow, setModalShow] = useState({show: false, form: {}})
   const handleModalShow = (form) => {
@@ -70,10 +76,11 @@ export default function UserDashboard() {
       <DefaultLayout isUserSession={isUserSession} toggleSesion={(session) => setUserSession(session)} >
         <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <CommunitySection title="Communities" communities={communities} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
         <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={false} />
         <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={false} />
         <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} />
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} />
       </DefaultLayout>
     </>
   )
