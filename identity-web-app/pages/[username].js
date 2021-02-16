@@ -11,6 +11,7 @@ import SkillSection from '../components/SkillSection'
 import RecordSection from '../components/RecordSection'
 import VirtueSection from '../components/VirtueSection'
 import CustomModal from '../components/Modal'
+import CommunitySection from '../components/CommunitySection'
 
 import { domain } from '../config/config'
 
@@ -64,6 +65,7 @@ export default function PublicProfile() {
             <DefaultLayout isUserSession={isUserSession} toggleSession={(session) => setUserSession(session)}>
                 <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={true} />
                 <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={true} />
+                <CommunitySection title="Community" communities={userData.communities} isPublic={true} />
                 <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={true} />
                 <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={true} />
                 <VirtueSection title="Virtues" virtues={userData.virtues} isPublic={true} />
