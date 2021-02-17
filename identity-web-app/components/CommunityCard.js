@@ -18,13 +18,15 @@ function CommunityCards(props) {
              }
             </span>
           </div>
-          <Card.Img variant="top" src={props.community.community?.displayPicture} />
-          <Card.Header className="text-capitalize">
-            {props.community.community?.name}
-          </Card.Header>
+          <a href={props.community.community.website} target="_blank">
+            <Card.Img variant="top" src={props.community.community?.displayPicture} />
+            <Card.Header className="text-capitalize">
+              {props.community.community?.name}
+            </Card.Header>  
+          </a>
           <Card.Body>
             <Card.Title>
-              <a href={props.community.powURL} target="_blank">Click here for community profile</a>
+              <a href={props.community.powURL} target="_blank">Proof of Work</a>
             </Card.Title>
           </Card.Body>
         </Card>
