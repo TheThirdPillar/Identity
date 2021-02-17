@@ -15,10 +15,10 @@ function SkillCards(props) {
           text="white"
           className="mt-4 mb-4 p-1 text-center">
           <div className="row">
-            <span className="text-left col-6">
+            <span className="text-left col-8 mt-2">
              Endorsements: <Badge pill variant="light">{props.skill.endorsements.length}</Badge>
             </span>
-            <span className="text-right col-6">
+            <span className="text-right col-4">
              {
                (!props.isPublic) ?  <CardDropdown color="#ffffff" data={props.skill.data} handleEdit={props.handleEdit} handleDelete={() => props.handleDelete()} /> : <></>
              }
