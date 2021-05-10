@@ -11,7 +11,7 @@ import DatePicker from 'react-datepicker'
 import Button from 'react-bootstrap/Button'
 import Toasts from './Toasts'
 
-import { FaFacebookF, FaTwitter, FaLinkedin, FaMediumM } from 'react-icons/fa'
+import { FaFacebookF, FaTwitter, FaLinkedin, FaMediumM, FaYoutube } from 'react-icons/fa'
 import { HiDocumentDuplicate } from 'react-icons/hi'
 
 import { domain } from '../config/config'
@@ -85,7 +85,7 @@ function PersonalForm(props) {
             return
         }
 
-        if (e.target.name === "facebook" || e.target.name === "twitter" || e.target.name === "linkedin" || e.target.name === "medium" ) {
+        if (e.target.name === "facebook" || e.target.name === "twitter" || e.target.name === "linkedin" || e.target.name === "medium" || e.target.name === "youtube" ) {
             currentField.social[e.target.name] = e.target.value
             setInputFields(currentField)
             return
@@ -282,6 +282,16 @@ function PersonalForm(props) {
                                         <InputGroup.Text id="basic-addon1"><FaMediumM /></InputGroup.Text>
                                     </InputGroup.Prepend>
                                     <Form.Control type="text" placeholder="Add medium profile" value={inputFields.social.medium} name="medium" onChange={(e) => handleChange(e)} />
+                                </InputGroup>
+                            </Form.Group> 
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="socialFormYoutube">
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text id="basic-addon1"><FaYoutube /></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="text" placeholder="Add a smal introductory video to feature on public profile." value={inputFields.social.youtube} name="youtube" onChange={(e) => handleChange(e)} />
                                 </InputGroup>
                             </Form.Group> 
                         </Form.Row>

@@ -1,6 +1,8 @@
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 
 import CardDropdown from './CardDropdown'
 
@@ -25,7 +27,7 @@ function RecordCards(props) {
         <Card
           style={{background: '#d9d9d9'}}
           text="black"
-          className="mt-4 mb-4 p-1 text-center">
+          className="mt-2 mb-4 p-1 text-center">
           <span className="text-right">
             {
               (!props.isPublic) ? <CardDropdown color='#000000' handleEdit={() => props.handleEdit()} handleDelete={() => props.handleDelete()} /> : <></>
@@ -42,7 +44,14 @@ function RecordCards(props) {
               {startDate} - {endDate}
             </Card.Text>
             {
-              (props.isPublic) ? <Button variant="dark" onClick={props.handleDocuments} disabled={(documents == 0)}>View Documents</Button> : <Button variant="dark" onClick={props.handleDocuments}>Manage Documents</Button>
+              (props.isPublic) 
+                ? 
+                  <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Login to view</Tooltip>}>
+                    <span className="d-inline-block">
+                      <Button variant="dark" onClick={props.handleDocuments} disabled style={{ pointerEvents: 'none' }}>View Documents</Button> 
+                    </span>
+                  </OverlayTrigger>
+                : <Button variant="dark" onClick={props.handleDocuments}>Manage Documents</Button>
             }
           </Card.Body>
         </Card>

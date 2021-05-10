@@ -13,7 +13,7 @@ function SkillCards(props) {
         <Card
           bg={props.skill.data.skillTag == 'tertiary' ? 'dark' : props.skill.data.skillTag}
           text="white"
-          className="mt-4 mb-4 p-1 text-center">
+          className="mt-2 mb-4 p-1 text-center">
           <div className="row">
             <span className="text-left col-8 mt-2">
              Endorsements: <Badge pill variant="light">{props.skill.endorsements.length}</Badge>

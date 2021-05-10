@@ -9,8 +9,10 @@ import DefaultLayout from '../../layout/DefaultLayout'
 import ProfileSection from '../../components/ProfileSection'
 import RecordSection from '../../components/RecordSection'
 import SkillSection from '../../components/SkillSection'
+import SoftskillSection from '../../components/SoftskillSection'
 import VirtueSection from '../../components/VirtueSection'
 import CommunitySection from '../../components/CommunitySection'
+import VideoSection from '../../components/VideoSection'
 
 import CustomModal from '../../components/Modal'
 
@@ -37,6 +39,7 @@ export default function UserDashboard() {
         if (data.status === 'SUCCESS') {
           if (!data.user.username) return router.push('/user/onboarding')
           setUserData(data.user)
+          updateSoftskills(data.user.softskills)
           updateVirtues(data.user.virtues)
           updateCommunities(data.user.communities)
           console.log(data.user.communities)
@@ -50,9 +53,13 @@ export default function UserDashboard() {
     }
   }, [isUserSession])
 
+  // Video Section
+  const [showVideo, toggleShowVideo] = useState(false)
+  const [videoURL, setVideoURL] = useState()
 
   // TODO: Segregate all fields of user data
   // TODO: Create Backend data models for front end also
+  const [softskills, updateSoftskills] = useState([])
   const [virtues, updateVirtues] = useState([])
   const [communities, updateCommunities] = useState([])
   // Handle modal
@@ -62,6 +69,16 @@ export default function UserDashboard() {
   }
   const handleModalClose = () => {
     setModalShow({show: false, form: {}})
+  }
+
+  const handleVideo = (url) => {
+    setVideoURL(url)
+    toggleShowVideo(true)
+  }
+
+  const handleVideoClose = () => {
+      toggleShowVideo(false)
+      setVideoURL('')
   }
 
   if (!userData) return (
@@ -74,13 +91,19 @@ export default function UserDashboard() {
         <title>Identity - Dashboard</title>
       </Head>
       <DefaultLayout isUserSession={isUserSession} toggleSesion={(session) => setUserSession(session)} >
-        <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} playMedia={(url) => handleVideo(url)} />
+        {
+            (showVideo)
+                ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
+                : ""
+        }
         <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <SoftskillSection title="Softskills" softskills={softskills} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
         <CommunitySection title="Communities" communities={communities} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
         <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={false} />
         <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={false} />
-        <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} />
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} />
       </DefaultLayout>
     </>
   )

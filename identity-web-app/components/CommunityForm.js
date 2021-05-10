@@ -82,7 +82,7 @@ function CommunityForm(props) {
 
     return (
         <>
-            <Form onSubmit={() => handleSubmit()} autocomplete="off" lg={10} xs={10} md={10} className="m-2 p-1">
+            <Form onSubmit={() => handleSubmit()} autoComplete="off" lg={10} xs={10} md={10} className="m-2 p-1">
                 <Form.Group as={Row} controlId="community">
                     <Multiselect
                         options={communities}
