@@ -10,8 +10,10 @@ import ProfileSection from '../components/ProfileSection'
 import SkillSection from '../components/SkillSection'
 import RecordSection from '../components/RecordSection'
 import VirtueSection from '../components/VirtueSection'
+import SoftskillSection from '../components/SoftskillSection'
 import CustomModal from '../components/Modal'
 import CommunitySection from '../components/CommunitySection'
+import VideoSection from '../components/VideoSection'
 
 import { domain } from '../config/config'
 
@@ -20,6 +22,9 @@ export default function PublicProfile() {
     const router = useRouter()
     const { username } = router.query
 
+    // Show video 
+    const [showVideo, toggleShowVideo] = useState(false)
+    const [videoURL, setVideoURL] = useState()
     const [isUserSession, setUserSession] = useState(Cookies.get('token'))
     const [modalShow, setModalShow] = useState({show: false, form: {}})
     const [userData, setUserData] = useState()
@@ -57,18 +62,34 @@ export default function PublicProfile() {
         setModalShow({show: false, form: {}})
     }
 
+    const handleVideo = (url) => {
+        setVideoURL(url)
+        toggleShowVideo(true)
+    }
+
+    const handleVideoClose = () => {
+        toggleShowVideo(false)
+        setVideoURL('')
+    }
+    
     return (
         <>
             <Head>
                 <title>Identity - Public Profile</title>
             </Head>
             <DefaultLayout isUserSession={isUserSession} toggleSession={(session) => setUserSession(session)}>
-                <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={true} />
+                <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={true} playMedia={(url) => handleVideo(url)} />
+                {
+                    (showVideo)
+                        ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
+                        : ""
+                }
                 <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={true} />
+                <SoftskillSection title="Softskills" softskills={userData.softskills} isPublic={true} />
+                <VirtueSection title="Virtues" virtues={userData.virtues} isPublic={true} />
                 <CommunitySection title="Community" communities={userData.communities} isPublic={true} />
                 <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={true} />
                 <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={true} />
-                <VirtueSection title="Virtues" virtues={userData.virtues} isPublic={true} />
                 <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} isPublic={true} />
             </DefaultLayout>
         </>

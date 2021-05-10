@@ -9,21 +9,19 @@ import Button from 'react-bootstrap/Button'
 import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
 
-function VirtueSection(props) {
-
-    const virtues = ['honesty', 'integrity', 'hardwork']
+function SoftskillSection(props) {
 
     return (
         <>
-            <SectionTitle title={props.title} addButtonEnabled={!props.isPublic} handleAdd={() => props.handleModalShow({type: "7", data: {virtues: props.virtues}})} />
+            <SectionTitle title={props.title} addButtonEnabled={!props.isPublic} handleAdd={() => props.handleModalShow({type: "9", data: {softskills: props.softskills}})} />
             <Row className="justify-content-center m-2">
                 <Col xs={12} md={12} lg={12}>
                     <CardDeck className={styles.section}>
                         {
-                            props.virtues.map((virtue, index) => {
+                            props.softskills.map((softskill, index) => {
                                 return (
-                                    <Button variant="info" key={index} className="text-uppercase p-4 m-2">
-                                        {virtue} <Badge variant="light">0</Badge>
+                                    <Button variant="warning" key={index} className="text-uppercase p-4 m-2">
+                                        {softskill} <Badge variant="light">0</Badge>
                                     </Button>
                                 )
                             })
@@ -35,4 +33,4 @@ function VirtueSection(props) {
     )
 }
 
-export default VirtueSection
+export default SoftskillSection

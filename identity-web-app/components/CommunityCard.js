@@ -10,7 +10,7 @@ function CommunityCards(props) {
       <Col xs={12} md={12} lg={4}>
         <Card
           bg="light"
-          className="mt-4 mb-4 p-1 text-center">
+          className="mt-2 mb-4 p-1 text-center">
           <div className="row">
             <span className="text-right col-12">
              {
