@@ -24,7 +24,7 @@ function RequestPrivateDataForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch(domain + '/application/listen/identity/requestPrivateDataByEmail', {
+        fetch(domain + '/user/requestPrivateDataByEmail', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
