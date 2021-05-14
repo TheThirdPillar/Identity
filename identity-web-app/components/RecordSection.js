@@ -17,7 +17,7 @@ function RecordSection(props) {
         <Col xs={12} md={12} lg={12}>
           <CardDeck className={styles.section}>
             {
-              props.records.map(((record, index) => (
+              props.records?.map(((record, index) => (
                 <RecordCards key={index} isPublic={props.isPublic} record={record} handleEdit={() => props.handleModalShow({type: formType, data: record})} handleDocuments={() => props.handleModalShow({type: "5", data: record})} handleDelete={() => props.handleModalShow({type: "6", data: record, object: 'record' })} />
               )))
             }

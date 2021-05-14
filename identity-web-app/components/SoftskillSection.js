@@ -18,7 +18,7 @@ function SoftskillSection(props) {
                 <Col xs={12} md={12} lg={12}>
                     <CardDeck className={styles.section}>
                         {
-                            props.softskills.map((softskill, index) => {
+                            props.softskills?.map((softskill, index) => {
                                 return (
                                     <Button variant="warning" key={index} className="text-uppercase p-4 m-2">
                                         {softskill} <Badge variant="light">0</Badge>

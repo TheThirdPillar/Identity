@@ -2,26 +2,11 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import ReactPlayer from 'react-player/youtube'
-import { Transition } from 'react-transition-group'
 
 import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
 
 import { GrClose } from 'react-icons/gr'
-
-const duration = 300
-const defaultStyle = {
-    transition: `opacity ${duration}ms ease-in-out`,
-    opacity: 0,
-}
-
-const transitionStyle = {
-    entering: { opacity: 1},
-    entered: { opacity : 1},
-    exiting: {opacity: 0},
-    exited: {opacity: 0},
-}
-
 
 function VideoSection(props) {
   return (
