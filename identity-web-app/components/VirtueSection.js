@@ -20,7 +20,7 @@ function VirtueSection(props) {
                 <Col xs={12} md={12} lg={12}>
                     <CardDeck className={styles.section}>
                         {
-                            props.virtues.map((virtue, index) => {
+                            props.virtues?.map((virtue, index) => {
                                 return (
                                     <Button variant="info" key={index} className="text-uppercase p-4 m-2">
                                         {virtue} <Badge variant="light">0</Badge>
