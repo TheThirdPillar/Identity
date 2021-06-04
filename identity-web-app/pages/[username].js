@@ -7,6 +7,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 import DefaultLayout from '../layout/DefaultLayout'
 import ProfileSection from '../components/ProfileSection'
+import WellBeingSection from '../components/WellBeingSection'
 import SkillSection from '../components/SkillSection'
 import RecordSection from '../components/RecordSection'
 import VirtueSection from '../components/VirtueSection'
@@ -102,6 +103,7 @@ export default function PublicProfile() {
                         ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
                         : ""
                 }
+                <WellBeingSection title="Well-being Score" subtitle={userData.wellbeing?.validator} />
                 <SkillSection title="Skills" skills={userData?.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={true} />
                 <SoftskillSection title="Softskills" softskills={userData?.softskills} isPublic={true} />
                 <VirtueSection title="Virtues" virtues={userData?.virtues} isPublic={true} />

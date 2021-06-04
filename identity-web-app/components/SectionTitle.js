@@ -9,7 +9,7 @@ function SectionTitle(props) {
   return (
     <Row className={"justify-content-center " + styles.sectionTitle}>
       <Col xs={12} md={12} lg={12}>
-        <h3>{props.title}</h3>
+        <h3>{props.title}<span className={"ml-2 " + styles.sectionSubtitle}>{props.subtitle}</span></h3>
         {
           (props.addButtonEnabled) ? 
             <a onClick={props.handleAdd} className="btn">

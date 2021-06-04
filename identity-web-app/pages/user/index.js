@@ -13,6 +13,7 @@ import SoftskillSection from '../../components/SoftskillSection'
 import VirtueSection from '../../components/VirtueSection'
 import CommunitySection from '../../components/CommunitySection'
 import VideoSection from '../../components/VideoSection'
+import WellBeingSection from '../../components/WellBeingSection'
 
 import CustomModal from '../../components/Modal'
 
@@ -97,6 +98,7 @@ export default function UserDashboard() {
                 ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
                 : ""
         }
+        <WellBeingSection title="Well-being Score" subtitle={userData.wellbeing?.validator} />
         <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <SoftskillSection title="Softskills" softskills={softskills} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
