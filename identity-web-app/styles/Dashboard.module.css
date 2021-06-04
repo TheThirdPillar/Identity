@@ -18,6 +18,11 @@
   color: #007bff !important;
 }
 
+.sectionSubtitle {
+  display: inline;
+  font-size: small;
+}
+
 .claimCard {
   border: 1px solid black;
   border-radius: 2px;
@@ -26,4 +31,8 @@
 
 .recordCardImage {
   width: 40%;
+}
+
+.wellBeingScore {
+  font-size: 4em;
 }

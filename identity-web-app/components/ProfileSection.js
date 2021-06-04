@@ -1,9 +1,10 @@
-import Link from 'next/link'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import Badge from 'react-bootstrap/Badge'
+
+import QRCode from "react-qr-code"
 
 import styles from '../styles/Dashboard.module.css'
 import SectionTitle from './SectionTitle'
@@ -69,7 +70,7 @@ function ProfileSection(props) {
           </Card>
         </Col>
         <Col xs={12} md={12} lg={2}>
-          <Image src="/qrcode.png" />
+          <QRCode value={"https://identity.skillschain.org/" + props.username} size="148" className="mt-4" />
         </Col>
       </Row>
     </>
