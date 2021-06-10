@@ -8,12 +8,15 @@ import Button from 'react-bootstrap/Button'
 import { FaUpload } from 'react-icons/fa'
 
 import DocumentContainer from './DocumentContainer'
+import ExplorerButton from './ExplorerButton'
 
 import connectToExtension from '../utils/extension'
 
 import { domain } from '../config/config'
 
 export default function DocumentList(props) {
+
+    console.log(props.documents)
 
     const [serverRespose, setResponse] = useState()
     const [responseClass, setClass] = useState()
@@ -78,7 +81,7 @@ export default function DocumentList(props) {
     }, [isLoading])
 
     const requestVerification = (index) => {
-        let receiverPublicKey = 'zmusHDSFgP256uUyuZurw0C8+PSV6e1RT7xQIb1Jn10='
+        let receiverPublicKey = '2ENK/8NCxTfwktvP94GIug5JhvJOuxkQPQfNQhs3KIQ='
         let encryptedKey = documents[index].encryptedKey
         let request = {}
         request.query = 'share'
@@ -218,6 +221,7 @@ export default function DocumentList(props) {
                                 <th>Status</th>
                                 <th>View</th>
                                 <th>Action</th>
+                                <th>Explorer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -229,6 +233,7 @@ export default function DocumentList(props) {
                                             <td className="text-capitalize">{(document.signed && document.signed.status) ? document.signed.status : 'Not Requested'}</td>
                                             <td><Button className="btn btn-info" size="sm" onClick={() => viewDocument(index)}>View Document</Button></td>
                                             <td><Button className="btn btn-warning" size="sm" onClick={() => requestVerification(index)} disabled={(document.signed && document.signed.status)}>Request Verification</Button></td>
+                                            <td><ExplorerButton document={document} /></td>
                                         </tr>
                                     )  
                                 })
