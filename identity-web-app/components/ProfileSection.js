@@ -70,7 +70,7 @@ function ProfileSection(props) {
           </Card>
         </Col>
         <Col xs={12} md={12} lg={2}>
-          <QRCode value={"https://identity.skillschain.org/" + props.username} size="148" className="mt-4" />
+          <QRCode value={"https://identity.skillschain.org/" + props.username} size={148} className="mt-4" />
         </Col>
       </Row>
     </>
