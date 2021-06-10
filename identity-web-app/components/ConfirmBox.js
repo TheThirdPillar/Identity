@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/Button'
 
 export default function ConfirmBox(props) {
 
-    console.log(props.object)
-
     const deleteItem = () => {
         let request = {}
         request.objectId = props.data._id
