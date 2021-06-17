@@ -36,3 +36,7 @@
 .wellBeingScore {
   font-size: 4em;
 }
+
+.wellBeingScoreTotal {
+  font-size: 1em !important;
+}

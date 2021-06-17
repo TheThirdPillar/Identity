@@ -10,6 +10,7 @@ import VirtueBox from './VirtueBox'
 import SoftskillBox from './SoftskillBox'
 import CommunityForm from './CommunityForm'
 import RequestPrivateDataForm from './RequestPrivateDataForm'
+import WellBeingForm from './WellBeingForm'
 
 function CustomModal(props) {
 
@@ -42,6 +43,9 @@ function CustomModal(props) {
             break
         case "9":
             modalBody = <SoftskillBox softskills={props.formData.softskills} closeModal={props.onHide} updateSoftskills={(list) => {props.updateSoftskills(list)}} />
+            break
+        case "10":
+            modalBody = <WellBeingForm />
             break
         case "11": 
             modalBody = <RequestPrivateDataForm closeModal={props.onHide} userData={props.formData} />
