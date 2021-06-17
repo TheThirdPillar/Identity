@@ -30,7 +30,7 @@ function ProfileSection(props) {
                     {props.user?.fullname}
                     {" "}
                     <Badge pill variant={props.user?.verified ? "success" : "danger"}>
-                      Verified
+                      {(props.user?.verified) ? "Verified" : "Not Verified"}
                     </Badge>
                     {" "} 
                     <span className="float-right">

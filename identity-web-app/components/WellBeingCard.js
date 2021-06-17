@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
 import styles from '../styles/Dashboard.module.css'
@@ -14,10 +14,10 @@ export default function WellBeingCard (props) {
             <Card className="text-center bg-dark text-white">
                 <Card.Body>
                     <Card.Title>Overall Score</Card.Title>
-                    <Card.Text className={styles.wellBeingScore + " font-weight-bold"}>
-                        0/100
+                    <Card.Text className={styles.wellBeingScore + " font-weight-bold mt-4"}>
+                        {props.score}<span className={styles.wellBeingScoreTotal}>/100</span>
                     </Card.Text>
-                    <Button variant="dark" disabled>View Details</Button>
+                    {/* <Button variant="dark" disabled>View Details</Button> */}
                 </Card.Body>
                 <Card.Footer className="text-muted">Last updated: 2 days ago</Card.Footer>
             </Card>
