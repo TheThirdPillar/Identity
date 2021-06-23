@@ -8,7 +8,29 @@ import ThinkingForm from './ThinkingForm'
 import BehaviorForm from './BehaviorForm'
 import ResultsForm from './ResultsForm'
 
-function WellBeingForm () {
+function WellBeingForm (props) {
+
+    // Filter the stack and pass it to relevant cards
+    // TODO: Find better way to do this
+    let physiologyStack = props.stacks.find(stack => {
+        return stack.stackName === 'physiology'
+    })
+    let energyStack = props.stacks.find(stack => {
+        return stack.stackName === 'energy'
+    })
+    let feelingStack = props.stacks.find(stack => {
+        return stack.stackName === 'feeling'
+    })
+    let thinkingStack = props.stacks.find(stack => {
+        return stack.stackName === 'thinking'
+    })
+    let behaviorStack = props.stacks.find(stack => {
+        return stack.stackName === 'behavior'
+    })
+    let resultStack = props.stacks.find(stack => {
+        return stack.stackName === 'result'
+    })
+
     return (
         <>
             <h4 className="text-center">Well Being Form - Powered by Stranger Sapiens</h4>
@@ -21,7 +43,7 @@ function WellBeingForm () {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <PhysiologyForm />
+                        <PhysiologyForm values={physiologyStack?.stackRatings} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -33,7 +55,7 @@ function WellBeingForm () {
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
                     <Card.Body>
-                        <EnergyForm />
+                        <EnergyForm values={energyStack?.stackRatings} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -45,7 +67,7 @@ function WellBeingForm () {
                     </Card.Header>
                     <Accordion.Collapse eventKey="2">
                     <Card.Body>
-                        <FeelingForm />
+                        <FeelingForm values={feelingStack?.stackRatings} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -57,7 +79,7 @@ function WellBeingForm () {
                     </Card.Header>
                     <Accordion.Collapse eventKey="3">
                     <Card.Body>
-                        <ThinkingForm />
+                        <ThinkingForm values={thinkingStack?.stackRatings} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -69,7 +91,7 @@ function WellBeingForm () {
                     </Card.Header>
                     <Accordion.Collapse eventKey="4">
                     <Card.Body>
-                        <BehaviorForm />
+                        <BehaviorForm values={behaviorStack?.stackRatings} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -81,7 +103,7 @@ function WellBeingForm () {
                     </Card.Header>
                     <Accordion.Collapse eventKey="5">
                     <Card.Body>
-                        <ResultsForm />
+                        <ResultsForm values={resultStack?.stackRatings} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
