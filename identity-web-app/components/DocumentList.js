@@ -81,7 +81,7 @@ export default function DocumentList(props) {
     }, [isLoading])
 
     const requestVerification = (index) => {
-        let receiverPublicKey = '2ENK/8NCxTfwktvP94GIug5JhvJOuxkQPQfNQhs3KIQ='
+        let receiverPublicKey = 'OQGTLncriKTgxtzOX0NEGB8OpbE6+ZHnSR7Y/xRobaM='
         let encryptedKey = documents[index].encryptedKey
         let request = {}
         request.query = 'share'
