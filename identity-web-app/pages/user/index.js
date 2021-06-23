@@ -98,7 +98,7 @@ export default function UserDashboard() {
                 ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
                 : ""
         }
-        <WellBeingSection title="Well-being Score" subtitle={userData.wellbeing?.validator} />
+        <WellBeingSection title="Well-being Score" validator={userData.wellBeingValidator} stacks={userData.wellBeingStacks} score={userData.wellBeingScore} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <SoftskillSection title="Softskills" softskills={softskills} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
