@@ -19,7 +19,7 @@ export default function WellBeingCard (props) {
                     </Card.Text>
                     {/* <Button variant="dark" disabled>View Details</Button> */}
                 </Card.Body>
-                <Card.Footer className="text-muted">Last updated: 2 days ago</Card.Footer>
+                <Card.Footer className="text-muted">Last validated: 0 days ago</Card.Footer>
             </Card>
             <Card className="bg-dark text-white p-1">
                 <Card.Body>
