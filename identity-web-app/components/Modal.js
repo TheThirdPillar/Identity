@@ -45,7 +45,7 @@ function CustomModal(props) {
             modalBody = <SoftskillBox softskills={props.formData.softskills} closeModal={props.onHide} updateSoftskills={(list) => {props.updateSoftskills(list)}} />
             break
         case "10":
-            modalBody = <WellBeingForm />
+            modalBody = <WellBeingForm stacks={props.formData} />
             break
         case "11": 
             modalBody = <RequestPrivateDataForm closeModal={props.onHide} userData={props.formData} />
