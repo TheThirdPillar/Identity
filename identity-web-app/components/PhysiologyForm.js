@@ -5,22 +5,47 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-function PhysilogyForm () {
+import { domain } from '../config/config'
+
+function PhysilogyForm (props) {
 
     const [inputFields, setInputFields] = useState({
         q1: 0,
         q2: 0,
         q3: 0,
-        q4: 0
+        q4: 0,
+        ...props.values
     })
 
+    const [hasChanged, toggleHasChanged] = useState(false)
+
     useEffect(() => {
-        console.log("Change detected: " + JSON.stringify(inputFields));
+        if (hasChanged) {
+
+            let formData = {
+                stackName: 'physiology',
+                stackRatings: inputFields
+            }
+            fetch(domain + '/application/listen/identity/handleProductivityStack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + Cookies.get('token')
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data)
+                toggleHasChanged(false)
+            })
+        }
     }, [inputFields])
 
     const handleChange = (e) => {
         let currentField = {...inputFields}
         currentField[e.target.name] = e.target.value
+        toggleHasChanged(true)
         setInputFields(currentField)
         return
     }

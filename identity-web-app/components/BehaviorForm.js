@@ -1,22 +1,51 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-function BehaviorForm () {
+import { domain } from '../config/config'
+
+function BehaviorForm (props) {
 
     const [inputFields, setInputFields] = useState({
         q1: 0,
         q2: 0,
         q3: 0,
-        q4: 0
+        q4: 0,
+        ...props.values
     })
+
+    const [hasChanged, toggleHasChanged] = useState(false)
+
+    useEffect(() => {
+        if (hasChanged) {
+
+            let formData = {
+                stackName: 'behavior',
+                stackRatings: inputFields
+            }
+            fetch(domain + '/application/listen/identity/handleProductivityStack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + Cookies.get('token')
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data)
+                toggleHasChanged(false)
+            })
+        }
+    }, [inputFields])
 
     const handleChange = (e) => {
         let currentField = {...inputFields}
         currentField[e.target.name] = e.target.value
+        toggleHasChanged(true)
         setInputFields(currentField)
         return
     }
