@@ -9,6 +9,39 @@ import styles from '../styles/Dashboard.module.css'
 
 export default function WellBeingCard (props) {
 
+
+    // TODO: Find better way to do this.
+    // TODO: Pre-calculate and change calculateScore implementation.
+
+
+    let physiologyStack = props.stacks.find(stack => {
+        return stack.stackName === 'physiology'
+    })
+    let energyStack = props.stacks.find(stack => {
+        return stack.stackName === 'energy'
+    })
+    let feelingStack = props.stacks.find(stack => {
+        return stack.stackName === 'feeling'
+    })
+    let thinkingStack = props.stacks.find(stack => {
+        return stack.stackName === 'thinking'
+    })
+    let behaviorStack = props.stacks.find(stack => {
+        return stack.stackName === 'behavior'
+    })
+    let resultStack = props.stacks.find(stack => {
+        return stack.stackName === 'result'
+    })
+
+    const calculateScore = (ratings) => {
+        let score = 0
+        for (var q of Object.keys(ratings)) {
+            console.log(Number(ratings[q]))
+            score = score +  Number(ratings[q])
+        }
+        return ((score * 10) / 4)
+    }
+
     return (
         <CardDeck className={styles.section}>
             <Card className="text-center bg-dark text-white">
@@ -27,29 +60,29 @@ export default function WellBeingCard (props) {
                         <Col xs={6} md={6} lg={6}>
                             <Card.Text className="mt-1">
                                 Physiology
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />
+                                <ProgressBar now={calculateScore(physiologyStack.stackRatings)} label={calculateScore(physiologyStack.stackRatings) + "%"} variant="warning" className="mt-1" />
                             </Card.Text>
                             <Card.Text className="mt-1">
                                 Energy
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
+                                <ProgressBar now={calculateScore(energyStack.stackRatings)} label={calculateScore(energyStack.stackRatings) + "%"} variant="warning" className="mt-1" />    
                             </Card.Text>
                             <Card.Text className="mt-1">
                                 Feeling
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
+                                <ProgressBar now={calculateScore(feelingStack.stackRatings)} label={calculateScore(feelingStack.stackRatings) + "%"} variant="warning" className="mt-1" />    
                             </Card.Text>
                         </Col>
                         <Col xs={6} md={6} lg={6}>
                             <Card.Text className="mt-1">
                                 Thinking
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
+                                <ProgressBar now={calculateScore(thinkingStack.stackRatings)} label={calculateScore(thinkingStack.stackRatings) + "%"} variant="warning" className="mt-1" />    
                             </Card.Text>
                             <Card.Text className="mt-1">
                                 Behavior
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />
+                                <ProgressBar now={calculateScore(behaviorStack.stackRatings)} label={calculateScore(behaviorStack.stackRatings) + "%"} variant="warning" className="mt-1" />
                             </Card.Text>
                             <Card.Text className="mt-1">
                                 Results
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
+                                <ProgressBar now={calculateScore(resultStack.stackRatings)} label={calculateScore(resultStack.stackRatings) + "%"} variant="warning" className="mt-1" />    
                             </Card.Text>
                         </Col>
                     </Row>
