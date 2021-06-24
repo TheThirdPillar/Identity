@@ -37,7 +37,10 @@ function BehaviorForm (props) {
             .then(response => response.json())
             .then((data) => {
                 console.log(data)
-                toggleHasChanged(false)
+                if (data.status && data.status === 'SUCCESS') {
+                    props.updateStack()
+                    toggleHasChanged(false)
+                }
             })
         }
     }, [inputFields])
