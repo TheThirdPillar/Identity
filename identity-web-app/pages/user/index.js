@@ -119,7 +119,7 @@ export default function UserDashboard() {
         <title>Identity - Dashboard</title>
       </Head>
       <DefaultLayout isUserSession={isUserSession} toggleSesion={(session) => setUserSession(session)} >
-        <ProfileSection user={userData?.profile} username={userData?.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} playMedia={(url) => handleVideo(url)} />
+        <ProfileSection user={userData?.profile} username={userData?.username} documents={userData?.identityDocuments}  handleModalShow={(form) => handleModalShow(form)} isPublic={false} playMedia={(url) => handleVideo(url)} />
         {
             (showVideo)
                 ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
