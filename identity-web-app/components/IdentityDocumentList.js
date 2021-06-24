@@ -44,8 +44,7 @@ export default function DocumentList(props) {
                         let requestBody = {}
                         requestBody.encryptedFile = response.encryptedFile
                         requestBody.encryptedKey = response.encryptedKey
-                        requestBody.recordId = props.recordData._id
-                        fetch(domain + '/application/listen/identity/addDocument', {
+                        fetch(domain + '/application/listen/identity/handleIdentityDocument', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

@@ -301,7 +301,7 @@ function PersonalForm(props) {
                     {fullForm &&
                         <>
                             <Col>
-                                <Button variant="dark" className="btn m-1">Manage Documents | <HiDocumentDuplicate /></Button>
+                                <Button variant="dark" className="btn m-1" onClick={() => props.handleIdentityDocuments()}>Manage Documents | <HiDocumentDuplicate /></Button>
                             </Col>
                         </>
                     }

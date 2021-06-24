@@ -103,6 +103,12 @@ export default function UserDashboard() {
     })
   }, [productivityStacks])
 
+  const handleIdentityDocuments = () => {
+    handleModalClose()
+    console.log(userData.identityDocuments)
+    handleModalShow({type: "12", data: userData.identityDocuments})
+  }
+
   if (!userData && !productivityStacks) return (
     <Spinner animation="grow" variant="primary" size="sm" style={{marginTop: '20%', marginLeft: '45%'}} />
   )
@@ -126,7 +132,7 @@ export default function UserDashboard() {
         <CommunitySection title="Communities" communities={communities} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
         <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData?.educationRecords} isPublic={false} />
         <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData?.professionalRecords} isPublic={false} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} updateStack={() => updateStack()} />
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} updateStack={() => updateStack()} handleIdentityDocuments={() => handleIdentityDocuments()}/>
       </DefaultLayout>
     </>
   )
