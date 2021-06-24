@@ -207,7 +207,7 @@ function RequestCards(props) {
                         <Card.Title className={styles.cardTitleX1}>
                         </Card.Title>
                         <Card.Text className="text-capitalize font-weight-bold">
-                            {props.request.document.record.recordData.organizationName}
+                            {props.request.document.record?.recordData.organizationName}
                         </Card.Text>
                         <Card.Text>
                                 <Button variant="dark" className={styles.requestActionButton}  onClick={() => viewDocument()} disabled={props.type == "sent" && props.request.type == "access" && props.request.status !== 'accepted'}  block>View Document</Button>
