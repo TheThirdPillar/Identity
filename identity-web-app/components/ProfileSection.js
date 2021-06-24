@@ -14,6 +14,13 @@ import { FaPlay } from 'react-icons/fa'
 import { domain } from '../config/config'
 
 function ProfileSection(props) {
+
+  const isVerified = (documents) => {
+    console.log(documents)
+    if (documents?.filter(document => {return document.signed.status === 'accepted'}).length > 0) return true
+    return false
+  }
+
   return (
     <>
       <SectionTitle title="Personal Information" addButtonEnabled={false} />
@@ -29,8 +36,8 @@ function ProfileSection(props) {
                   <Card.Title className="text-capitalize">
                     {props.user?.fullname}
                     {" "}
-                    <Badge pill variant={props.user?.verified ? "success" : "danger"}>
-                      {(props.user?.verified) ? "Verified" : "Not Verified"}
+                    <Badge pill variant={isVerified(props.documents) ? "success" : "danger"}>
+                      {isVerified(props.documents) ? "Verified" : "Not Verified"}
                     </Badge>
                     {" "} 
                     <span className="float-right">
