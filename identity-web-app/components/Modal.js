@@ -10,6 +10,8 @@ import VirtueBox from './VirtueBox'
 import SoftskillBox from './SoftskillBox'
 import CommunityForm from './CommunityForm'
 import RequestPrivateDataForm from './RequestPrivateDataForm'
+import WellBeingForm from './WellBeingForm'
+import IdentityDocumentList from './IdentityDocumentList'
 
 function CustomModal(props) {
 
@@ -17,7 +19,7 @@ function CustomModal(props) {
 
     switch(props.form) {
         case "1":
-            modalBody = <PersonalForm formData={props.formData} fullForm={true} closeModal={props.onHide} />
+            modalBody = <PersonalForm formData={props.formData} fullForm={true} handleIdentityDocuments={props.handleIdentityDocuments} closeModal={props.onHide} />
             break
         case "2":
             modalBody = <SkillForm formData={props.formData.data} closeModal={props.onHide} />
@@ -43,8 +45,14 @@ function CustomModal(props) {
         case "9":
             modalBody = <SoftskillBox softskills={props.formData.softskills} closeModal={props.onHide} updateSoftskills={(list) => {props.updateSoftskills(list)}} />
             break
+        case "10":
+            modalBody = <WellBeingForm stacks={props.formData} updateStack={() => props.updateStack()} />
+            break
         case "11": 
             modalBody = <RequestPrivateDataForm closeModal={props.onHide} userData={props.formData} />
+            break
+        case "12":
+            modalBody = <IdentityDocumentList documents={props.formData} closeModal={props.onHide} isPublic={false} />
             break
         default:
             modalBody = ''

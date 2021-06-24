@@ -22,9 +22,13 @@ import { domain } from '../../config/config'
 export default function UserDashboard() {
 
   const router = useRouter()
-  
   const [isUserSession, setUserSession] = useState(Cookies.get('token'))
   const [userData, setUserData] = useState()
+
+  // Video Section
+  const [showVideo, toggleShowVideo] = useState(false)
+  const [videoURL, setVideoURL] = useState()
+
   useEffect(() => {
     if (!userData && !isUserSession) router.push('/')
     if (!userData && isUserSession) {
@@ -40,29 +44,28 @@ export default function UserDashboard() {
         if (data.status === 'SUCCESS') {
           if (!data.user.username) return router.push('/user/onboarding')
           setUserData(data.user)
+          updateProductivityStacks(data.user.wellBeingStacks)
           updateSoftskills(data.user.softskills)
           updateVirtues(data.user.virtues)
           updateCommunities(data.user.communities)
-          console.log(data.user.communities)
         } else {
           return (<h2>Unable to fetch user data.</h2>)
         }
       })
       .catch(error => {
+        console.error(error)
         return (<h2>Unable to fetch user data.</h2>)
       })
     }
   }, [isUserSession])
-
-  // Video Section
-  const [showVideo, toggleShowVideo] = useState(false)
-  const [videoURL, setVideoURL] = useState()
 
   // TODO: Segregate all fields of user data
   // TODO: Create Backend data models for front end also
   const [softskills, updateSoftskills] = useState([])
   const [virtues, updateVirtues] = useState([])
   const [communities, updateCommunities] = useState([])
+  const [productivityStacks, updateProductivityStacks] = useState([])
+
   // Handle modal
   const [modalShow, setModalShow] = useState({show: false, form: {}})
   const handleModalShow = (form) => {
@@ -82,7 +85,31 @@ export default function UserDashboard() {
       setVideoURL('')
   }
 
-  if (!userData) return (
+  const updateStack = () => {
+    // Pass the updated stack
+    // update `productivityStack`
+    console.log("Stack updated")
+  }
+
+  const [overallScore, updateOverallScore] = useState(0)
+  useEffect(() => {
+    if (!productivityStacks || productivityStacks.length == 0) return  
+    productivityStacks?.forEach(stack => {
+        let score = 0
+        for (var q of Object.keys(stack.stackRatings)) {
+            score = score + Number(stack.stackRatings[q])
+        }
+        updateOverallScore(overallScore => overallScore + score)
+    })
+  }, [productivityStacks])
+
+  const handleIdentityDocuments = () => {
+    handleModalClose()
+    console.log(userData.identityDocuments)
+    handleModalShow({type: "12", data: userData.identityDocuments})
+  }
+
+  if (!userData && !productivityStacks) return (
     <Spinner animation="grow" variant="primary" size="sm" style={{marginTop: '20%', marginLeft: '45%'}} />
   )
 
@@ -92,20 +119,20 @@ export default function UserDashboard() {
         <title>Identity - Dashboard</title>
       </Head>
       <DefaultLayout isUserSession={isUserSession} toggleSesion={(session) => setUserSession(session)} >
-        <ProfileSection user={userData.profile} username={userData.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} playMedia={(url) => handleVideo(url)} />
+        <ProfileSection user={userData?.profile} username={userData?.username} handleModalShow={(form) => handleModalShow(form)} isPublic={false} playMedia={(url) => handleVideo(url)} />
         {
             (showVideo)
                 ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
                 : ""
         }
-        <WellBeingSection title="Well-being Score" validator={userData.wellBeingValidator} stacks={userData.wellBeingStacks} score={userData.wellBeingScore} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
-        <SkillSection title="Skills" skills={userData.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <WellBeingSection title="Well-being Score" validation={userData?.wellBeingValidation} score={overallScore} stacks={productivityStacks} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <SkillSection title="Skills" skills={userData?.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <SoftskillSection title="Softskills" softskills={softskills} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
         <CommunitySection title="Communities" communities={communities} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
-        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData.educationRecords} isPublic={false} />
-        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData.professionalRecords} isPublic={false} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} />
+        <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData?.educationRecords} isPublic={false} />
+        <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData?.professionalRecords} isPublic={false} />
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} updateStack={() => updateStack()} handleIdentityDocuments={() => handleIdentityDocuments()}/>
       </DefaultLayout>
     </>
   )

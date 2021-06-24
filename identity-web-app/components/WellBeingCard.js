@@ -1,7 +1,7 @@
-import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import CardDeck from 'react-bootstrap/CardDeck'
 import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
@@ -9,54 +9,97 @@ import styles from '../styles/Dashboard.module.css'
 
 export default function WellBeingCard (props) {
 
+
+    // TODO: Find better way to do this.
+    // TODO: Pre-calculate and change calculateScore implementation.
+
+
+    let physiologyStack = props.stacks?.find(stack => {
+        return stack.stackName === 'physiology'
+    })
+    let energyStack = props.stacks?.find(stack => {
+        return stack.stackName === 'energy'
+    })
+    let feelingStack = props.stacks?.find(stack => {
+        return stack.stackName === 'feeling'
+    })
+    let thinkingStack = props.stacks?.find(stack => {
+        return stack.stackName === 'thinking'
+    })
+    let behaviorStack = props.stacks?.find(stack => {
+        return stack.stackName === 'behavior'
+    })
+    let resultStack = props.stacks?.find(stack => {
+        return stack.stackName === 'result'
+    })
+
+    const calculateScore = (ratings) => {
+        if (!ratings) return 0
+        let score = 0
+        for (var q of Object.keys(ratings)) {
+            score = score +  Number(ratings[q])
+        }
+        return ((score * 10) / 4)
+    }
+
     return (
-        <CardDeck className={styles.section}>
-            <Card className="text-center bg-dark text-white">
-                <Card.Body>
-                    <Card.Title>Overall Score</Card.Title>
-                    <Card.Text className={styles.wellBeingScore + " font-weight-bold"}>
-                        0/100
-                    </Card.Text>
-                    <Button variant="dark" disabled>View Details</Button>
-                </Card.Body>
-                <Card.Footer className="text-muted">Last validated: 0 days ago</Card.Footer>
-            </Card>
-            <Card className="bg-dark text-white p-1">
-                <Card.Body>
-                    <Row>
-                        <Col xs={6} md={6} lg={6}>
-                            <Card.Text className="mt-1">
-                                Physiology
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />
+        <Row className="justify-content-center">
+            <Col xs={12} md={12} lg={12}>
+                <CardDeck className="m-2">
+                    <Card className="text-center bg-dark text-white">
+                        <Card.Body>
+                            <Card.Title>Overall Score</Card.Title>
+                            <Card.Text className={styles.wellBeingScore + " font-weight-bold mt-4"}>
+                                {Math.ceil(props.score)}<span className={styles.wellBeingScoreTotal}>/100</span>
                             </Card.Text>
-                            <Card.Text className="mt-1">
-                                Energy
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
-                            </Card.Text>
-                            <Card.Text className="mt-1">
-                                Feeling
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
-                            </Card.Text>
-                        </Col>
-                        <Col xs={6} md={6} lg={6}>
-                            <Card.Text className="mt-1">
-                                Thinking
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
-                            </Card.Text>
-                            <Card.Text className="mt-1">
-                                Behavior
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />
-                            </Card.Text>
-                            <Card.Text className="mt-1">
-                                Results
-                                <ProgressBar now="10" label={`10%`} variant="warning" className="mt-1" />    
-                            </Card.Text>
-                        </Col>
-                    </Row>
-                </Card.Body>
-                <Card.Footer className="text-muted text-center">Productivity Stack</Card.Footer>
-            </Card>
-        </CardDeck>
+                            {
+                                (props.isPublic) 
+                                    ? ""
+                                    : <Button size="sm" variant="warning">Request Validation</Button> 
+                            } 
+                        </Card.Body>
+                        <Card.Footer className="text-muted">
+                            Last validated: {(props.validation) ? new Date(props.validation.validationDate) + " days ago" : "Not validated yet"}  
+                        </Card.Footer>
+                    </Card>
+                    <Card className="bg-dark text-white p-1">
+                        <Card.Body>
+                            <Row>
+                                <Col xs={6} md={6} lg={6}>
+                                    <Card.Text className="m-0 mt-2">
+                                        Physiology
+                                    </Card.Text>
+                                    <ProgressBar now={calculateScore(physiologyStack?.stackRatings)} label={calculateScore(physiologyStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
+                                    <Card.Text className="m-0 mt-2">
+                                        Energy
+                                    </Card.Text>
+                                    <ProgressBar now={calculateScore(energyStack?.stackRatings)} label={calculateScore(energyStack?.stackRatings) + "%"} variant="warning" className="mb-1" />    
+                                    <Card.Text className="m-0 mt-2">
+                                        Feeling 
+                                    </Card.Text>
+                                    <ProgressBar now={calculateScore(feelingStack?.stackRatings)} label={calculateScore(feelingStack?.stackRatings) + "%"} variant="warning" className="mb-1" />   
+                                </Col>
+                                <Col xs={6} md={6} lg={6}>
+                                    <Card.Text className="m-0 mt-2">
+                                        Thinking
+                                    </Card.Text>
+                                    <ProgressBar now={calculateScore(thinkingStack?.stackRatings)} label={calculateScore(thinkingStack?.stackRatings) + "%"} variant="warning" className="mb-1" />    
+                                    <Card.Text className="m-0 mt-2">
+                                        Behavior
+                                    </Card.Text>
+                                    <ProgressBar now={calculateScore(behaviorStack?.stackRatings)} label={calculateScore(behaviorStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
+                                    <Card.Text className="m-0 mt-2">
+                                        Results    
+                                    </Card.Text>
+                                    <ProgressBar now={calculateScore(resultStack?.stackRatings)} label={calculateScore(resultStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                        <Card.Footer className="text-muted text-center">Productivity Stack</Card.Footer>
+                    </Card>
+                </CardDeck>
+            </Col>
+        </Row>
     )
 
 }

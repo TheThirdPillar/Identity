@@ -15,7 +15,6 @@ import { domain } from '../config/config'
 
 function RequestCards(props) {
 
-    console.log(props.request)
     var otherUser = (props.type == 'sent') ? props.request.requestedTo : props.request.requestedBy
     const [logMessage, setLog] = useState()
 
@@ -67,7 +66,6 @@ function RequestCards(props) {
             // Handle access request
             // Access requests need to share key,
             // not required if declined
-            console.log('Access request')
             if (status == 'declined') {
                 request.status = status
                 request.requestId = props.request._id
@@ -112,7 +110,6 @@ function RequestCards(props) {
                 }
                 connectToExtension(request)
                 .then(response => {
-                    console.log(response)
                     if (response && response.status && response.status === 'SUCCESS') {
                         let request = {}
                         request.status = status
@@ -153,7 +150,6 @@ function RequestCards(props) {
             request.data = props.request.document.encryptedFile
             connectToExtension(request)
             .then(response => {
-                console.log(response)
                 if (response && response.status && response.status === 'SUCCESS') {
                     // Prepare the request for API call
                     response.status = status
@@ -211,7 +207,7 @@ function RequestCards(props) {
                         <Card.Title className={styles.cardTitleX1}>
                         </Card.Title>
                         <Card.Text className="text-capitalize font-weight-bold">
-                            {props.request.document.record.recordData.organizationName}
+                            {props.request.document.record?.recordData.organizationName}
                         </Card.Text>
                         <Card.Text>
                                 <Button variant="dark" className={styles.requestActionButton}  onClick={() => viewDocument()} disabled={props.type == "sent" && props.request.type == "access" && props.request.status !== 'accepted'}  block>View Document</Button>
