@@ -10,6 +10,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import styles from '../styles/Dashboard.module.css'
 
 import { domain } from '../config/config'
+import { FaLock } from 'react-icons/fa'
 
 export default function WellBeingCard (props) {
 
@@ -84,7 +85,11 @@ export default function WellBeingCard (props) {
                         <Card.Body>
                             <Card.Title>Overall Score</Card.Title>
                             <Card.Text className={styles.wellBeingScore + " font-weight-bold mt-4"}>
-                                {Math.ceil(props.score)}<span className={styles.wellBeingScoreTotal}>/100</span>
+                                {
+                                    (props.isPublic)
+                                        ? <FaLock />
+                                        : <span className={styles.wellBeingScoreTotal}>{Math.ceil(props.score)}/100</span>
+                                }
                             </Card.Text>
                             {
                                 (props.isPublic) 
@@ -100,38 +105,46 @@ export default function WellBeingCard (props) {
                         </Card.Footer>
                     </Card>
                     <Card className="bg-dark text-white p-1">
-                        <Card.Body>
-                            <Row>
-                                <Col xs={6} md={6} lg={6}>
-                                    <Card.Text className="m-0 mt-2">
-                                        Physiology
-                                    </Card.Text>
-                                    <ProgressBar now={calculateScore(physiologyStack?.stackRatings)} label={calculateScore(physiologyStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
-                                    <Card.Text className="m-0 mt-2">
-                                        Energy
-                                    </Card.Text>
-                                    <ProgressBar now={calculateScore(energyStack?.stackRatings)} label={calculateScore(energyStack?.stackRatings) + "%"} variant="warning" className="mb-1" />    
-                                    <Card.Text className="m-0 mt-2">
-                                        Feeling 
-                                    </Card.Text>
-                                    <ProgressBar now={calculateScore(feelingStack?.stackRatings)} label={calculateScore(feelingStack?.stackRatings) + "%"} variant="warning" className="mb-1" />   
-                                </Col>
-                                <Col xs={6} md={6} lg={6}>
-                                    <Card.Text className="m-0 mt-2">
-                                        Thinking
-                                    </Card.Text>
-                                    <ProgressBar now={calculateScore(thinkingStack?.stackRatings)} label={calculateScore(thinkingStack?.stackRatings) + "%"} variant="warning" className="mb-1" />    
-                                    <Card.Text className="m-0 mt-2">
-                                        Behavior
-                                    </Card.Text>
-                                    <ProgressBar now={calculateScore(behaviorStack?.stackRatings)} label={calculateScore(behaviorStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
-                                    <Card.Text className="m-0 mt-2">
-                                        Results    
-                                    </Card.Text>
-                                    <ProgressBar now={calculateScore(resultStack?.stackRatings)} label={calculateScore(resultStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
-                                </Col>
-                            </Row>
-                        </Card.Body>
+                                <Card.Body>
+                                {
+                                    (props.isPublic)
+                                        ? 
+                                        <Card.Text className={styles.wellBeingScore + " font-weight-bold mt-4 text-center"}>
+                                            <FaLock />
+                                        </Card.Text>
+                                        :
+                                        <Row>
+                                            <Col xs={6} md={6} lg={6}>
+                                                <Card.Text className="m-0 mt-2">
+                                                    Physiology
+                                                </Card.Text>
+                                                <ProgressBar now={calculateScore(physiologyStack?.stackRatings)} label={calculateScore(physiologyStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
+                                                <Card.Text className="m-0 mt-2">
+                                                    Energy
+                                                </Card.Text>
+                                                <ProgressBar now={calculateScore(energyStack?.stackRatings)} label={calculateScore(energyStack?.stackRatings) + "%"} variant="warning" className="mb-1" />    
+                                                <Card.Text className="m-0 mt-2">
+                                                    Feeling 
+                                                </Card.Text>
+                                                <ProgressBar now={calculateScore(feelingStack?.stackRatings)} label={calculateScore(feelingStack?.stackRatings) + "%"} variant="warning" className="mb-1" />   
+                                            </Col>
+                                            <Col xs={6} md={6} lg={6}>
+                                                <Card.Text className="m-0 mt-2">
+                                                    Thinking
+                                                </Card.Text>
+                                                <ProgressBar now={calculateScore(thinkingStack?.stackRatings)} label={calculateScore(thinkingStack?.stackRatings) + "%"} variant="warning" className="mb-1" />    
+                                                <Card.Text className="m-0 mt-2">
+                                                    Behavior
+                                                </Card.Text>
+                                                <ProgressBar now={calculateScore(behaviorStack?.stackRatings)} label={calculateScore(behaviorStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
+                                                <Card.Text className="m-0 mt-2">
+                                                    Results    
+                                                </Card.Text>
+                                                <ProgressBar now={calculateScore(resultStack?.stackRatings)} label={calculateScore(resultStack?.stackRatings) + "%"} variant="warning" className="mb-1" />
+                                            </Col>
+                                        </Row>
+                                }
+                                </Card.Body>
                         <Card.Footer className="text-muted text-center">Productivity Stack</Card.Footer>
                     </Card>
                 </CardDeck>
