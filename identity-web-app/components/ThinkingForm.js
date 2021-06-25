@@ -36,9 +36,8 @@ function ThinkingForm (props) {
             })
             .then(response => response.json())
             .then((data) => {
-                console.log(data)
                 if (data.status && data.status === 'SUCCESS') {
-                    props.updateStack()
+                    props.updateStack(data.updatedStack)
                     toggleHasChanged(false)
                 }
             })
