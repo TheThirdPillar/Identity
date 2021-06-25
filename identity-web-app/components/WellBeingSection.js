@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import SectionTitle from './SectionTitle'
 import WellBeingCard from './WellBeingCard'
 
-import { FaBrain } from 'react-icons/fa'
+import { FaBrain, FaLock } from 'react-icons/fa'
 
 function WellBeingSection (props) {
 
@@ -13,14 +13,10 @@ function WellBeingSection (props) {
         <>
             <SectionTitle title={props.title} subtitle={
                 (props.isPublic)
-                    ? <a href="#"><FaBrain /> Request Well-being Score</a>
+                    ? <a href="#"><FaLock /> Request Well-being Score</a>
                     : <a href="#" onClick={() => props.handleModalShow({type: "10", data: props.stacks})}><FaBrain /> Manage Stack</a>
             } addButtonEnabled={false} />
-            {
-                (props.isPublic)
-                    ? <Card variant="dark" />
-                    : <WellBeingCard score={Number.isNaN(overallScore) ? 0 : overallScore} stacks={props.stacks} validation={props.validation} isPublic={props.isPublic} handleValidationRequest={(wellBeingValidation) => props.handleValidationRequest(wellBeingValidation) } />
-            }
+            <WellBeingCard score={Number.isNaN(overallScore) ? 0 : overallScore} stacks={props.stacks} validation={props.validation} isPublic={props.isPublic} handleValidationRequest={(wellBeingValidation) => props.handleValidationRequest(wellBeingValidation) } />
         </>
     )
 }
