@@ -45,6 +45,7 @@ export default function UserDashboard() {
           if (!data.user.username) return router.push('/user/onboarding')
           setUserData(data.user)
           updateProductivityStacks(data.user.wellBeingStacks)
+          updateWellBeingValidation(data.user.wellBeingValidation)
           updateSoftskills(data.user.softskills)
           updateVirtues(data.user.virtues)
           updateCommunities(data.user.communities)
@@ -65,7 +66,7 @@ export default function UserDashboard() {
   const [virtues, updateVirtues] = useState([])
   const [communities, updateCommunities] = useState([])
   const [productivityStacks, updateProductivityStacks] = useState()
-
+  const [wellBeingValidation, updateWellBeingValidation] = useState()
   // TODO: Optimize performance - should only recalculate 
   // TODO: when productivityStack is updated.
   // I tried passing [productivityStack], but its not recalculating.
@@ -122,6 +123,10 @@ export default function UserDashboard() {
     handleModalShow({type: "12", data: userData.identityDocuments})
   }
 
+  const handleValidationRequest = (wellBeingValidation) => {
+    updateWellBeingValidation(wellBeingValidation)
+  }
+
   if (!userData) return (
     <Spinner animation="grow" variant="primary" size="sm" style={{marginTop: '20%', marginLeft: '45%'}} />
   )
@@ -138,7 +143,7 @@ export default function UserDashboard() {
                 ? <VideoSection url={videoURL} showVideo={showVideo} closeVideo={() => handleVideoClose()} />
                 : ""
         }
-        <WellBeingSection title="Well-being Score" validation={userData?.wellBeingValidation} score={overallScore} stacks={productivityStacks} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
+        <WellBeingSection title="Well-being Score" validation={wellBeingValidation} score={overallScore} stacks={productivityStacks} handleModalShow={(form) => handleModalShow(form)} handleValidationRequest={(wellBeingValidation) => handleValidationRequest(wellBeingValidation)} isPublic={false} />
         <SkillSection title="Skills" skills={userData?.skillRecords} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <SoftskillSection title="Softskills" softskills={softskills} handleModalShow={(form) => handleModalShow(form)} isPublic={false} />
         <VirtueSection title="Virtues" virtues={virtues} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />

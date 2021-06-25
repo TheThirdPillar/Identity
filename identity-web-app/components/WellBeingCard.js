@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
@@ -6,6 +8,8 @@ import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
 import styles from '../styles/Dashboard.module.css'
+
+import { domain } from '../config/config'
 
 export default function WellBeingCard (props) {
 
@@ -42,6 +46,36 @@ export default function WellBeingCard (props) {
         return ((score * 10) / 4)
     }
 
+    const requestValidation = () => {
+        // TODO: Let user pick community for validation
+        let validator = 'pranag'
+        let validatingCommunity = '602bf366af0d03643f769724'
+
+        let requestBody = {}
+        requestBody.stacks = props.stacks
+        requestBody.validator = validator
+        requestBody.validatingCommunity = validatingCommunity
+
+        fetch(domain + '/application/listen/identity/requestStackValidation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('token')
+            },
+            body: JSON.stringify(requestBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if (data.status && data.status == "SUCCESS") {
+                props.handleValidationRequest(() => data.updatedIdentity?.wellBeingValidation)
+            }
+        })
+    }
+
+    // TODO: Never validated and validated X days ago for button and
+    // TODO: footer text.
+
     return (
         <Row className="justify-content-center">
             <Col xs={12} md={12} lg={12}>
@@ -55,11 +89,14 @@ export default function WellBeingCard (props) {
                             {
                                 (props.isPublic) 
                                     ? ""
-                                    : <Button size="sm" variant="warning">Request Validation</Button> 
+                                    : <Button size="sm" variant="warning" onClick={() => requestValidation()} disabled={props.validation?.validationStatus == "pending"}>
+                                        {(props.validation?.validationStatus == "pending") ? "Pending Validation" 
+                                        : "Request Validation"}
+                                        </Button> 
                             } 
                         </Card.Body>
                         <Card.Footer className="text-muted">
-                            Last validated: {(props.validation) ? new Date(props.validation.validationDate) + " days ago" : "Not validated yet"}  
+                            Last validated: {(props.validation && props.validation.validationDate) ? new Date(props.validation.validationDate) : "Not validated yet"}  
                         </Card.Footer>
                     </Card>
                     <Card className="bg-dark text-white p-1">
