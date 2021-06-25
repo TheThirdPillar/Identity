@@ -1,3 +1,5 @@
+import Card from 'react-bootstrap/Card'
+
 import SectionTitle from './SectionTitle'
 import WellBeingCard from './WellBeingCard'
 
@@ -10,9 +12,15 @@ function WellBeingSection (props) {
     return (
         <>
             <SectionTitle title={props.title} subtitle={
-                <a href="#" onClick={() => props.handleModalShow({type: "10", data: props.stacks})}><FaBrain /> Manage Stack</a>
+                (props.isPublic)
+                    ? <a href="#"><FaBrain /> Request Well-being Score</a>
+                    : <a href="#" onClick={() => props.handleModalShow({type: "10", data: props.stacks})}><FaBrain /> Manage Stack</a>
             } addButtonEnabled={false} />
-            <WellBeingCard score={Number.isNaN(overallScore) ? 0 : overallScore} stacks={props.stacks} validation={props.validation} isPublic={props.isPublic} />
+            {
+                (props.isPublic)
+                    ? <Card variant="dark" />
+                    : <WellBeingCard score={Number.isNaN(overallScore) ? 0 : overallScore} stacks={props.stacks} validation={props.validation} isPublic={props.isPublic} handleValidationRequest={(wellBeingValidation) => props.handleValidationRequest(wellBeingValidation) } />
+            }
         </>
     )
 }
