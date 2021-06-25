@@ -43,7 +43,7 @@ function WellBeingForm (props) {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <PhysiologyForm values={physiologyStack?.stackRatings} updateStack={() => props.updateStack()} />
+                        <PhysiologyForm values={physiologyStack?.stackRatings} updateStack={(updatedStack) => props.updateStack(updatedStack)} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -55,7 +55,7 @@ function WellBeingForm (props) {
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
                     <Card.Body>
-                        <EnergyForm values={energyStack?.stackRatings} updateStack={() => props.updateStack()} />
+                        <EnergyForm values={energyStack?.stackRatings} updateStack={(updatedStack) => props.updateStack(updatedStack)} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -67,7 +67,7 @@ function WellBeingForm (props) {
                     </Card.Header>
                     <Accordion.Collapse eventKey="2">
                     <Card.Body>
-                        <FeelingForm values={feelingStack?.stackRatings} updateStack={() => props.updateStack()} />
+                        <FeelingForm values={feelingStack?.stackRatings} updateStack={(updatedStack) => props.updateStack(updatedStack)} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -79,7 +79,7 @@ function WellBeingForm (props) {
                     </Card.Header>
                     <Accordion.Collapse eventKey="3">
                     <Card.Body>
-                        <ThinkingForm values={thinkingStack?.stackRatings} updateStack={() => props.updateStack()} />
+                        <ThinkingForm values={thinkingStack?.stackRatings} updateStack={(updatedStack) => props.updateStack(updatedStack)} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -91,7 +91,7 @@ function WellBeingForm (props) {
                     </Card.Header>
                     <Accordion.Collapse eventKey="4">
                     <Card.Body>
-                        <BehaviorForm values={behaviorStack?.stackRatings} updateStack={() => props.updateStack()} />
+                        <BehaviorForm values={behaviorStack?.stackRatings} updateStack={(updatedStack) => props.updateStack(updatedStack)} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -103,7 +103,7 @@ function WellBeingForm (props) {
                     </Card.Header>
                     <Accordion.Collapse eventKey="5">
                     <Card.Body>
-                        <ResultsForm values={resultStack?.stackRatings} updateStack={() => props.updateStack()} />
+                        <ResultsForm values={resultStack?.stackRatings} updateStack={(updatedStack) => props.updateStack(updatedStack)} />
                     </Card.Body>
                     </Accordion.Collapse>
                 </Card>

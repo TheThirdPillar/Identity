@@ -16,7 +16,6 @@ import { domain } from '../config/config'
 function ProfileSection(props) {
 
   const isVerified = (documents) => {
-    console.log(documents)
     if (documents?.filter(document => {return document.signed.status === 'accepted'}).length > 0) return true
     return false
   }

@@ -64,7 +64,25 @@ export default function UserDashboard() {
   const [softskills, updateSoftskills] = useState([])
   const [virtues, updateVirtues] = useState([])
   const [communities, updateCommunities] = useState([])
-  const [productivityStacks, updateProductivityStacks] = useState([])
+  const [productivityStacks, updateProductivityStacks] = useState()
+
+  // TODO: Optimize performance - should only recalculate 
+  // TODO: when productivityStack is updated.
+  // I tried passing [productivityStack], but its not recalculating.
+  const [overallScore, updateOverallScore] = useState()
+  useEffect(() => {
+    console.log("Stack updated")
+    if (!productivityStacks || productivityStacks.length == 0) return  
+    let localOverallScore = 0
+    productivityStacks?.forEach(stack => {
+        let score = 0
+        for (var q of Object.keys(stack.stackRatings)) {
+            score = score + Number(stack.stackRatings[q])
+        }
+        localOverallScore = localOverallScore + score  
+    })
+    updateOverallScore(localOverallScore)
+  })
 
   // Handle modal
   const [modalShow, setModalShow] = useState({show: false, form: {}})
@@ -85,31 +103,26 @@ export default function UserDashboard() {
       setVideoURL('')
   }
 
-  const updateStack = () => {
+  const updateStack = (updatedStack) => {
     // Pass the updated stack
     // update `productivityStack`
-    console.log("Stack updated")
-  }
+    let currentStacks = productivityStacks
+    let index = currentStacks.findIndex(stack => stack._id == updatedStack._id && stack.stackName == updatedStack.stackName)
 
-  const [overallScore, updateOverallScore] = useState(0)
-  useEffect(() => {
-    if (!productivityStacks || productivityStacks.length == 0) return  
-    productivityStacks?.forEach(stack => {
-        let score = 0
-        for (var q of Object.keys(stack.stackRatings)) {
-            score = score + Number(stack.stackRatings[q])
-        }
-        updateOverallScore(overallScore => overallScore + score)
-    })
-  }, [productivityStacks])
+    if (index < 0) {
+      currentStacks.push(updatedStack)
+    } else {
+      currentStacks[index] = updatedStack
+    }
+    updateProductivityStacks(currentStacks)
+  }
 
   const handleIdentityDocuments = () => {
     handleModalClose()
-    console.log(userData.identityDocuments)
     handleModalShow({type: "12", data: userData.identityDocuments})
   }
 
-  if (!userData && !productivityStacks) return (
+  if (!userData) return (
     <Spinner animation="grow" variant="primary" size="sm" style={{marginTop: '20%', marginLeft: '45%'}} />
   )
 
@@ -132,7 +145,7 @@ export default function UserDashboard() {
         <CommunitySection title="Communities" communities={communities} isPublic={false} handleModalShow={(form) => handleModalShow(form)} />
         <RecordSection title="Education" handleModalShow={(form) => handleModalShow(form)} records={userData?.educationRecords} isPublic={false} />
         <RecordSection title="Work" handleModalShow={(form) => handleModalShow(form)} records={userData?.professionalRecords} isPublic={false} />
-        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} updateStack={() => updateStack()} handleIdentityDocuments={() => handleIdentityDocuments()}/>
+        <CustomModal show={modalShow.show} onHide={() => handleModalClose()} form={modalShow.form.type} formData={modalShow.form.data} object={modalShow.form.object} isPublic={false} updateVirtues={(list) => updateVirtues(list)} updateUserCommunities={(list) => updateCommunities(list)} updateSoftskills={(list) => updateSoftskills(list)} updateStack={(updatedStack) => updateStack(updatedStack)} handleIdentityDocuments={() => handleIdentityDocuments()}/>
       </DefaultLayout>
     </>
   )
