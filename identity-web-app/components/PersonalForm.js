@@ -211,7 +211,7 @@ function PersonalForm(props) {
 
                 }
                 <Form.Group controlId="personalFormUsername">
-                    <Form.Control type="text" placeholder="Pick a username" value={inputFields.username} name="username" onChange={(e) => handleChange(e)} pattern="^[a-z\d]+$" required/>
+                    <Form.Control type="text" placeholder="Pick a username" value={inputFields.username} name="username" onChange={(e) => handleChange(e)} pattern="^[a-zA-Z\d]+$" required/>
                 </Form.Group>
                 <Form.Group controlId="personalFormFullname">
                     <Form.Control type="text" placeholder="Enter fullname" value={inputFields.fullname} name="fullname" onChange={(e) => handleChange(e)} required/>

@@ -12,7 +12,7 @@ import { domain } from '../config/config'
 
 export default function SoftskillBox(props) {
 
-    const softskills = ['communication', "leadership", "motivation", "teamwork", "decisiveness", "problem solving", "flexibility", "decisiveness", "flexibility"]
+    const softskills = ['communication', "leadership", "motivation", "teamwork", "decisiveness", "problem solving", "flexibility", "decisiveness", "flexibility", "openess to feedback"]
 
     const handleSelect = (list) => {
         if (list.length > 0) {
@@ -43,7 +43,9 @@ export default function SoftskillBox(props) {
                 <Col xl={10} md={10} sm={10}>
                     <h4>Select upto 5 Softskills</h4>
                     <Multiselect
-                        options={softskills}
+                        options={softskills.map((softskill) => {
+                            return softskill.toLocaleUpperCase()
+                        })}
                         showCheckbox={true}
                         isObject={false}
                         placeholder="Select softskills"
