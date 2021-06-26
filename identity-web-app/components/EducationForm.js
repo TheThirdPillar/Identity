@@ -15,6 +15,7 @@ function EducationForm(props) {
 
     const router = useRouter()
     const [inputFields, setInputFields] = useState({
+        parentOrganizationName: "",
         organizationName: "",
         certificationName: "",
         specialization: "",
@@ -95,6 +96,9 @@ function EducationForm(props) {
     return (
         <>
             <Form onSubmit={handleSubmit} autoComplete="off">
+                <Form.Group controlId="educationFormParentInstitute">
+                    <Form.Control type="text" placeholder="Enter University" name="organizationName" value={inputFields.parentOrganizationName} onChange={(e) => handleChange(e)} />
+                </Form.Group>
                 <Form.Group controlId="educationFormInstitute">
                     <Form.Control type="text" placeholder="Enter your college name" name="organizationName" value={inputFields.organizationName} onChange={(e) => handleChange(e)} required />
                 </Form.Group>

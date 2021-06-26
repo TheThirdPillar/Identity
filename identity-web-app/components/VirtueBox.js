@@ -12,7 +12,7 @@ import { domain } from '../config/config'
 
 export default function VirtueBox(props) {
 
-    const virtues = ['honesty', 'hardwork', 'intergrity', 'acceptance', 'assertiveness', 'authenticity', 'caring', 'courage', 'compassion']
+    const virtues = ['honesty', 'hardwork', 'integrity', 'acceptance', 'assertiveness', 'authenticity', 'caring', 'courage', 'compassion', 'curiosity', 'empathy', 'perseverence', 'prudence']
 
     const handleSelect = (list) => {
         if (list.length > 0) {
@@ -43,7 +43,9 @@ export default function VirtueBox(props) {
                 <Col xl={10} md={10} sm={10}>
                     <h4>Select upto 3 Virtues</h4>
                     <Multiselect
-                        options={virtues}
+                        options={virtues.map((virtue) => {
+                            return virtue.toLocaleUpperCase()
+                        })}
                         showCheckbox={true}
                         isObject={false}
                         placeholder="Select virtues"
